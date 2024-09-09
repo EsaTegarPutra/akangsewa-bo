@@ -1,5 +1,5 @@
 /*
-Template Name: Law Firm - Responsive Admin Template 
+Template Name: Law Firm - Responsive Admin Template
 Author: Multipurpose Themes
 File: scss
 */
@@ -78,19 +78,19 @@ Waves
 /*Body*/
 @import url(color_theme.css);
 @import url(style_rtl.css);
-@import url(../../assets/icons/font-awesome/css/font-awesome.css);
-@import url(../../assets/icons/Ionicons/css/ionicons.css);
-@import url(../../assets/icons/themify-icons/themify-icons.css);
-@import url(../../assets/icons/linea-icons/linea.css);
-@import url(../../assets/icons/glyphicons/glyphicon.css);
-@import url(../../assets/icons/flag-icon-css/css/flag-icon.css);
-@import url(../../assets/icons/material-design-iconic-font/css/materialdesignicons.css);
-@import url(../../assets/icons/simple-line-icons/css/simple-line-icons.css);
-@import url(../../assets/icons/cryptocoins-master/cryptocoins.css);
-@import url(../../assets/icons/weather-icons/css/weather-icons.min.css);
-@import url(../../assets/icons/iconsmind/style.css);
-@import url(../../assets/icons/icomoon/style.css);
-@import url(../../assets/vendor_components/animate/animate.css);
+@import url(../assets/icons/font-awesome/css/font-awesome.css);
+@import url(../assets/icons/Ionicons/css/ionicons.css);
+@import url(../assets/icons/themify-icons/themify-icons.css);
+@import url(../assets/icons/linea-icons/linea.css);
+@import url(../assets/icons/glyphicons/glyphicon.css);
+@import url(../assets/icons/flag-icon-css/css/flag-icon.css);
+@import url(../assets/icons/material-design-iconic-font/css/materialdesignicons.css);
+@import url(../assets/icons/simple-line-icons/css/simple-line-icons.css);
+@import url(../assets/icons/cryptocoins-master/cryptocoins.css);
+@import url(../assets/icons/weather-icons/css/weather-icons.min.css);
+@import url(../assets/icons/iconsmind/style.css);
+@import url(../assets/icons/icomoon/style.css);
+@import url(../assets/vendor_components/animate/animate.css);
 html {
   height: 100%;
   font-size: 14px; }
@@ -1069,7 +1069,7 @@ small, .small {
   font-weight: 400; }
 
 /*******************
-Padding property 
+Padding property
 *******************/
 .p-0 {
   padding: 0px !important; }
@@ -7673,7 +7673,7 @@ Padding property
     padding-top: 200px !important;
     padding-bottom: 200px !important; } }
 /*******************
-Margin property 
+Margin property
 *******************/
 .m-0 {
   margin: 0px !important; }
@@ -14277,7 +14277,7 @@ Margin property
     margin-top: 200px !important;
     margin-bottom: 200px !important; } }
 /*******************
-Width property 
+Width property
 *******************/
 .w-0 {
   width: 0px !important; }
@@ -17196,7 +17196,7 @@ Width property
   .max-w-xl-auto {
     max-width: auto; } }
 /*******************
-Height property 
+Height property
 *******************/
 .h-0 {
   height: 0px !important; }
