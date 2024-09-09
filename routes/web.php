@@ -15,7 +15,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware' => ['auth'] ], function () {
 
         Route::get('/dashboard', 'Dashboard\DashboardController@index')->name('dashboardIndex');
-
+        Route::get('/test', 'Dashboard\DashboardController@test')->name('dashboardIndex');
 
     });
 });
