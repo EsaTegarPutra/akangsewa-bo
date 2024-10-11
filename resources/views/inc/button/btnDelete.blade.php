@@ -1,0 +1,1 @@
+<a href="javascript:void(0)" class="waves-effect waves-light btn btn-sm btn-danger mb-5 btn-delete">Delete</a>
