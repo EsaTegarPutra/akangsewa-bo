@@ -21,6 +21,15 @@ class CategoryControllers extends Controller
 
       return Datatables::of($resultData)->escapeColumns([])->make(true);
     }
+
+    public function checkProduct(CurlGen $curlGen, $id){
+
+      $urlData = "/api/countByCategoryId/".$id;
+      $resultData = $curlGen->getIndex($urlData);
+      
+      return $resultData;
+    }
+
     public function create(){
       return view('category.create');
     }
@@ -75,7 +84,7 @@ class CategoryControllers extends Controller
       );
 
       $resultData = $curlGen->update($url, $data);
-      
+
       if($resultData[0]!=200){
         $info = "Error";
         $colors = "red";

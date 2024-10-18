@@ -26,6 +26,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('edit/{id}', 'Category\CategoryControllers@edit')->name('editCategory');
             Route::post('update/{id}', 'Category\CategoryControllers@update')->name('updateCategory');
             Route::get('delete/{id}', 'Category\CategoryControllers@delete')->name('deleteCategory');
+            Route::get('checkProduct/{id}', 'Category\CategoryControllers@checkProduct')->name('checkProductCategory');
         });
 
     });

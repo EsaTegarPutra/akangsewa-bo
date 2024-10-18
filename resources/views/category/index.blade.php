@@ -77,7 +77,31 @@ var table = $("#lookup").dataTable({
 			icon: 'ti-info',
 			buttons: {
 					confirm: function () {
-							location.href="{{url('masterData/category/delete')}}" + "/" + id;
+
+
+
+							$.ajax({
+										url: "{!! url('masterData/category/checkProduct') !!}/" + id,
+										data: {},
+										dataType: "json",
+										type: "get",
+										success:function(data)
+											{
+												if(data < 1){
+													location.href="{{url('masterData/category/delete')}}" + "/" + id;
+												}else{
+													$.alert({
+									            title: 'Information',
+									            content: 'Category cant delete, product used by this category : '+ data,
+									        });
+												}
+											},
+											error: function (jqXHR, textStatus, errorThrown){
+													var errorMsg = 'Ajax request failed table with = ' + errorThrown;
+													console.log(errorMsg);
+											}
+								});
+
 					},
 					cancel: function () {
 					}
