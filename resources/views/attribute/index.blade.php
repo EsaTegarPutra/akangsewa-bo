@@ -4,19 +4,22 @@
         <div class="row">
             <div class="col-12">
                 @if (session('error'))
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger" role="alert">
                         {{ session('error') }}
                     </div>
-                @elseif(session('success'))
-                    <div class="alert alert-success">
+                @endif
+
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('success') }}
                     </div>
                 @endif
+
                 <div class="box">
                     <div class="box-header with-border d-flex justify-content-between align-items-center">
-                        <h3 class="box-title">Category</h3>
-                        <a href="{{ url('masterData/category/create') }}" class="btn btn-info btn-sm btn-add">Add
-                            Category</a>
+                        <h3 class="box-title">Attribute</h3>
+                        <a href="{{ url('product/attribute/create') }}" class="btn btn-info btn-sm btn-add">Add
+                            Attribute</a>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -25,7 +28,7 @@
                                 <thead class="bg-info">
                                     <tr>
                                         <th>No</th>
-                                        <th>Category Name</th>
+                                        <th>Attribute Name</th>
                                         <th>Create At</th>
                                         <th>Updated At</th>
                                         <th class="text-center">Action</th>
@@ -49,7 +52,7 @@
                     data: 'id'
                 },
                 {
-                    data: 'categoryName'
+                    data: 'name'
                 },
                 {
                     data: 'createdAt'
@@ -74,7 +77,7 @@
             var index = id[1];
             var data = table.fnGetData()
 
-            location.href = "{{ url('masterData/category/edit') }}/" + data[index].id;
+            location.href = "{{ url('product/attribute/edit') }}/" + data[index].id;
         });
         $('.table').on('click', '.btn-delete', function() {
             var tr = $(this).closest('tr');
@@ -94,13 +97,12 @@
                 icon: 'ti-info',
                 buttons: {
                     confirm: function() {
-                        location.href = "{{ url('masterData/category/delete') }}" + "/" + id;
+                        location.href = "{{ url('product/attribute/delete') }}" + "/" + id;
                     },
                     cancel: function() {}
                 }
             });
         }
-
 
         function loadData() {
 
@@ -115,7 +117,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ url('masterData/category/getIndex') }}/",
+                    url: "{{ url('product/attribute/getIndex') }}/",
                     dataType: "json",
                     type: "GET",
                     error: function() { // error handling
@@ -131,7 +133,7 @@
                         data: 'id'
                     },
                     {
-                        data: 'categoryName'
+                        data: 'name'
                     },
                     {
                         data: 'createdAt'

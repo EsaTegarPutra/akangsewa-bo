@@ -5,27 +5,17 @@
             <div class="col-lg-4">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h4 class="box-title">New Category</h4>
+                        <h4 class="box-title">New Attribute</h4>
                     </div>
                     <!-- /.box-header -->
-                    <form id="fSubmit" class="form" action="{{ url('masterData/category/store') }}" method="post">
+                    <form id="fSubmit" class="form" action="{{ url('product/attribute/store') }}" method="post">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="form-label">Category Name</label>
-                                        <input class="form-control" name="categoryName" id="categoryName">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="form-label">Status</label>
-                                        <select id="status" name="status" class="form-select">
-                                            <option value="" selected disabled></option>
-                                            <option value="true">Enable</option>
-                                            <option value="false">Disable</option>
-                                        </select>
+                                        <label class="form-label">Attribute Name</label>
+                                        <input class="form-control" name="name" id="name">
                                     </div>
                                 </div>
                             </div>
@@ -33,7 +23,7 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer d-flex justify-content-end">
-                            <a href="{{ url('masterData/category') }}" type="button" class="btn btn-danger btn-sm me-1">
+                            <a href="{{ url('product/attribute') }}" type="button" class="btn btn-danger btn-sm me-1">
                                 <i class="ti-close"></i> Cancel
                             </a>
                             <a href="javascript:void(0)" id="btnSave" class="btn btn-info btn-sm">
@@ -54,18 +44,12 @@
         });
 
         $('#btnSave').on('click', function() {
-            var categoryName = $('#categoryName').val();
-            var status = $('#status').val();
+            var name = $('#name').val();
 
-            if (!categoryName) {
+            if (!name) {
                 $.alert({
                     title: 'Information',
-                    content: 'Category Name cant empty',
-                });
-            } else if (!status) {
-                $.alert({
-                    title: 'Information',
-                    content: 'Status cant empty',
+                    content: 'Attribute Name cant empty',
                 });
             } else {
                 $('#fSubmit').submit();
