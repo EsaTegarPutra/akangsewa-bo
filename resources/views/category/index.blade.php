@@ -82,8 +82,70 @@
             var index = id[1];
             var data = table.fnGetData()
 
-            deletes(data[index].id);
-        });
+			deletes(data[index].id);
+	});
+
+	function deletes(id){
+	$.confirm({
+			confirmButton: 'Remove',
+			cancelButton: 'Cancel',
+			title: 'Confirmation',
+			content: 'Remove this Data ?',
+			icon: 'ti-info',
+			buttons: {
+					confirm: function () {
+
+
+
+							$.ajax({
+										url: "{!! url('masterData/category/checkProduct') !!}/" + id,
+										data: {},
+										dataType: "json",
+										type: "get",
+										success:function(data)
+											{
+												if(data < 1){
+													location.href="{{url('masterData/category/delete')}}" + "/" + id;
+												}else{
+													$.alert({
+									            title: 'Information',
+									            content: 'Category cant delete, product used by this category : '+ data,
+									        });
+												}
+											},
+											error: function (jqXHR, textStatus, errorThrown){
+													var errorMsg = 'Ajax request failed table with = ' + errorThrown;
+													console.log(errorMsg);
+											}
+								});
+
+					},
+					cancel: function () {
+					}
+			}
+	});
+}
+
+  function loadData(){
+
+		$('#lookup').dataTable().fnDestroy();
+
+    var table = $("#lookup").dataTable({
+			"scrollCollapse": true,
+			'autoWidth': true,
+			'bSort': true,
+			'bPaginate': true,
+			'searching' : true,
+			processing: true,
+			serverSide: true,
+      ajax:{
+        url: "{{ url('masterData/category/getIndex') }}/",
+        dataType: "json",
+        type: "GET",
+        error: function(){  // error handling
+          $(".lookup-error").html("");
+          $("#lookup").append('<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="5">No data found in the server</th></tr></tbody>');
+          $("#lookup_processing").css("display","none");
 
         function deletes(id) {
             $.confirm({

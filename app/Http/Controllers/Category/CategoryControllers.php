@@ -21,14 +21,21 @@ class CategoryControllers extends Controller
     $urlData = "/api/categories?size=99999&sort=id%2Cdesc";
     $resultData = $curlGen->getIndex($urlData);
 
-    return Datatables::of($resultData)->escapeColumns([])->make(true);
-  }
-  public function create()
-  {
-    return view('category.create');
-  }
-  public function edit(CurlGen $curlGen, $id)
-  {
+      return Datatables::of($resultData)->escapeColumns([])->make(true);
+    }
+
+    public function checkProduct(CurlGen $curlGen, $id){
+
+      $urlData = "/api/countByCategoryId/".$id;
+      $resultData = $curlGen->getIndex($urlData);
+      
+      return $resultData;
+    }
+
+    public function create(){
+      return view('category.create');
+    }
+    public function edit(CurlGen $curlGen, $id){
 
     $category = "/api/categories/" . $id;
     $result = $curlGen->getIndex($category);
