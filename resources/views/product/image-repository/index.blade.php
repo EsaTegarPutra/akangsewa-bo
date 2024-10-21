@@ -5,8 +5,9 @@
             <div class="col-12">
                 <div class="box">
                     <div class="box-header with-border d-flex justify-content-between align-items-center">
-                        <h3 class="box-title">Category</h3>
-                        <a href="{{ url('masterData/category/create') }}" class="btn btn-info btn-sm btn-add">Add Category</a>
+                        <h3 class="box-title">Image Repository</h3>
+                        <a href="{{ url('product/imageRepository/create') }}" class="btn btn-info btn-sm btn-add">Add Image
+                            Product</a>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -15,7 +16,9 @@
                                 <thead class="bg-info">
                                     <tr>
                                         <th>No</th>
-                                        <th>Category Name</th>
+                                        <th>Product Name</th>
+                                        <th>Attribute Values Name</th>
+                                        <th>Product Image</th>
                                         <th>Create At</th>
                                         <th>Updated At</th>
                                         <th class="text-center">Action</th>
@@ -39,10 +42,27 @@
                     data: 'id'
                 },
                 {
-                    data: 'categoryName'
+                    data: 'productName',
+                    render: function(data, type, row) {
+                        return '<div style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; white-space: normal;">' +
+                            data + '</div>';
+                    }
                 },
                 {
-                    data: 'createdAt'
+                    data: 'valuesAttribute'
+                },
+                {
+                    data: 'imagesProduct',
+                    render: function(data, type, row) {
+                        if (data) {
+                            return '<img src="data:' + row.imagesProductContentType + ';base64,' + data +
+                                '" alt="Image" style="width: 10rem; height: auto;" />';
+                        }
+                        return 'No Image';
+                    }
+                },
+                {
+                    data: 'createAt'
                 },
                 {
                     data: 'updatedAt'
@@ -64,7 +84,7 @@
             var index = id[1];
             var data = table.fnGetData()
 
-            location.href = "{{ url('masterData/category/edit') }}/" + data[index].id;
+            location.href = "{{ url('product/imageRepository/edit') }}/" + data[index].id;
         });
         $('.table').on('click', '.btn-delete', function() {
             var tr = $(this).closest('tr');
@@ -84,7 +104,7 @@
                 icon: 'ti-info',
                 buttons: {
                     confirm: function() {
-                        location.href = "{{ url('masterData/category/delete') }}" + "/" + id;
+                        location.href = "{{ url('product/imageRepository/delete') }}" + "/" + id;
                     },
                     cancel: function() {}
                 }
@@ -104,14 +124,14 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ url('masterData/category/getIndex') }}/",
+                    url: "{{ url('product/imageRepository/getIndex') }}/",
                     dataType: "json",
                     type: "GET",
                     error: function() { // error handling
                         $(".lookup-error").html("");
                         $("#lookup").append(
-                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="5">No data found in the server</th></tr></tbody>'
-                            );
+                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="6">No data found in the server</th></tr></tbody>'
+                        );
                         $("#lookup_processing").css("display", "none");
 
                     }
@@ -120,10 +140,29 @@
                         data: 'id'
                     },
                     {
-                        data: 'categoryName'
+                        data: 'productName',
+                        render: function(data, type, row) {
+                            return '<div style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; white-space: normal;">' +
+                                data + '</div>';
+                        }
                     },
                     {
-                        data: 'createdAt'
+                        data: 'valuesAttribute'
+                    },
+                    {
+                        data: 'imagesProduct',
+                        render: function(data, type, row) {
+                            if (data) {
+                                return '<div style="display: grid; place-items: center;"><img src="data:' +
+                                    row.imagesProductContentType + ';base64,' +
+                                    data +
+                                    '" alt="Image" style="width: 4rem; object-fit: cover; aspect-ratio: 1 / 1; background-position: center;"/></div>';
+                            }
+                            return '<span style="display: grid; place-items: center;">No Image</span>';
+                        }
+                    },
+                    {
+                        data: 'createAt'
                     },
                     {
                         data: 'updatedAt'
@@ -143,7 +182,7 @@
                         orderable: true
                     },
                     {
-                        "targets": [4],
+                        "targets": [6],
                         "createdCell": function(td, cellData, rowData, row, col) {
                             $(td).empty();
                             $(td).addClass("text-center");
