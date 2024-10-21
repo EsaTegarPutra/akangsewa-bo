@@ -56,6 +56,15 @@ Route::group(['middleware' => ['web']], function () {
                 Route::post('update/{id}', 'Product\AttributeControllers@update')->name('updateAttribute');
                 Route::get('delete/{id}', 'Product\AttributeControllers@delete')->name('deleteAttribute');
             });
+            Route::group(['prefix' => 'variant'], function () {
+                Route::get('', 'Product\VariantControllers@index')->name('indexVariant');
+                Route::get('getIndex', 'Product\VariantControllers@getIndex')->name('getIndexVariant');
+                Route::get('create', 'Product\VariantControllers@create')->name('createVariant');
+                Route::post('store', 'Product\VariantControllers@store')->name('storeVariant');
+                Route::get('edit/{id}', 'Product\VariantControllers@edit')->name('editVariant');
+                Route::post('update/{id}', 'Product\VariantControllers@update')->name('updateVariant');
+                Route::get('delete/{id}', 'Product\VariantControllers@delete')->name('deleteVariant');
+            });
         });
     });
 });
