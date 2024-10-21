@@ -230,5 +230,34 @@
 	<script src="{{asset('assets/js/pages/dashboard.js')}}"></script>
   <script src="{{asset('assets/js/jquery-confirm.js')}}"></script>
     @yield('script')
+    <script>
+    @if(count($errors) > 0 || Session::has('success') || Session::has('info') || Session::has('warning'))
+		    $.confirm({
+		      title: '{{Session::get('info')}}',
+		      content: '{{Session::get('alert')}}',
+		      type: '{{Session::get('colors')}}',
+		      icon: '{{Session::get('icons')}}',
+		      typeAnimated: true,
+		      buttons: {
+		          close: function () {
+		          }
+		        }
+		      });
+		  @elseif(count($errors) == 0)
+		  return false;
+		  @else
+		  $.confirm({
+		    title: '{{Session::has('info')}}',
+		    content: '{{Session::get('alert')}}',
+		    type: 'red',
+		    typeAnimated: true,
+		    icon: 'fas fa-exclamation-triangle',
+		    buttons: {
+		        close: function () {
+		        }
+		    }
+		});
+		  @endif
+    </script>
 </body>
 </html>
