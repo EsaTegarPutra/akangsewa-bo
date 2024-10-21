@@ -178,10 +178,12 @@
 					</span>
 				  </a>
 				  <ul class="treeview-menu">
-					<li><a href="{{url('product/variant')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Variant</a></li>
+					{{-- <li><a href=""><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Variant</a></li> --}}
           <li><a href="{{url('product/master')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Product Main</a></li>
           <li><a href="{{url('product/imageRepository')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Image Repository</a></li>
           <li><a href="{{url('product/description')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Description</a></li>
+          <li><a href="{{url('product/variant')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Variant</a></li>
+          <li><a href="{{url('product/attribute')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Attribute</a></li>
 				  </ul>
 				</li>
         <li class="treeview">
