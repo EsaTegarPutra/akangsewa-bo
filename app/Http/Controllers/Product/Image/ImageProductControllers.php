@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Product\Iamage;
+namespace App\Http\Controllers\Product\Image;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,7 +12,7 @@ class ImageProductControllers extends Controller
 {
     public function index()
     {
-        return view('product.image-repository.index');
+        return view('image-repository.index');
     }
 
     public function getIndex(CurlGen $curlGen)
@@ -61,7 +61,7 @@ class ImageProductControllers extends Controller
         $products = $curlGen->getIndex($urlDataProducts);
         $attributeValues = $curlGen->getIndex($urlDataAttributeValues);
 
-        return view('product.image-repository.create', compact('products', 'attributeValues'));
+        return view('image-repository.create', compact('products', 'attributeValues'));
     }
 
 
@@ -116,7 +116,7 @@ class ImageProductControllers extends Controller
         $pttributeValues = "/api/attribute-values?size=99999&sort=id%2Cdesc";
         $resultAttributeValues = $curlGen->getIndex($pttributeValues);
 
-        return view('product.image-repository.edit')
+        return view('image-repository.edit')
             ->with('productImage', $resultProductImage)
             ->with('products', $resultProducts)
             ->with('attributeValues', $resultAttributeValues);

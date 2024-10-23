@@ -195,11 +195,11 @@
 				  <ul class="treeview-menu">
 					{{-- <li><a href=""><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Variant</a></li> --}}
           <li><a href="{{url('product/master')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Product Main</a></li>
-          <li><a href="{{url('product/attributeValues')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Attribute Values</a></li>
+          <!-- <li><a href="{{url('product/attributeValues')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Attribute Values</a></li> -->
           <li><a href="{{url('product/imageRepository')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Image Repository</a></li>
           <li><a href="{{url('product/description')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Description</a></li>
           <li><a href="{{url('product/variant')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Variant</a></li>
-          <li><a href="{{url('product/attribute')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Attribute</a></li>
+          <!-- <li><a href="{{url('product/attribute')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Attribute</a></li> -->
 				  </ul>
 				</li>
         <li class="treeview">
@@ -250,31 +250,17 @@
     @yield('script')
     <script>
     @if(count($errors) > 0 || Session::has('success') || Session::has('info') || Session::has('warning'))
-		    $.confirm({
-		      title: '{{Session::get('info')}}',
-		      content: '{{Session::get('alert')}}',
-		      type: '{{Session::get('colors')}}',
-		      icon: '{{Session::get('icons')}}',
-		      typeAnimated: true,
-		      buttons: {
-		          close: function () {
-		          }
-		        }
-		      });
+    $.alert({
+        title: '{{Session::has('info')}}',
+        content: '{{Session::get('alert')}}',
+    });
 		  @elseif(count($errors) == 0)
 		  return false;
 		  @else
-		  $.confirm({
-		    title: '{{Session::has('info')}}',
-		    content: '{{Session::get('alert')}}',
-		    type: 'red',
-		    typeAnimated: true,
-		    icon: 'fas fa-exclamation-triangle',
-		    buttons: {
-		        close: function () {
-		        }
-		    }
-		});
+      $.alert({
+          title: '{{Session::has('info')}}',
+          content: '{{Session::get('alert')}}',
+      });
 		  @endif
     </script>
 </body>
