@@ -27,6 +27,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('edit/{id}', 'Category\CategoryControllers@edit')->name('editCategory');
                 Route::post('update/{id}', 'Category\CategoryControllers@update')->name('updateCategory');
                 Route::get('delete/{id}', 'Category\CategoryControllers@delete')->name('deleteCategory');
+                Route::get('checkProduct/{id}', 'Category\CategoryControllers@checkProduct')->name('checkProductCategory');
             });
         });
 
@@ -44,13 +45,13 @@ Route::group(['middleware' => ['web']], function () {
             });
 
             Route::group(['prefix' => 'description'], function () {
-                Route::get('', 'Product\DescriptionControllers@index')->name('indexDescription');
-                Route::get('getIndex', 'Product\DescriptionControllers@getIndex')->name('getIndexDescription');
-                Route::get('create', 'Product\DescriptionControllers@create')->name('createDescription');
-                Route::post('store', 'Product\DescriptionControllers@store')->name('storeDescription');
-                Route::get('edit/{id}', 'Product\DescriptionControllers@edit')->name('editDescription');
-                Route::post('update/{id}', 'Product\DescriptionControllers@update')->name('updateDescription');
-                Route::get('delete/{id}', 'Product\DescriptionControllers@delete')->name('deleteDescription');
+                Route::get('', 'Product\ProductDescription\DescriptionControllers@index')->name('indexDescription');
+                Route::get('getIndex', 'Product\ProductDescription\DescriptionControllers@getIndex')->name('getIndexDescription');
+                Route::get('create', 'Product\ProductDescription\DescriptionControllers@create')->name('createDescription');
+                Route::post('store', 'Product\ProductDescription\DescriptionControllers@store')->name('storeDescription');
+                Route::get('edit/{id}', 'Product\ProductDescription\DescriptionControllers@edit')->name('editDescription');
+                Route::post('update/{id}', 'Product\ProductDescription\DescriptionControllers@update')->name('updateDescription');
+                Route::get('delete/{id}', 'Product\ProductDescription\DescriptionControllers@delete')->name('deleteDescription');
             });
 
             Route::group(['prefix' => 'attribute'], function () {
@@ -64,23 +65,23 @@ Route::group(['middleware' => ['web']], function () {
             });
 
             Route::group(['prefix' => 'variant'], function () {
-                Route::get('', 'Product\VariantControllers@index')->name('indexVariant');
-                Route::get('getIndex', 'Product\VariantControllers@getIndex')->name('getIndexVariant');
-                Route::get('create', 'Product\VariantControllers@create')->name('createVariant');
-                Route::post('store', 'Product\VariantControllers@store')->name('storeVariant');
-                Route::get('edit/{id}', 'Product\VariantControllers@edit')->name('editVariant');
-                Route::post('update/{id}', 'Product\VariantControllers@update')->name('updateVariant');
-                Route::get('delete/{id}', 'Product\VariantControllers@delete')->name('deleteVariant');
+                Route::get('', 'Product\Variant\VariantControllers@index')->name('indexVariant');
+                Route::get('getIndex', 'Product\Variant\VariantControllers@getIndex')->name('getIndexVariant');
+                Route::get('create', 'Product\Variant\VariantControllers@create')->name('createVariant');
+                Route::post('store', 'Product\Variant\VariantControllers@store')->name('storeVariant');
+                Route::get('edit/{id}', 'Product\Variant\VariantControllers@edit')->name('editVariant');
+                Route::post('update/{id}', 'Product\Variant\VariantControllers@update')->name('updateVariant');
+                Route::get('delete/{id}', 'Product\Variant\VariantControllers@delete')->name('deleteVariant');
             });
 
             Route::group(['prefix' => 'imageRepository'], function () {
-                Route::get('', 'Product\ImageProductControllers@index')->name('indexProductImage');
-                Route::get('getIndex', 'Product\ImageProductControllers@getIndex')->name('getIndexProductImage');
-                Route::get('create', 'Product\ImageProductControllers@create')->name('createProductImage');
-                Route::post('store', 'Product\ImageProductControllers@store')->name('storeProductImage');
-                Route::get('edit/{id}', 'Product\ImageProductControllers@edit')->name('editProductImage');
-                Route::put('update/{id}', 'Product\ImageProductControllers@update')->name('updateProductImage');
-                Route::get('delete/{id}', 'Product\ImageProductControllers@delete')->name('deleteProductImage');
+                Route::get('', 'Product\Image\ImageProductControllers@index')->name('indexProductImage');
+                Route::get('getIndex', 'Product\Image\ImageProductControllers@getIndex')->name('getIndexProductImage');
+                Route::get('create', 'Product\Image\ImageProductControllers@create')->name('createProductImage');
+                Route::post('store', 'Product\Image\ImageProductControllers@store')->name('storeProductImage');
+                Route::get('edit/{id}', 'Produc\Imaget\ImageProductControllers@edit')->name('editProductImage');
+                Route::put('update/{id}', 'Product\Image\ImageProductControllers@update')->name('updateProductImage');
+                Route::get('delete/{id}', 'Product\Image\ImageProductControllers@delete')->name('deleteProductImage');
             });
 
         });

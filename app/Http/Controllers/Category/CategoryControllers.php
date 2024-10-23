@@ -28,7 +28,7 @@ class CategoryControllers extends Controller
 
       $urlData = "/api/countByCategoryId/".$id;
       $resultData = $curlGen->getIndex($urlData);
-      
+
       return $resultData;
     }
 
@@ -43,30 +43,14 @@ class CategoryControllers extends Controller
     return view('category.edit')
       ->with('category', $result);
   }
-  
+
 
   public function delete(CurlGen $curlGen, $id)
   {
-
-    $urlData = "/api/countByCategoryId/" . $id;
-    $productCount = $curlGen->getIndex($urlData);
-    // Cek apakah masih ada produk di dalam kategori
-    // dd($productCount);
-    if ($productCount > 0) {
-      // Jika masih ada produk, berikan pesan error
-      // dd('Masih ada produk: ' . $productCount); 
-      return redirect()->back()->with('error', 'Kategori tidak dapat dihapus karena masih memiliki produk sebanyak: ' . $productCount . ' ' . 'produk');
-    }
-
-    // Debug sebelum menghapus kategori
-    // dd('Menghapus kategori dengan ID: ' . $id);
-
-    // Jika tidak ada produk, lanjutkan menghapus kategori
-    $category = "/api/categories/" . $id;
+    $category = "/api/categories/".$id;
     $result = $curlGen->delete($category);
 
-    // Redirect ke halaman kategori setelah menghapus
-    return redirect(url('masterData/category'))->with('success', 'Kategori berhasil dihapus.');
+    return redirect(url('masterData/category'));
   }
 
   public function store(CurlGen $curlGen, Request $request)
