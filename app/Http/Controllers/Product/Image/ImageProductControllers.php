@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Product;
+namespace App\Http\Controllers\Product\Iamage;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -136,7 +136,7 @@ class ImageProductControllers extends Controller
             $imageContentType = $imageFile->getMimeType();
         } else {
             $imageBase64 = $request->input('existingImage');
-            $imageContentType = $request->input('existingImageContentType'); 
+            $imageContentType = $request->input('existingImageContentType');
         }
 
         $data = [

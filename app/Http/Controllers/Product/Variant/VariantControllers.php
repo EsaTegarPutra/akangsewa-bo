@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Variant;
+namespace App\Http\Controllers\Product\Variant;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -77,7 +77,7 @@ class VariantControllers extends Controller
   public function update(CurlGen $curlGen, Request $request, $id)
   {
     // dd($request->all());
-    
+
 
       $url = "/api/product-variants";
       $data = array(
