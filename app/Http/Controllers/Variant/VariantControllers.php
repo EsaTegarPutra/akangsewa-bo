@@ -9,9 +9,11 @@ use Yajra\DataTables\DataTables;
 
 class VariantControllers extends Controller
 {
-  public function index()
+  public function index(CurlGen $curlGen)
   {
-      return view('variant.index');
+    $urlData = "/api/products";
+    $resultData = $curlGen->getIndex($urlData);
+      return view('variant.index',compact('resultData'));
   }
   public function getIndex(CurlGen $curlGen)
   {
@@ -46,7 +48,7 @@ class VariantControllers extends Controller
 
   public function store(CurlGen $curlGen, Request $request)
   {
-      // dd($request->all());
+      dd($request->all());
       $url = "/api/product-variants";
       $data = array(
           "productId" => $request->productId,
@@ -71,22 +73,24 @@ class VariantControllers extends Controller
           $icons = "fas fa-check-circle";
           $alert = 'Saved';
       }
+    //   dd($data);
+
       return redirect(url('product/variant'));
   }
 
   public function update(CurlGen $curlGen, Request $request, $id)
   {
-    // dd($request->all());
+     dd($request->all());
     
 
       $url = "/api/product-variants";
       $data = array(
-          "id" => $id,
-          "productId" => $request->productId,
-          "variantName" => $request->variantName,
-          "stock" => $request->stock,
+        "id" => $id,
+        "productId" => $request->productId,
+        "variantName" => $request->variantName,
+        "stock" => $request->stock,
       );
-      // dd($data);
+    //    dd($data);
 
       $resultData = $curlGen->update($url, $data);
 

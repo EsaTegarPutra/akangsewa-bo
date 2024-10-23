@@ -14,23 +14,24 @@
 								<div class="row">
 								  <div class="col-md-12">
 									<div class="form-group">
-										<label class="form-label">Product Name</label>
+										<label class="form-label">ProductId</label>
 										<select name="productId" id="productId" class="form-select">
 										  <option value="" selected disabled>...</option>
 										  @foreach ($products as $product)
 											  <option value="{{ $product['id'] }}">
-												  {{ $product['productName'] }}
+												  {{ $product['id'] }}
 											  </option>
 										  @endforeach
 										</select>
 									  </div>
 								  </div>
-								  <div class="col-md-12">
-									<div class="form-group">
-									  <label class="form-label">variant name</label>
-									  <input class="form-control" value="{{ $variant['variantName'] }}" name="variantName" id="variantName">
+								  
+									<div class="col-md-12">
+									  <div class="form-group">
+										<label class="form-label">variant name</label>
+										<input class="form-control" value="{{ $variant['variantName'] }}" name="variantName" id="variantName">
+									  </div>
 									</div>
-								  </div>
 								  <div class="col-md-12">
 									<div class="form-group">
 									  <label class="form-label">stock</label>
@@ -61,6 +62,7 @@
 
 $('#btnSave').on('click', function(){
 	var productId = $('#productId').val();
+	// var productName = $('#productName').val();
 	var variantName = $('#variantName').val();
       var stock = $('#stock').val();
 
@@ -74,6 +76,11 @@ $('#btnSave').on('click', function(){
             title: 'Information',
             content: 'product cant empty',
         });
+    // }else if(!productName){
+    //     $.alert({
+    //         title: 'Information',
+    //         content: 'product name cant empty',
+    //     });
     }else if(!stock){
         $.alert({
             title: 'Information',

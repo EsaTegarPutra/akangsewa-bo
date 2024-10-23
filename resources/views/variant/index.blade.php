@@ -15,7 +15,8 @@
 								<thead class="bg-info">
 									<tr>
 										<th>No</th>
-										<th>Product name</th>
+										<th>ProductId</th>
+										<th>Product Name</th>
 										<th>Variant Name</th>
 										<th>Stock</th>
 										<th>Created At</th>
@@ -42,6 +43,7 @@ var table = $("#lookup").dataTable({
     [
       {data: 'id'},
       {data: 'productId'},
+      {data: 'productName'},
       {data: 'variantName'},
       {data: 'stock'},
       {data: 'createdAt'},
@@ -113,8 +115,9 @@ var table = $("#lookup").dataTable({
          }
        },
        columns: [
-				{data: 'id'},
+		{data: 'id'},
 		{data: 'productId'},
+		{data: 'productName'},
         {data: 'variantName'},
         {data: 'stock'},
       	{data: 'createdAt'},
@@ -133,7 +136,7 @@ var table = $("#lookup").dataTable({
            orderable: true
          },
          {
-           "targets": [6],
+           "targets": [7],
            "createdCell": function (td, cellData, rowData, row, col) {
              $(td).empty();
              $(td).addClass("text-center");
