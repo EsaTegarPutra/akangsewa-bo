@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Library\CurlGen;
 use Yajra\DataTables\Facades\DataTables;
+use Session;
 
 class VariantControllers extends Controller
 {
@@ -72,6 +73,12 @@ class VariantControllers extends Controller
             $icons = "fas fa-check-circle";
             $alert = 'Saved';
         }
+
+        // Session::flash('info', $info);
+        // Session::flash('colors', $colors);
+        // Session::flash('icons', $icons);
+        // Session::flash('alert', $alert);
+
         return redirect(url('product/variant'));
     }
 
@@ -104,6 +111,11 @@ class VariantControllers extends Controller
             $alert = 'Saved';
         }
 
+        // Session::flash('info', $info);
+        // Session::flash('colors', $colors);
+        // Session::flash('icons', $icons);
+        // Session::flash('alert', $alert);
+        
         return redirect(url('product/variant'));
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Library\CurlGen;
 use Yajra\DataTables\Facades\DataTables;
+use Session;
 
 class AttributeControllers extends Controller
 {
@@ -66,6 +67,8 @@ class AttributeControllers extends Controller
             $icons = "fas fa-check-circle";
             $alert = 'Saved';
         }
+        
+
         return redirect(url('product/attribute'));
     }
 
@@ -97,6 +100,7 @@ class AttributeControllers extends Controller
             $icons = "fas fa-check-circle";
             $alert = 'Saved';
         }
+
 
         return redirect(url('product/attribute'));
     }

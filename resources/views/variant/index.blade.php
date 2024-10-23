@@ -15,6 +15,7 @@
                                 <thead class="bg-info">
                                     <tr>
                                         <th>No</th>
+                                        <th>Product Id</th>
                                         <th>Product Name</th>
                                         <th>Variant Name</th>
                                         <th>Stock</th>
@@ -42,6 +43,9 @@
                 },
                 {
                     data: 'productId'
+                },
+                {
+                    data: 'productName'
                 },
                 {
                     data: 'variantName'
@@ -118,7 +122,7 @@
                     error: function() { // error handling
                         $(".lookup-error").html("");
                         $("#lookup").append(
-                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="7">No data found in the server</th></tr></tbody>'
+                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="8">No data found in the server</th></tr></tbody>'
                         );
                         $("#lookup_processing").css("display", "none");
 
@@ -129,6 +133,9 @@
                     },
                     {
                         data: 'productId'
+                    },
+                    {
+                        data: 'productName'
                     },
                     {
                         data: 'variantName'
@@ -157,7 +164,7 @@
                         orderable: true
                     },
                     {
-                        "targets": [6],
+                        "targets": [7],
                         "createdCell": function(td, cellData, rowData, row, col) {
                             $(td).empty();
                             $(td).addClass("text-center");

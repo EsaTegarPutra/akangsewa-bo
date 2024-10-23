@@ -1,38 +1,47 @@
 @extends('layouts.app')
 @section('content')
-        <section class="content">
-            <div class="row">
-                <div class="col-12">
-                    <div class="box">
-                        <div class="box-header with-border d-flex justify-content-between align-items-center">
-                            <h3 class="box-title">Product</h3>
-                            <a href="{{ url('product/master/create') }}" class="btn btn-info btn-sm btn-add">Add Product</a>
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="table-responsive">
-                                <table id="lookup" class="table">
-                                    <thead class="bg-info">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Product Name</th>
-                                            <th>Price</th>
-                                            <th>Category</th>
-                                            <th>Create At</th>
-                                            <th>Updated At</th>
-                                            <th class="text-center">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!-- /.box-body -->
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
                     </div>
+                @elseif(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                <div class="box">
+                    <div class="box-header with-border d-flex justify-content-between align-items-center">
+                        <h3 class="box-title">Product</h3>
+                        <a href="{{ url('product/master/create') }}" class="btn btn-info btn-sm btn-add">Add Product</a>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table id="lookup" class="table">
+                                <thead class="bg-info">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Product Name</th>
+                                        <th>Price</th>
+                                        <th>Category</th>
+                                        <th>Create At</th>
+                                        <th>Updated At</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 @endsection
 @section('script')
     <script>

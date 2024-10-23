@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Library\CurlGen;
 use Yajra\DataTables\Facades\DataTables;
+use Session;
 
 class ProductControllers extends Controller
 {
@@ -46,9 +47,39 @@ class ProductControllers extends Controller
     }
     public function delete(CurlGen $curlGen, $id)
     {
-        $product = "/api/products/" . $id;
-        $result = $curlGen->delete($product);
-        return redirect(url('product/master'));
+        //Ambil data
+        $descriptionData = "/api/product-descriptions/countByProductId/" . $id;
+        $descriptions = $curlGen->getIndex($descriptionData);
+        $variantData = "/api/product-variants/countByProductId/" . $id;
+        $variants = $curlGen->getIndex($variantData);
+        $imageData = "/api/product-images/countByProductId/" . $id;
+        $images = $curlGen->getIndex($imageData);
+
+        //validasi
+
+        // //opsi 1
+        // if ($descriptions < 0 && $variants < 0 && $images < 0) {
+        //     $product = "/api/products/" . $id;
+        //     $result = $curlGen->delete($product);
+
+        //     return redirect(url('product/master'));
+        // } else {
+        //     return redirect()->back()->with('error', 'pesan error');
+        // }
+
+        //opsi 2
+        if ($descriptions > 0) {
+            return redirect()->back()->with('error', 'description');
+        } else if ($variants > 0) {
+            return redirect()->back()->with('error', 'variants');
+        } else if ($images > 0) {
+            return redirect()->back()->with('error', 'image');
+        } else {
+            $product = "/api/products/" . $id;
+            $result = $curlGen->delete($product);
+
+            return redirect(url('product/master'))->with('success', 'berhasil');
+        }
     }
     public function store(CurlGen $curlGen, Request $request)
     {
