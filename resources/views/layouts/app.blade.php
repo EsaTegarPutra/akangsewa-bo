@@ -146,108 +146,80 @@
             </nav>
         </header>
 
-        <aside class="main-sidebar">
-            <!-- sidebar-->
-            <section class="sidebar position-relative">
-                <div class="user-profile bb-1 px-20 py-10">
-                    <div class="d-block text-center">
-                        <div class="image">
-                            <img src="{{ asset('assets/images/avatar/avatar-13.png') }}"
-                                class="avatar avatar-xxl bg-primary-light rounded100" alt="User Image">
-                        </div>
-                        <div class="info pt-15">
-                            <a class="px-20 fs-18 fw-500" href="#">{{ Auth::user()->name }}</a>
-                        </div>
-                    </div>
-                    <ul class="list-inline profile-setting mt-20 mb-0 d-flex justify-content-center gap-3">
-                        <li>
-                            <a href="{{ url('logout') }}" data-bs-toggle="tooltip" title="Logout">
-                                <i class="icon-Lock-overturning fs-24">
-									<span class="path1"></span><span class="path2"></span>
-                                </i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="multinav">
-                    <div class="multinav-scroll" style="height: 100%;">
-                        <!-- sidebar menu-->
-                        <ul class="sidebar-menu" data-widget="tree">
-                            <li>
-                                <a href="index-2.html">
-                                    <i class="icon-Layout-4-blocks"><span class="path1"></span><span
-                                            class="path2"></span></i>
-                                    <span>Dashboard</span>
-                                </a>
-                            </li>
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="glyphicon glyphicon-align-justify"><span class="path1"></span><span
-                                            class="path2"></span></i>
-                                    <span>Master Data</span>
-                                    <span class="pull-right-container">
-                                        <i class="glyphicon glyphicon-menu-right pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="{{ url('masterData/category') }}"><i class="icon-Commit"><span
-                                                    class="path1"></span><span class="path2"></span></i>Category</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="glyphicon glyphicon-folder-close"><span class="path1"></span><span
-                                            class="path2"></span></i>
-                                    <span>Product</span>
-                                    <span class="pull-right-container">
-                                        <i class="glyphicon glyphicon-menu-right pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="{{ url('product/variant') }}"><i class="icon-Commit"><span
-                                                    class="path1"></span><span class="path2"></span></i>Variant</a>
-                                    </li>
-                                    <li><a href="{{ url('product/master') }}"><i class="icon-Commit"><span
-                                                    class="path1"></span><span class="path2"></span></i>Product
-                                            Main</a></li>
-                                    <li><a href="{{ url('product/imageRepository') }}"><i class="icon-Commit"><span
-                                                    class="path1"></span><span class="path2"></span></i>Image
-                                            Repository</a></li>
-                                    <li><a href="{{ url('product/description') }}"><i class="icon-Commit"><span
-                                                    class="path1"></span><span
-                                                    class="path2"></span></i>Description</a></li>
-                                    <li><a href="{{ url('product/attribute') }}"><i class="icon-Commit"><span
-                                                    class="path1"></span><span
-                                                    class="path2"></span></i>Attribute</a></li>
-                                </ul>
-                            </li>
-                            <li class="treeview">
-                                <a href="#">
-                                    <i class="glyphicon glyphicon-list-alt"><span class="path1"></span><span
-                                            class="path2"></span></i>
-                                    <span>Order</span>
-                                    <span class="pull-right-container">
-                                        <i class="glyphicon glyphicon-menu-right pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="{{ url('order/pendingOrder') }}"><i class="icon-Commit"><span
-                                                    class="path1"></span><span class="path2"></span></i>Pending
-                                            Order</a></li>
-                                    <li><a href="{{ url('order/ongoingRentals') }}"><i class="icon-Commit"><span
-                                                    class="path1"></span><span class="path2"></span></i>On Going
-                                            Rentals</a></li>
-                                    <li><a href="{{ url('order/historyOrder') }}"><i class="icon-Commit"><span
-                                                    class="path1"></span><span class="path2"></span></i>History
-                                            Order</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-        </aside>
+  <aside class="main-sidebar">
+    <!-- sidebar-->
+    <section class="sidebar position-relative">
+		<div class="user-profile bb-1 px-20 py-10">
+			<div class="d-block text-center">
+				<div class="image">
+				  <img src="{{asset('assets/images/avatar/avatar-13.png')}}" class="avatar avatar-xxl bg-primary-light rounded100" alt="User Image">
+				</div>
+				<div class="info pt-15">
+					<a class="px-20 fs-18 fw-500" href="#">{{Auth::user()->name}}</a>
+				</div>
+			</div>
+			<ul class="list-inline profile-setting mt-20 mb-0 d-flex justify-content-center gap-3">
+				<li><a href="{{url('logout')}}" data-bs-toggle="tooltip" title="Logout"><i class="icon-Lock-overturning fs-24"><span class="path1"></span><span class="path2"></span></i></a></li>
+			</ul>
+	    </div>
+	  	<div class="multinav">
+		  <div class="multinav-scroll" style="height: 100%;">
+			  <!-- sidebar menu-->
+			  <ul class="sidebar-menu" data-widget="tree">
+				<li>
+				  <a href="index-2.html">
+					<i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+					<span>Dashboard</span>
+				  </a>
+				</li>
+				<li class="treeview">
+				  <a href="#">
+					<i class="glyphicon glyphicon-align-justify"><span class="path1"></span><span class="path2"></span></i>
+					<span>Master Data</span>
+					<span class="pull-right-container">
+					  <i class="glyphicon glyphicon-menu-right pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu">
+					<li><a href="{{url('masterData/category')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Category</a></li>
+				  </ul>
+				</li>
+        <li class="treeview">
+				  <a href="#">
+					<i class="glyphicon glyphicon-folder-close"><span class="path1"></span><span class="path2"></span></i>
+					<span>Product</span>
+					<span class="pull-right-container">
+					  <i class="glyphicon glyphicon-menu-right pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu">
+					{{-- <li><a href=""><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Variant</a></li> --}}
+          <li><a href="{{url('product/master')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Product Main</a></li>
+          <li><a href="{{url('product/imageRepository')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Image Repository</a></li>
+          <li><a href="{{url('product/description')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Description</a></li>
+          <li><a href="{{url('product/variant')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Variant</a></li>
+          <li><a href="{{url('product/attribute')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Attribute</a></li>
+				  </ul>
+				</li>
+        <li class="treeview">
+				  <a href="#">
+					<i class="glyphicon glyphicon-list-alt"><span class="path1"></span><span class="path2"></span></i>
+					<span>Order</span>
+					<span class="pull-right-container">
+					  <i class="glyphicon glyphicon-menu-right pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu">
+					<li><a href="{{url('order/pendingOrder')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Pending Order</a></li>
+          <li><a href="{{url('order/ongoingRentals')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>On Going Rentals</a></li>
+          <li><a href="{{url('order/historyOrder')}}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>History Order</a></li>
+				  </ul>
+				</li>
+			  </ul>
+		  </div>
+		</div>
+    </section>
+  </aside>
 
         <div class="content-wrapper">
             <div class="container-full">

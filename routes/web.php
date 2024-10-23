@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Product\VariantController;
 
 Route::get('/', function () {
     return redirect(url('login'));
@@ -28,34 +29,42 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('delete/{id}', 'Category\CategoryControllers@delete')->name('deleteCategory');
             });
         });
-        Route::group(['prefix' => 'product'], function () {
-            Route::group(['prefix' => 'master'], function () {
-                Route::get('', 'Product\ProductControllers@index')->name('indexProduct');
-                Route::get('getIndex', 'Product\ProductControllers@getIndex')->name('getIndexProduct');
-                Route::get('create', 'Product\ProductControllers@create')->name('createProduct');
-                Route::post('store', 'Product\ProductControllers@store')->name('storeProduct');
-                Route::get('edit/{id}', 'Product\ProductControllers@edit')->name('editProduct');
-                Route::post('update/{id}', 'Product\ProductControllers@update')->name('updateProduct');
-                Route::get('delete/{id}', 'Product\ProductControllers@delete')->name('deleteProduct');
-            });
-            Route::group(['prefix' => 'description'], function () {
-                Route::get('', 'Product\DescriptionControllers@index')->name('indexDescription');
-                Route::get('getIndex', 'Product\DescriptionControllers@getIndex')->name('getIndexDescription');
-                Route::get('create', 'Product\DescriptionControllers@create')->name('createDescription');
-                Route::post('store', 'Product\DescriptionControllers@store')->name('storeDescription');
-                Route::get('edit/{id}', 'Product\DescriptionControllers@edit')->name('editDescription');
-                Route::post('update/{id}', 'Product\DescriptionControllers@update')->name('updateDescription');
-                Route::get('delete/{id}', 'Product\DescriptionControllers@delete')->name('deleteDescription');
-            });
-            Route::group(['prefix' => 'attribute'], function () {
-                Route::get('', 'Product\AttributeControllers@index')->name('indexAttribute');
-                Route::get('getIndex', 'Product\AttributeControllers@getIndex')->name('getIndexAttribute');
-                Route::get('create', 'Product\AttributeControllers@create')->name('createAttribute');
-                Route::post('store', 'Product\AttributeControllers@store')->name('storeAttribute');
-                Route::get('edit/{id}', 'Product\AttributeControllers@edit')->name('editAttribute');
-                Route::post('update/{id}', 'Product\AttributeControllers@update')->name('updateAttribute');
-                Route::get('delete/{id}', 'Product\AttributeControllers@delete')->name('deleteAttribute');
+
+         Route::group(['prefix' => 'product'],function () {
+            Route::group(['prefix' => 'variant'],function () {
+                Route::get('', 'Variant\VariantControllers@index')->name('indexVariant');
+                Route::get('getIndex', 'Variant\VariantControllers@getIndex')->name('getIndexVariant');
+                Route::get('create', 'Variant\VariantControllers@create')->name('createVariant');
+                Route::post('store', 'Variant\VariantControllers@store')->name('storeVariant');
+                Route::get('edit/{id}', 'Variant\VariantControllers@edit')->name('editVariant');
+                Route::post('update/{id}', 'Variant\VariantControllers@update')->name('updateVariant');
+                Route::get('delete/{id}', 'Variant\VariantControllers@delete')->name('deleteVariant');
             });
         });
+
+
+        Route::group(['prefix' => 'product'], function () {
+            Route::group(['prefix' => 'attribute'], function () {
+                Route::get('', 'Attribute\AttributeControllers@index')->name('indexAttribute');
+                Route::get('getIndex', 'Attribute\AttributeControllers@getIndex')->name('getIndexAttribute');
+                Route::get('create', 'Attribute\AttributeControllers@create')->name('createAttribute');
+                Route::post('store', 'Attribute\AttributeControllers@store')->name('storeAttribute');
+                Route::get('edit/{id}', 'Attribute\AttributeControllers@edit')->name('editAttribute');
+                Route::post('update/{id}', 'Attribute\AttributeControllers@update')->name('updateAttribute');
+                Route::get('delete/{id}', 'Attribute\AttributeControllers@delete')->name('deleteAttribute');
+            });
+        });
+
+        // Route::group(['prefix' => 'product'], function () {
+        //     Route::group(['prefix' => 'value'], function () {
+        //         Route::get('', 'Value\ValueControllers@index')->name('indexValue');
+        //         Route::get('getIndex', 'Value\ValueControllers@getIndex')->name('getIndexValue');
+        //         Route::get('create', 'Value\ValueControllers@create')->name('createValue');
+        //         Route::post('store', 'Value\ValueControllers@store')->name('storeValue');
+        //         Route::get('edit/{id}', 'Value\ValueController@edit')->name('editValue');
+        //         Route::post('update/{id}', 'Value\ValueController@update')->name('updateValue');
+        //         Route::get('delete/{id}', 'Value\ValueController@delete')->name('deleteValue');
+        //     });
+        // });
     });
 });

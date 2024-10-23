@@ -5,8 +5,8 @@
 		<div class="col-12">
 					 <div class="box">
 						 <div class="box-header with-border d-flex justify-content-between align-items-center">
-   				 		<h3 class="box-title">Product Attribute</h3>
-   						<a href="{{ url('product/attribute/create') }}" class="btn btn-info btn-sm btn-add">Add Attribute</a>
+   				 		<h3 class="box-title">Product Variant</h3>
+   						<a href="{{ url('product/variant/create') }}" class="btn btn-info btn-sm btn-add">Add Variant</a>
  						</div>
 						<!-- /.box-header -->
 						<div class="box-body">
@@ -15,7 +15,9 @@
 								<thead class="bg-info">
 									<tr>
 										<th>No</th>
-										<th>Name</th>
+										<th>Product name</th>
+										<th>Variant Name</th>
+										<th>Stock</th>
 										<th>Created At</th>
 										<th>Updated At</th>
 										<th class="text-center">Action</th>
@@ -39,7 +41,9 @@ var table = $("#lookup").dataTable({
   columns:
     [
       {data: 'id'},
-      {data: 'name'},
+      {data: 'productId'},
+      {data: 'variantName'},
+      {data: 'stock'},
       {data: 'createdAt'},
       {data: 'updatedAt'},
       {data: 'id'}
@@ -57,7 +61,7 @@ var table = $("#lookup").dataTable({
 			var index = id[1];
 			var data = table.fnGetData()
 
-			location.href="{{url('product/attribute/edit')}}/" + data[index].id;
+			location.href="{{url('product/variant/edit')}}/" + data[index].id;
 	});
 	$('.table').on('click','.btn-delete', function(){
 			var tr = $(this).closest('tr');
@@ -77,7 +81,7 @@ var table = $("#lookup").dataTable({
 			icon: 'ti-info',
 			buttons: {
 					confirm: function () {
-							location.href="{{url('product/attribute/delete')}}" + "/" + id;
+							location.href="{{url('product/variant/delete')}}" + "/" + id;
 					},
 					cancel: function () {
 					}
@@ -98,7 +102,7 @@ var table = $("#lookup").dataTable({
  			processing: true,
  			serverSide: true,
        ajax:{
-         url: "{{ url('product/attribute/getIndex') }}/",
+         url: "{{ url('product/variant/getIndex') }}/",
          dataType: "json",
          type: "GET",
          error: function(){   // error handling
@@ -110,7 +114,9 @@ var table = $("#lookup").dataTable({
        },
        columns: [
 				{data: 'id'},
-		{data: 'name'},
+		{data: 'productId'},
+        {data: 'variantName'},
+        {data: 'stock'},
       	{data: 'createdAt'},
       	{data: 'updatedAt'},
       	{data: 'id'}
@@ -127,7 +133,7 @@ var table = $("#lookup").dataTable({
            orderable: true
          },
          {
-           "targets": [4],
+           "targets": [6],
            "createdCell": function (td, cellData, rowData, row, col) {
              $(td).empty();
              $(td).addClass("text-center");
