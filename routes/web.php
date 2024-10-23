@@ -18,6 +18,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('/dashboard', 'Dashboard\DashboardController@index')->name('dashboardIndex');
 
         Route::group(['prefix' => 'masterData'], function () {
+
             Route::group(['prefix' => 'category'], function () {
                 Route::get('', 'Category\CategoryControllers@index')->name('indexCategory');
                 Route::get('getIndex', 'Category\CategoryControllers@getIndex')->name('getIndexCategory');

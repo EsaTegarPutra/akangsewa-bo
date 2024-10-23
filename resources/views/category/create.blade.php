@@ -1,34 +1,34 @@
 @extends('layouts.app')
 @section('content')
-<section class="content">
-	<div class="row">
-    <div class="col-lg-4">
-					  <div class="box">
-						<div class="box-header with-border">
-						  <h4 class="box-title">New Category</h4>
-						</div>
-						<!-- /.box-header -->
-						<form id="fSubmit" class="form" action="{{url('masterData/category/store')}}" method="post">
-              {{csrf_field()}}
-							<div class="box-body">
-								<div class="row">
-								  <div class="col-md-12">
-									<div class="form-group">
-									  <label class="form-label">Category Name</label>
-									  <input class="form-control" name="categoryName" id="categoryName">
-									</div>
-								  </div>
-								  <div class="col-md-12">
-									<div class="form-group">
-									  <label class="form-label">Status</label>
-									  <select id="status" name="status" class="form-select">
-										<option value="" selected disabled></option>
-										<option value="true">Enable</option>
-										<option value="false">Disable</option>
-									  </select>
-									</div>
-								  </div>
-								</div>
+    <section class="content">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">New Category</h4>
+                    </div>
+                    <!-- /.box-header -->
+                    <form id="fSubmit" class="form" action="{{ url('masterData/category/store') }}" method="post">
+                        {{ csrf_field() }}
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Category Name</label>
+                                        <input class="form-control" name="categoryName" id="categoryName">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Status</label>
+                                        <select id="status" name="status" class="form-select">
+                                            <option value="" selected disabled></option>
+                                            <option value="true">Enable</option>
+                                            <option value="false">Disable</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
 
 							</div>
 							<!-- /.box-body -->
@@ -48,31 +48,28 @@
 </section>
 @endsection
 @section('script')
-<script>
+    <script>
+        $(document).ready(function() {
 
-
-  $(document).ready(function() {
-
-  });
-
-  $('#btnSave').on('click', function(){
-      var categoryName = $('#categoryName').val();
-      var status = $('#status').val();
-
-      if(!categoryName){
-        $.alert({
-            title: 'Information',
-            content: 'Category Name cant empty',
         });
-      }else if(!status){
-        $.alert({
-            title: 'Information',
-            content: 'Status cant empty',
-        });
-      }else{
-        $('#fSubmit').submit();
-      }
-  });
 
-</script>
+        $('#btnSave').on('click', function() {
+            var categoryName = $('#categoryName').val();
+            var status = $('#status').val();
+
+            if (!categoryName) {
+                $.alert({
+                    title: 'Information',
+                    content: 'Category Name cant empty',
+                });
+            } else if (!status) {
+                $.alert({
+                    title: 'Information',
+                    content: 'Status cant empty',
+                });
+            } else {
+                $('#fSubmit').submit();
+            }
+        });
+    </script>
 @endsection
