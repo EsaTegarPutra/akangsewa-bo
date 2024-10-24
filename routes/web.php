@@ -31,13 +31,15 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::group(['prefix' => 'product'], function () {
             Route::group(['prefix' => 'imageRepository'], function () {
-                Route::get('', 'Product\ImageProductControllers@index')->name('indexImageProduct');
-                Route::get('getIndex', 'Product\ImageProductControllers@getIndex')->name('getIndexImageProduct');
-                Route::get('create', 'Product\ImageProductControllers@create')->name('createImageProduct');
-                Route::post('store', 'Product\ImageProductControllers@store')->name('storeImageProduct');
-                Route::get('edit/{id}', 'Product\ImageProductControllers@edit')->name('editImageProduct');
-                Route::put('update/{id}', 'Product\ImageProductControllers@update')->name('updateImageProduct');
-                Route::get('delete/{id}', 'Product\ImageProductControllers@delete')->name('deleteImageProduct');
+                Route::get('', 'Product\ImageProductControllers@index')->name('indexProductImage');
+                Route::get('getIndex', 'Product\ImageProductControllers@getIndex')->name('getIndexProductImage');
+                Route::get('create', 'Product\ImageProductControllers@create')->name('createProductImage');
+                Route::post('store', 'Product\ImageProductControllers@store')->name('storeProductImage');
+                Route::get('edit/{id}', 'Product\ImageProductControllers@edit')->name('editProductImage');
+                Route::put('update/{id}', 'Product\ImageProductControllers@update')->name('updateProductImage');
+                Route::get('countByProductId/{productVariantId}', 'Product\ImageProductControllers@countByProductId')->name('countByProductId');
+                Route::get('delete/{id}', 'Product\ImageProductControllers@delete')->name('deleteProductImage');
+                Route::get('show/{id}', 'Product\ImageProductControllers@show')->name('showProductImage');
             });
 
             Route::group(['prefix' => 'attributeValues'], function () {
