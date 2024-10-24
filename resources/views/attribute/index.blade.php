@@ -1,171 +1,144 @@
 @extends('layouts.app')
 @section('content')
-    <section class="content">
-        <div class="row">
-            <div class="col-12">
-                @if (session('error'))
-                    <div class="alert alert-danger" role="alert">
-                        {{ session('error') }}
-                    </div>
-                @endif
-
-                @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                <div class="box">
-                    <div class="box-header with-border d-flex justify-content-between align-items-center">
-                        <h3 class="box-title">Attribute</h3>
-                        <a href="{{ url('product/attribute/create') }}" class="btn btn-info btn-sm btn-add">Add
-                            Attribute</a>
-                    </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <div class="table-responsive">
-                            <table id="lookup" class="table">
-                                <thead class="bg-info">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Attribute Name</th>
-                                        <th>Create At</th>
-                                        <th>Updated At</th>
-                                        <th class="text-center">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- /.box-body -->
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="content">
+	<div class="row">
+		<div class="col-12">
+					 <div class="box">
+						 <div class="box-header with-border d-flex justify-content-between align-items-center">
+   				 		<h3 class="box-title">Product Attribute</h3>
+   						<a href="{{ url('product/attribute/create') }}" class="btn btn-info btn-sm btn-add">Add Attribute</a>
+ 						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<div class="table-responsive">
+							  <table id="lookup" class="table">
+								<thead class="bg-info">
+									<tr>
+										<th>No</th>
+										<th>Name</th>
+										<th>Created At</th>
+										<th>Updated At</th>
+										<th class="text-center">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							  </table>
+							</div>
+						</div>
+						<!-- /.box-body -->
+					  </div>
+					</div>
+	</div>
+</section>
 @endsection
 @section('script')
-    <script>
-        var table = $("#lookup").dataTable({
-            columns: [{
-                    data: 'id'
-                },
-                {
-                    data: 'name'
-                },
-                {
-                    data: 'createdAt'
-                },
-                {
-                    data: 'updatedAt'
-                },
-                {
-                    data: 'id'
-                }
-            ],
-        });
+<script>
 
-        $(document).ready(function() {
-            loadData();
-        });
+var table = $("#lookup").dataTable({
+  columns:
+    [
+      {data: 'id'},
+      {data: 'name'},
+      {data: 'createdAt'},
+      {data: 'updatedAt'},
+      {data: 'id'}
+    ],
+  });
+
+ 	$(document).ready(function() {
+ 		loadData();
+ 	});
 
 
-        $('.table').on('click', '.btn-edit', function() {
-            var tr = $(this).closest('tr');
-            var id = tr.attr('id').split('_');
-            var index = id[1];
-            var data = table.fnGetData()
+	$('.table').on('click','.btn-edit', function(){
+			var tr = $(this).closest('tr');
+			var id = tr.attr('id').split('_');
+			var index = id[1];
+			var data = table.fnGetData()
 
-            location.href = "{{ url('product/attribute/edit') }}/" + data[index].id;
-        });
-        $('.table').on('click', '.btn-delete', function() {
-            var tr = $(this).closest('tr');
-            var id = tr.attr('id').split('_');
-            var index = id[1];
-            var data = table.fnGetData()
+			location.href="{{url('product/attribute/edit')}}/" + data[index].id;
+	});
+	$('.table').on('click','.btn-delete', function(){
+			var tr = $(this).closest('tr');
+			var id = tr.attr('id').split('_');
+			var index = id[1];
+			var data = table.fnGetData()
 
-            deletes(data[index].id);
-        });
+			deletes(data[index].id);
+	});
 
-        function deletes(id) {
-            $.confirm({
-                confirmButton: 'Remove',
-                cancelButton: 'Cancel',
-                title: 'Confirmation',
-                content: 'Remove this Data ?',
-                icon: 'ti-info',
-                buttons: {
-                    confirm: function() {
-                        location.href = "{{ url('product/attribute/delete') }}" + "/" + id;
-                    },
-                    cancel: function() {}
-                }
-            });
-        }
+	function deletes(id){
+	$.confirm({
+			confirmButton: 'Remove',
+			cancelButton: 'Cancel',
+			title: 'Confirmation',
+			content: 'Remove this Data ?',
+			icon: 'ti-info',
+			buttons: {
+					confirm: function () {
+							location.href="{{url('product/attribute/delete')}}" + "/" + id;
+					},
+					cancel: function () {
+					}
+			}
+	});
+}
 
-        function loadData() {
+   function loadData(){
 
-            $('#lookup').dataTable().fnDestroy();
+ 		$('#lookup').dataTable().fnDestroy();
 
-            var table = $("#lookup").dataTable({
-                "scrollCollapse": true,
-                'autoWidth': true,
-                'bSort': true,
-                'bPaginate': true,
-                'searching': true,
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ url('product/attribute/getIndex') }}/",
-                    dataType: "json",
-                    type: "GET",
-                    error: function() { // error handling
-                        $(".lookup-error").html("");
-                        $("#lookup").append(
-                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="5">No data found in the server</th></tr></tbody>'
-                        );
-                        $("#lookup_processing").css("display", "none");
+     var table = $("#lookup").dataTable({
+ 			"scrollCollapse": true,
+ 			'autoWidth': true,
+ 			'bSort': true,
+ 			'bPaginate': true,
+ 			'searching' : true,
+ 			processing: true,
+ 			serverSide: true,
+       ajax:{
+         url: "{{ url('product/attribute/getIndex') }}/",
+         dataType: "json",
+         type: "GET",
+         error: function(){   // error handling
+           $(".lookup-error").html("");
+           $("#lookup").append('<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="5">No data found in the server</th></tr></tbody>');
+           $("#lookup_processing").css("display","none");
 
-                    }
-                },
-                columns: [{
-                        data: 'id'
-                    },
-                    {
-                        data: 'name'
-                    },
-                    {
-                        data: 'createdAt'
-                    },
-                    {
-                        data: 'updatedAt'
-                    },
-                    {
-                        data: 'id'
-                    }
-                ],
-                createdRow: function(row, data, index) {
-                    $(row).attr('id', 'table_' + index);
-                },
-                columnDefs: [{
-                        "targets": [0],
-                        "createdCell": function(td, cellData, rowData, row, col) {
-                            $(td).text(row + 1);
-                        },
-                        orderable: true
-                    },
-                    {
-                        "targets": [4],
-                        "createdCell": function(td, cellData, rowData, row, col) {
-                            $(td).empty();
-                            $(td).addClass("text-center");
-                            $(td).append($('@include('inc.button.btnGroupED')'));
-                        },
-                        orderable: false
-                    }
-                ]
-            });
-        }
-    </script>
+         }
+       },
+       columns: [
+				{data: 'id'},
+		{data: 'name'},
+      	{data: 'createdAt'},
+      	{data: 'updatedAt'},
+      	{data: 'id'}
+       ],
+         createdRow: function ( row, data, index ) {
+             $(row).attr('id','table_'+index);
+         },
+       columnDefs: [
+         {
+           "targets": [0],
+           "createdCell": function (td, cellData, rowData, row, col) {
+             $(td).text(row+1);
+           },
+           orderable: true
+         },
+         {
+           "targets": [4],
+           "createdCell": function (td, cellData, rowData, row, col) {
+             $(td).empty();
+             $(td).addClass("text-center");
+             $(td).append($('@include('inc.button.btnGroupED')'));
+           },
+           orderable: false
+         }
+       ]
+     });
+
+  }
+
+</script>
 @endsection

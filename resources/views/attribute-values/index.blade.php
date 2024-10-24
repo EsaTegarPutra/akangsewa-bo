@@ -3,27 +3,10 @@
     <section class="content">
         <div class="row">
             <div class="col-12">
-                {{-- @if (Session::has('alert'))
-                    <div class="alert alert-{{ Session::get('colors') }} alert-dismissible fade show" role="alert">
-                        <i class="{{ Session::get('icons') }}"></i>
-                        {{ Session::get('alert') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                @endif --}}
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @elseif(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
                 <div class="box">
                     <div class="box-header with-border d-flex justify-content-between align-items-center">
-                        <h3 class="box-title">Category</h3>
-                        <a href="{{ url('masterData/category/create') }}" class="btn btn-info btn-sm btn-add">Add
-                            Category</a>
+                        <h3 class="box-title">Attribute Values</h3>
+                        <a href="{{ url('product/attributeValues/create') }}" class="btn btn-info btn-sm btn-add">Add Attribute Value</a>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -32,7 +15,8 @@
                                 <thead class="bg-info">
                                     <tr>
                                         <th>No</th>
-                                        <th>Category Name</th>
+                                        <th>Attributes Name</th>
+                                        <th>Attribute Values Name</th>
                                         <th>Create At</th>
                                         <th>Updated At</th>
                                         <th class="text-center">Action</th>
@@ -56,7 +40,10 @@
                     data: 'id'
                 },
                 {
-                    data: 'categoryName'
+                    data: 'attribute_name'
+                },
+                {
+                    data: 'valuesAttribute'
                 },
                 {
                     data: 'createdAt'
@@ -81,7 +68,7 @@
             var index = id[1];
             var data = table.fnGetData()
 
-            location.href = "{{ url('masterData/category/edit') }}/" + data[index].id;
+            location.href = "{{ url('product/attributeValues/edit') }}/" + data[index].id;
         });
         $('.table').on('click', '.btn-delete', function() {
             var tr = $(this).closest('tr');
@@ -101,30 +88,7 @@
                 icon: 'ti-info',
                 buttons: {
                     confirm: function() {
-
-                        $.ajax({
-                            url: "{!! url('masterData/category/checkProduct') !!}/" + id,
-                            data: {},
-                            dataType: "json",
-                            type: "get",
-                            success: function(data) {
-                                if (data < 1) {
-                                    location.href = "{{ url('masterData/category/delete') }}" +
-                                        "/" + id;
-                                } else {
-                                    $.alert({
-                                        title: 'Information',
-                                        content: 'Category cant delete, product used by this category : ' +
-                                            data,
-                                    });
-                                }
-                            },
-                            error: function(jqXHR, textStatus, errorThrown) {
-                                var errorMsg = 'Ajax request failed table with = ' + errorThrown;
-                                console.log(errorMsg);
-                            }
-                        });
-
+                        location.href = "{{ url('product/attributeValues/delete') }}" + "/" + id;
                     },
                     cancel: function() {}
                 }
@@ -144,7 +108,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ url('masterData/category/getIndex') }}/",
+                    url: "{{ url('product/attributeValues/getIndex') }}/",
                     dataType: "json",
                     type: "GET",
                     error: function() { // error handling
@@ -160,7 +124,10 @@
                         data: 'id'
                     },
                     {
-                        data: 'categoryName'
+                        data: 'attribute_name'
+                    },
+                    {
+                        data: 'valuesAttribute'
                     },
                     {
                         data: 'createdAt'
@@ -183,51 +150,7 @@
                         orderable: true
                     },
                     {
-                        "targets": [2], // Target kolom 'createAt'
-                        "createdCell": function(td, cellData, rowData, row, col) {
-                            if (cellData) {
-                                var date = new Date(cellData);
-                                var options = {
-                                    day: '2-digit',
-                                    month: 'short',
-                                    year: 'numeric',
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                    second: '2-digit',
-                                    hour12: false
-                                };
-                                var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
-                                    '');
-                                $(td).text(formattedDate);
-                            } else {
-                                $(td).text('Not Available');
-                            }
-                        }
-                    },
-                    {
-                        "targets": [3], // Target kolom 'updatedAt'
-                        "createdCell": function(td, cellData, rowData, row, col) {
-                            if (cellData) {
-                                var date = new Date(cellData);
-                                var options = {
-                                    day: '2-digit',
-                                    month: 'short',
-                                    year: 'numeric',
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                    second: '2-digit',
-                                    hour12: false
-                                };
-                                var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
-                                    '');
-                                $(td).text(formattedDate);
-                            } else {
-                                $(td).text('');
-                            }
-                        }
-                    },
-                    {
-                        "targets": [4],
+                        "targets": [5],
                         "createdCell": function(td, cellData, rowData, row, col) {
                             $(td).empty();
                             $(td).addClass("text-center");
@@ -237,6 +160,7 @@
                     }
                 ]
             });
+
         }
     </script>
 @endsection

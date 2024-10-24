@@ -24,6 +24,19 @@ class ProductControllers extends Controller
         return DataTables::of($resultData)->escapeColumns([])->make(true);
     }
 
+    public function checkProductDescription(CurlGen $curlGen, $id){
+        $descriptionData = "/api/product-descriptions/countByProductId/" . $id;
+        $descriptions = $curlGen->getIndex($descriptionData);
+
+        return $descriptions;
+    }
+    public function checkProductVariant(CurlGen $curlGen, $id){
+        $variantData = "/api/product-variants/countByProductId/" . $id;
+        $variants = $curlGen->getIndex($variantData);
+
+        return $variants;
+    }
+
     public function create(CurlGen $curlGen)
     {
         $urlData = "/api/categories?size=99999&sort=id%2Cdesc";
@@ -45,41 +58,15 @@ class ProductControllers extends Controller
         return view('product.edit', compact('categories'))
             ->with('product', $result);
     }
+
+
     public function delete(CurlGen $curlGen, $id)
     {
-        //Ambil data
-        $descriptionData = "/api/product-descriptions/countByProductId/" . $id;
-        $descriptions = $curlGen->getIndex($descriptionData);
-        $variantData = "/api/product-variants/countByProductId/" . $id;
-        $variants = $curlGen->getIndex($variantData);
-        $imageData = "/api/product-images/countByProductId/" . $id;
-        $images = $curlGen->getIndex($imageData);
 
-        //validasi
+        $product = "/api/products/" . $id;
+        $result = $curlGen->delete($product);
 
-        // //opsi 1
-        // if ($descriptions < 0 && $variants < 0 && $images < 0) {
-        //     $product = "/api/products/" . $id;
-        //     $result = $curlGen->delete($product);
-
-        //     return redirect(url('product/master'));
-        // } else {
-        //     return redirect()->back()->with('error', 'pesan error');
-        // }
-
-        //opsi 2
-        if ($descriptions > 0) {
-            return redirect()->back()->with('error', 'description');
-        } else if ($variants > 0) {
-            return redirect()->back()->with('error', 'variants');
-        } else if ($images > 0) {
-            return redirect()->back()->with('error', 'image');
-        } else {
-            $product = "/api/products/" . $id;
-            $result = $curlGen->delete($product);
-
-            return redirect(url('product/master'))->with('success', 'berhasil');
-        }
+        return redirect(url('product/master'))->with('success', 'berhasil');
     }
     public function store(CurlGen $curlGen, Request $request)
     {
@@ -93,6 +80,8 @@ class ProductControllers extends Controller
         );
 
         $resultData = $curlGen->store($url, $data);
+        // dd($resultData);
+
         if ($resultData[0] != 201) {
             $info = "Error";
             $colors = "red";
@@ -126,6 +115,7 @@ class ProductControllers extends Controller
         );
 
         $resultData = $curlGen->update($url, $data);
+        // dd($resultData);
 
         if ($resultData[0] != 200) {
             $info = "Error";

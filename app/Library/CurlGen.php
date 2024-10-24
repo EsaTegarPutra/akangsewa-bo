@@ -35,7 +35,6 @@ class CurlGen {
       $output = curl_exec($ch);
       $info = curl_getinfo($ch);
       $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-      // dd($url);
       curl_close($ch);
 
     $asd = json_decode($output);
@@ -66,7 +65,7 @@ class CurlGen {
       $output = curl_exec($ch);
       $info = curl_getinfo($ch);
       $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
+      
       curl_close($ch);
 
       $param = json_decode($output, true);

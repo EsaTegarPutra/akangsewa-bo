@@ -10,109 +10,108 @@ use Session;
 
 class CategoryControllers extends Controller
 {
-    public function index()
-    {
-        return view('category.index');
+  public function index()
+  {
+    return view('category.index');
+  }
+  public function getIndex(CurlGen $curlGen)
+  {
+
+    $urlData = "/api/categories?size=99999&sort=id%2Cdesc";
+    $resultData = $curlGen->getIndex($urlData);
+
+    return Datatables::of($resultData)->escapeColumns([])->make(true);
+  }
+
+  public function checkProduct(CurlGen $curlGen, $id)
+  {
+
+    $urlData = "/api/countByCategoryId/" . $id;
+    $resultData = $curlGen->getIndex($urlData);
+
+    return $resultData;
+  }
+
+  public function create()
+  {
+    return view('category.create');
+  }
+  public function edit(CurlGen $curlGen, $id)
+  {
+
+    $category = "/api/categories/" . $id;
+    $result = $curlGen->getIndex($category);
+
+    return view('category.edit')
+      ->with('category', $result);
+  }
+
+
+  public function delete(CurlGen $curlGen, $id)
+  {
+    $category = "/api/categories/" . $id;
+    $result = $curlGen->delete($category);
+
+    return redirect(url('masterData/category'));
+  }
+
+  public function store(CurlGen $curlGen, Request $request)
+  {
+    // dd($request->all());
+    $url = "/api/categories";
+    $data = array(
+      "categoryName" => $request->categoryName,
+      "status" => $request->status
+    );
+
+    $resultData = $curlGen->store($url, $data);
+    if ($resultData[0] != 201) {
+      $info = "Error";
+      $colors = "red";
+      $icons = "fas fa-times";
+      if ($resultData['1']['message'] == null) {
+        $msg = "Internal Server Error [500]";
+      } else {
+        $msg = $resultData['1']['message'];
+      }
+      $alert = $msg;
+    } else {
+      $info = "Success";
+      $colors = "green";
+      $icons = "fas fa-check-circle";
+      $alert = 'Saved';
     }
+    return redirect(url('masterData/category'));
+  }
 
-    public function getIndex(CurlGen $curlGen)
-    {
-        $urlData = "/api/categories?size=99999&sort=id%2Cdesc";
-        $resultData = $curlGen->getIndex($urlData);
+  public function update(CurlGen $curlGen, Request $request, $id)
+  {
 
-        return Datatables::of($resultData)->escapeColumns([])->make(true);
+    $url = "/api/categories";
+    $data = array(
+      "id" => $id,
+      "categoryName" => $request->categoryName,
+      "status" => $request->status
+    );
+
+    $resultData = $curlGen->update($url, $data);
+
+    if ($resultData[0] != 200) {
+      $info = "Error";
+      $colors = "red";
+      $icons = "fas fa-times";
+      if ($resultData['1']['message'] == null) {
+        $msg = "Internal Server Error [500]";
+      } else {
+        $msg = $resultData['1']['message'];
+      }
+      $alert = $msg;
+    } else {
+      $info = "Success";
+      $colors = "green";
+      $icons = "fas fa-check-circle";
+      $alert = 'Saved';
     }
-
-    public function create()
-    {
-        return view('category.create');
-    }
-
-    public function edit(CurlGen $curlGen, $id)
-    {
-        $category = "/api/categories/" . $id;
-        $result = $curlGen->getIndex($category);
-
-        return view('category.edit')->with('category', $result);
-    }
-
-    public function delete(CurlGen $curlGen, $id)
-    {
-        $urlData = "/api/countByCategoryId/" . $id;
-        $productCount = $curlGen->getIndex($urlData);
-
-        // Cek apakah masih ada produk di dalam kategori
-        if ($productCount < 0) {
-            // Jika tidak ada produk, lanjutkan menghapus kategori
-            $category = "/api/categories/" . $id;
-            $result = $curlGen->delete($category);
-            
-            // Redirect ke halaman kategori setelah menghapus
-            return redirect(url('masterData/category'))->with('success', 'Kategori berhasil dihapus.');
-        } else {
-            // Jika masih ada produk, berikan pesan error
-            return redirect()->back()->with('error', 'Kategori tidak dapat dihapus karena masih memiliki produk sebanyak: ' . $productCount . ' produk.');
-        }
-        
-    }
-
-    public function store(CurlGen $curlGen, Request $request)
-    {
-        $url = "/api/categories";
-        $data = array(
-            "categoryName" => $request->categoryName,
-            "status" => $request->status
-        );
-
-        $resultData = $curlGen->store($url, $data);
-        if ($resultData[0] != 201) {
-            $info = "Error";
-            $colors = "red";
-            $icons = "fas fa-times";
-            if ($resultData['1']['message'] == null) {
-                $msg = "Internal Server Error [500]";
-            } else {
-                $msg = $resultData['1']['message'];
-            }
-            $alert = $msg;
-        } else {
-            $info = "Success";
-            $colors = "green";
-            $icons = "fas fa-check-circle";
-            $alert = 'Kategori berhasil disimpan.';
-        }
-
-        return redirect(url('masterData/category'));
-    }
-
-    public function update(CurlGen $curlGen, Request $request, $id)
-    {
-        $url = "/api/categories";
-        $data = array(
-            "id" => $id,
-            "categoryName" => $request->categoryName,
-            "status" => $request->status
-        );
-
-        $resultData = $curlGen->update($url, $data);
-
-        if ($resultData[0] != 200) {
-            $info = "Error";
-            $colors = "red";
-            $icons = "fas fa-times";
-            if ($resultData['1']['message'] == null) {
-                $msg = "Internal Server Error [500]";
-            } else {
-                $msg = $resultData['1']['message'];
-            }
-            $alert = $msg;
-        } else {
-            $info = "Success";
-            $colors = "green";
-            $icons = "fas fa-check-circle";
-            $alert = 'Kategori berhasil diperbarui.';
-        }
-
-        return redirect(url('masterData/category'));
-    }
+    return redirect(url('masterData/category'));
+  }
 }

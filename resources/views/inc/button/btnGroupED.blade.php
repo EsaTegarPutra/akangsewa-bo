@@ -1,1 +1,1 @@
-<div class="clearfix"><span style="margin-right: 10px;">@include('inc.button.btnEdit')</span><span>@include('inc.button.btnDelete')</span></div>
+<div class="clearfix d-flex gap-2"><span>@include('inc.button.btnEdit')</span><span>@include('inc.button.btnDelete')</span></div>

@@ -5,8 +5,8 @@
             <div class="col-12">
                 <div class="box">
                     <div class="box-header with-border d-flex justify-content-between align-items-center">
-                        <h3 class="box-title">Product Description</h3>
-                        <a href="{{ url('product/variant/create') }}" class="btn btn-info btn-sm btn-add">Add Description</a>
+                        <h3 class="box-title">Product Variant</h3>
+                        <a href="{{ url('product/variant/create') }}" class="btn btn-info btn-sm btn-add">Add Variant</a>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -15,11 +15,10 @@
                                 <thead class="bg-info">
                                     <tr>
                                         <th>No</th>
-                                        <th>Product Id</th>
-                                        <th>Product Name</th>
+                                        <th>Product name</th>
                                         <th>Variant Name</th>
                                         <th>Stock</th>
-                                        <th>Create At</th>
+                                        <th>Created At</th>
                                         <th>Updated At</th>
                                         <th class="text-center">Action</th>
                                     </tr>
@@ -40,9 +39,6 @@
         var table = $("#lookup").dataTable({
             columns: [{
                     data: 'id'
-                },
-                {
-                    data: 'productId'
                 },
                 {
                     data: 'productName'
@@ -96,11 +92,33 @@
                 icon: 'ti-info',
                 buttons: {
                     confirm: function() {
-                        location.href = "{{ url('product/variant/delete') }}" + "/" + id;
+                        $.ajax({
+                            url: "{!! url('product/variant/checkProductImage') !!}/" + id,
+                            data: {},
+                            dataType: "json",
+                            type: "get",
+                            success: function(imageData) {
+                                if (imageData > 1) {
+                                    $.alert({
+                                        title: 'Information',
+                                        content: 'variant cant delete, image used by this variant product: ' +
+                                            imageData,
+                                    });
+                                } else {
+                                    location.href = "{{ url('product/variant/delete') }}" + "/" +
+                                    id;
+                                }
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                var errorMsg = 'Ajax request failed table with = ' + errorThrown;
+                                console.log(errorMsg);
+                            }
+                        });
+
                     },
                     cancel: function() {}
                 }
-            });
+         });
         }
 
         function loadData() {
@@ -122,17 +140,14 @@
                     error: function() { // error handling
                         $(".lookup-error").html("");
                         $("#lookup").append(
-                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="8">No data found in the server</th></tr></tbody>'
-                        );
+                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="7">No data found in the server</th></tr></tbody>'
+                            );
                         $("#lookup_processing").css("display", "none");
 
                     }
                 },
                 columns: [{
                         data: 'id'
-                    },
-                    {
-                        data: 'productId'
                     },
                     {
                         data: 'productName'
@@ -164,7 +179,51 @@
                         orderable: true
                     },
                     {
-                        "targets": [7],
+                        "targets": [4], // Target kolom 'createAt'
+                        "createdCell": function(td, cellData, rowData, row, col) {
+                            if (cellData) {
+                                var date = new Date(cellData);
+                                var options = {
+                                    day: '2-digit',
+                                    month: 'short',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    second: '2-digit',
+                                    hour12: false
+                                };
+                                var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
+                                    '');
+                                $(td).text(formattedDate);
+                            } else {
+                                $(td).text('Not Available');
+                            }
+                        }
+                    },
+                    {
+                        "targets": [5], // Target kolom 'updatedAt'
+                        "createdCell": function(td, cellData, rowData, row, col) {
+                            if (cellData) {
+                                var date = new Date(cellData);
+                                var options = {
+                                    day: '2-digit',
+                                    month: 'short',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    second: '2-digit',
+                                    hour12: false
+                                };
+                                var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
+                                    '');
+                                $(td).text(formattedDate);
+                            } else {
+                                $(td).text('');
+                            }
+                        }
+                    },
+                    {
+                        "targets": [6],
                         "createdCell": function(td, cellData, rowData, row, col) {
                             $(td).empty();
                             $(td).addClass("text-center");

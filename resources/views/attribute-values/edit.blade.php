@@ -5,46 +5,45 @@
             <div class="col-lg-4">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h4 class="box-title">Variant</h4>
+                        <h4 class="box-title">New Attribute Values</h4>
                     </div>
                     <!-- /.box-header -->
-                    <form id="fSubmit" class="form" action="{{ url('product/variant/store') }}" method="post">
+                    <form id="fSubmit" class="form"
+                        action="{{ url('product/attributeValues/update/' . $attributeValue['id']) }}" method="post">
                         {{ csrf_field() }}
+                        @method('PUT')
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="form-label">Produk Name</label>
-                                        <select name="productId" id="productId" class="form-select">
-                                            <option value="" selected disable>...</option>
-                                            @foreach ($products as $product)
-                                                <option value="{{ $product['id'] }}">
-                                                    {{ $product['productName'] }}
+                                        <label class="form-label">Attribute Name</label>
+                                        <select id="attributeId" name="attributeId" class="form-select" required>
+                                            <option value="" selected disabled>Select Attribute</option>
+                                            @foreach ($attributes as $attribute)
+                                                <option value="{{ $attribute['id'] }}"
+                                                    {{ $attribute['id'] == $attributeValue['attributeId'] ? 'selected' : '' }}>
+                                                    {{ $attribute['name'] }}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
+
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="form-label">variant name</label>
-                                        <input class="form-control" name="variantName" id="variantName">
+                                        <label class="form-label">Attribute Value Name</label>
+                                        <!-- Check if valuesAttribute is an array -->
+                                        <input class="form-control"
+                                            value="{{ is_array($attributeValue['valuesAttribute']) ? implode(', ', array_column($attributeValue['valuesAttribute'], 'name')) : $attributeValue['valuesAttribute'] }}"
+                                            name="valuesAttribute" id="valuesAttribute">
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="form-label">Stock</label>
-                                        <input class="form-control" name="stock" id="stock" type="number">
-                                    </div>
-                                </div>
-
-
                             </div>
-
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer d-flex justify-content-end">
-                            <a href="{{ url('product/variant') }}" type="button" class="btn btn-danger btn-sm me-1">
+                            <a href="{{ url('product/attributeValues') }}" type="button"
+                                class="btn btn-danger btn-sm me-1">
                                 <i class="ti-close"></i> Cancel
                             </a>
                             <a href="javascript:void(0)" id="btnSave" class="btn btn-info btn-sm">
@@ -52,6 +51,7 @@
                             </a>
                         </div>
                     </form>
+
                 </div>
                 <!-- /.box -->
             </div>
@@ -65,24 +65,19 @@
         });
 
         $('#btnSave').on('click', function() {
-            var productId = $('#productId').val();
-            var variantName = $('#variantName').val();
-            var stock = $('#stock').val();
+            var attributeName = $('#attributeId').val();
+            var valuesAttribute = $('#valuesAttribute').val();
 
-            if (!productId) {
+
+            if (!attributeName) {
                 $.alert({
                     title: 'Information',
-                    content: 'product cant empty',
+                    content: 'Attribute Name cant empty',
                 });
-            } else if (!variantName) {
+            } else if (!valuesAttribute) {
                 $.alert({
                     title: 'Information',
-                    content: 'variant cant empty',
-                });
-            } else if (!stock) {
-                $.alert({
-                    title: 'Information',
-                    content: 'Stock cant empty',
+                    content: 'Attribute Value Name cant empty',
                 });
             } else {
                 $('#fSubmit').submit();

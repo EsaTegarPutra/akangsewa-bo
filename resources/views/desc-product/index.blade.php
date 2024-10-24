@@ -15,10 +15,9 @@
                                 <thead class="bg-info">
                                     <tr>
                                         <th>No</th>
+                                        <th>Product Id</th>
                                         <th>Product Name</th>
                                         <th>Product Description</th>
-                                        <th>Create At</th>
-                                        <th>Updated At</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -43,13 +42,10 @@
                     data: 'productId'
                 },
                 {
+                        data: 'productName'
+                    },
+                {
                     data: 'descriptionValue'
-                },
-                {
-                    data: 'createdAt'
-                },
-                {
-                    data: 'updatedAt'
                 },
                 {
                     data: 'id'
@@ -114,7 +110,7 @@
                     error: function() { // error handling
                         $(".lookup-error").html("");
                         $("#lookup").append(
-                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="6">No data found in the server</th></tr></tbody>'
+                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="5">No data found in the server</th></tr></tbody>'
                         );
                         $("#lookup_processing").css("display", "none");
 
@@ -127,13 +123,10 @@
                         data: 'productId'
                     },
                     {
+                        data: 'productName'
+                    },
+                    {
                         data: 'descriptionValue'
-                    },
-                    {
-                        data: 'createdAt'
-                    },
-                    {
-                        data: 'updatedAt'
                     },
                     {
                         data: 'id'
@@ -150,7 +143,51 @@
                         orderable: true
                     },
                     {
-                        "targets": [5],
+                        "targets": [2], // Target kolom 'createAt'
+                        "createdCell": function(td, cellData, rowData, row, col) {
+                            if (cellData) {
+                                var date = new Date(cellData);
+                                var options = {
+                                    day: '2-digit',
+                                    month: 'short',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    second: '2-digit',
+                                    hour12: false
+                                };
+                                var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
+                                    '');
+                                $(td).text(formattedDate);
+                            } else {
+                                $(td).text('Not Available');
+                            }
+                        }
+                    },
+                    {
+                        "targets": [3], // Target kolom 'updatedAt'
+                        "createdCell": function(td, cellData, rowData, row, col) {
+                            if (cellData) {
+                                var date = new Date(cellData);
+                                var options = {
+                                    day: '2-digit',
+                                    month: 'short',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    second: '2-digit',
+                                    hour12: false
+                                };
+                                var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
+                                    '');
+                                $(td).text(formattedDate);
+                            } else {
+                                $(td).text('');
+                            }
+                        }
+                    },
+                    {
+                        "targets": [4],
                         "createdCell": function(td, cellData, rowData, row, col) {
                             $(td).empty();
                             $(td).addClass("text-center");

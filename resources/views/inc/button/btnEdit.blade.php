@@ -1,1 +1,1 @@
-<a href="javascript:void(0)" class="waves-effect waves-light btn btn-sm btn-info mb-5 btn-edit">Edit</a>
+<a href="javascript:void(0)" class="waves-effect waves-light btn btn-md btn-info mb-5 btn-edit"><i class="ti-pencil-alt"></i></a>

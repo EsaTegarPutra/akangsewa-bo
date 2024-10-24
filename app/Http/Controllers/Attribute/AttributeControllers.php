@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Product;
+namespace App\Http\Controllers\Attribute;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -8,49 +8,46 @@ use App\Library\CurlGen;
 use Yajra\DataTables\Facades\DataTables;
 use Session;
 
-class DescriptionControllers extends Controller
+class AttributeControllers extends Controller
 {
     public function index()
     {
-        return view('desc-product.index');
+        return view('attribute.index');
     }
     public function getIndex(CurlGen $curlGen)
     {
 
-        $urlData = "/api/product-descriptions?size=99999&sort=id%2Cdesc";
+        $urlData = "/api/attributes?size=99999&sort=id%2Cdesc";
         $resultData = $curlGen->getIndex($urlData);
 
         return DataTables::of($resultData)->escapeColumns([])->make(true);
     }
-    public function create(CurlGen $curlGen)
+    public function create()
     {
-        $urlData = "/api/products?size=99999&sort=id%2Cdesc";
-        $products = $curlGen->getIndex($urlData);
-        return view('desc-product.create', compact('products'));
+        return view('attribute.create');
     }
     public function edit(CurlGen $curlGen, $id)
     {
-        $urlData = "/api/products?size=99999&sort=id%2Cdesc";
-        $products = $curlGen->getIndex($urlData);
-        $description = "/api/product-descriptions/" . $id;
-        $result = $curlGen->getIndex($description);
 
-        return view('desc-product.edit', compact('products'))
-            ->with('description', $result);
+        $attribute = "/api/attributes/" . $id;
+        $result = $curlGen->getIndex($attribute);
+
+        return view('attribute.edit')
+            ->with('attribute', $result);
     }
     public function delete(CurlGen $curlGen, $id)
     {
-        $description = "/api/product-descriptions/" . $id;
-        $result = $curlGen->delete($description);
-        return redirect(url('product/description'));
+        $attribute = "/api/attributes/" . $id;
+        $result = $curlGen->delete($attribute);
+        return redirect(url('product/attribute'));
     }
+
     public function store(CurlGen $curlGen, Request $request)
     {
         // dd($request->all());
-        $url = "/api/product-descriptions";
+        $url = "/api/attributes";
         $data = array(
-            "descriptionValue" => $request->descriptionValue,
-            "productId" => $request->productId,
+            "name" => $request->name,
         );
 
         $resultData = $curlGen->store($url, $data);
@@ -70,18 +67,19 @@ class DescriptionControllers extends Controller
             $icons = "fas fa-check-circle";
             $alert = 'Saved';
         }
+        
 
-        return redirect(url('product/description'))->with('status', $alert);
+        return redirect(url('product/attribute'));
     }
 
     public function update(CurlGen $curlGen, Request $request, $id)
     {
 
-        $url = "/api/product-descriptions";
+        $url = "/api/attributes";
         $data = array(
             "id" => $id,
-            "descriptionValue" => $request->descriptionValue,
-            "productId" => $request->productId,
+            "name" => $request->name,
+            "status" => $request->status
         );
 
         $resultData = $curlGen->update($url, $data);
@@ -103,6 +101,7 @@ class DescriptionControllers extends Controller
             $alert = 'Saved';
         }
 
-        return redirect(url('product/description'));
+
+        return redirect(url('product/attribute'));
     }
 }

@@ -37,7 +37,7 @@
                                 <i class="ti-close"></i> Cancel
                             </a>
                             <a href="javascript:void(0)" id="btnSave" class="btn btn-info btn-sm">
-                                <i class="ti-save"></i> Save
+                                <i class="ti-save-alt"></i> Save
                             </a>
                         </div>
                     </form>
