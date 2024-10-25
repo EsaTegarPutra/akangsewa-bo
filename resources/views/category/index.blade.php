@@ -126,149 +126,69 @@
 	});
 }
 
-        function loadData() {
+function loadData() {
 
-            $('#lookup').dataTable().fnDestroy();
+    $('#lookup').dataTable().fnDestroy();
 
-            var table = $("#lookup").dataTable({
-                "scrollCollapse": true,
-                'autoWidth': true,
-                'bSort': true,
-                'bPaginate': true,
-                'searching': true,
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ url('masterData/category/getIndex') }}/",
-                    dataType: "json",
-                    type: "GET",
-                    error: function() { // error handling
-                        $(".lookup-error").html("");
-                        $("#lookup").append(
-                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="5">No data found in the server</th></tr></tbody>'
-                            );
-                        $("#lookup_processing").css("display", "none");
+    var table = $("#lookup").dataTable({
+        "scrollCollapse": true,
+        'autoWidth': true,
+        'bSort': true,
+        'bPaginate': true,
+        'searching': true,
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "{{ url('masterData/category/getIndex') }}/",
+            dataType: "json",
+            type: "GET",
+            error: function() { // error handling
+                $(".lookup-error").html("");
+                $("#lookup").append(
+                    '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="5">No data found in the server</th></tr></tbody>'
+                );
+                $("#lookup_processing").css("display", "none");
 
-                    }
+            }
+        },
+        columns: [{
+                data: 'id'
+            },
+            {
+                data: 'categoryName'
+            },
+            {
+                data: 'createdAt'
+            },
+            {
+                data: 'updatedAt'
+            },
+            {
+                data: 'id'
+            }
+        ],
+        createdRow: function(row, data, index) {
+            $(row).attr('id', 'table_' + index);
+        },
+        columnDefs: [{
+                "targets": [0],
+                "createdCell": function(td, cellData, rowData, row, col) {
+                    $(td).text(row + 1);
                 },
-                columns: [{
-                        data: 'id'
-                    },
-                    {
-                        data: 'categoryName'
-                    },
-                    {
-                        data: 'createdAt'
-                    },
-                    {
-                        data: 'updatedAt'
-                    },
-                    {
-                        data: 'id'
-                    }
-                ],
-                createdRow: function(row, data, index) {
-                    $(row).attr('id', 'table_' + index);
+                orderable: true
+            },
+            {
+                "targets": [4],
+                "createdCell": function(td, cellData, rowData, row, col) {
+                    $(td).empty();
+                    $(td).addClass("text-center");
+                    $(td).append($('@include('inc.button.btnGroupED')'));
                 },
-                columnDefs: [{
-                        "targets": [0],
-                        "createdCell": function(td, cellData, rowData, row, col) {
-                            $(td).text(row + 1);
-                        },
-                        orderable: true
-                    },
-                    {
-                        "targets": [4],
-                        "createdCell": function(td, cellData, rowData, row, col) {
-                            $(td).empty();
-                            $(td).addClass("text-center");
-                            $(td).append($('@include('inc.button.btnGroupED')'));
-                        },
-                        orderable: false
-                    }
-                ]
-            });
+                orderable: false
+            }
+        ]
+    });
+}
 
-        function deletes(id) {
-            $.confirm({
-                confirmButton: 'Remove',
-                cancelButton: 'Cancel',
-                title: 'Confirmation',
-                content: 'Remove this Data ?',
-                icon: 'ti-info',
-                buttons: {
-                    confirm: function() {
-                        location.href = "{{ url('masterData/category/delete') }}" + "/" + id;
-                    },
-                    cancel: function() {}
-                }
-            });
-        }
-
-
-        function loadData() {
-
-            $('#lookup').dataTable().fnDestroy();
-
-            var table = $("#lookup").dataTable({
-                "scrollCollapse": true,
-                'autoWidth': true,
-                'bSort': true,
-                'bPaginate': true,
-                'searching': true,
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ url('masterData/category/getIndex') }}/",
-                    dataType: "json",
-                    type: "GET",
-                    error: function() { // error handling
-                        $(".lookup-error").html("");
-                        $("#lookup").append(
-                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="5">No data found in the server</th></tr></tbody>'
-                        );
-                        $("#lookup_processing").css("display", "none");
-
-                    }
-                },
-                columns: [{
-                        data: 'id'
-                    },
-                    {
-                        data: 'categoryName'
-                    },
-                    {
-                        data: 'createdAt'
-                    },
-                    {
-                        data: 'updatedAt'
-                    },
-                    {
-                        data: 'id'
-                    }
-                ],
-                createdRow: function(row, data, index) {
-                    $(row).attr('id', 'table_' + index);
-                },
-                columnDefs: [{
-                        "targets": [0],
-                        "createdCell": function(td, cellData, rowData, row, col) {
-                            $(td).text(row + 1);
-                        },
-                        orderable: true
-                    },
-                    {
-                        "targets": [4],
-                        "createdCell": function(td, cellData, rowData, row, col) {
-                            $(td).empty();
-                            $(td).addClass("text-center");
-                            $(td).append($('@include('inc.button.btnGroupED')'));
-                        },
-                        orderable: false
-                    }
-                ]
-            });
-        }
-    }
     </script>
 @endsection

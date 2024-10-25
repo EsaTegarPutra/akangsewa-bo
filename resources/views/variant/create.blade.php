@@ -69,7 +69,6 @@
 
   $('#btnSave').on('click', function(){
 	  var productId = $('#productId').val();
-    //   var productName = $('#productName').val();
       var variantName = $('#variantName').val();
       var stock = $('#stock').val();
 
@@ -78,11 +77,6 @@
             title: 'Information',
             content: 'product cant empty',
         });
-	// }else if(!productName){
-	// 	$.alert({
-	// 		title: 'Information',
-	// 		content: 'product name cant empty',
-	// 	});
      }else if(!variantName){
          $.alert({
              title: 'Information',

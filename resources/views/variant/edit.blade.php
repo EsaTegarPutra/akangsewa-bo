@@ -19,7 +19,7 @@
 										  <option value="" selected disabled>...</option>
 										  @foreach ($products as $product)
 											  <option value="{{ $product['id'] }}">
-												  {{ $product['id'] }}
+												  {{ $product['productName'] }}
 											  </option>
 										  @endforeach
 										</select>
@@ -62,7 +62,6 @@
 
 $('#btnSave').on('click', function(){
 	var productId = $('#productId').val();
-	// var productName = $('#productName').val();
 	var variantName = $('#variantName').val();
       var stock = $('#stock').val();
 
@@ -76,11 +75,6 @@ $('#btnSave').on('click', function(){
             title: 'Information',
             content: 'product cant empty',
         });
-    // }else if(!productName){
-    //     $.alert({
-    //         title: 'Information',
-    //         content: 'product name cant empty',
-    //     });
     }else if(!stock){
         $.alert({
             title: 'Information',

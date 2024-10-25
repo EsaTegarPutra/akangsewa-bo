@@ -62,7 +62,6 @@ var table = $("#lookup").dataTable({
 			var id = tr.attr('id').split('_');
 			var index = id[1];
 			var data = table.fnGetData()
-
 			location.href="{{url('product/variant/edit')}}/" + data[index].id;
 	});
 	$('.table').on('click','.btn-delete', function(){
@@ -70,26 +69,50 @@ var table = $("#lookup").dataTable({
 			var id = tr.attr('id').split('_');
 			var index = id[1];
 			var data = table.fnGetData()
-
+			
 			deletes(data[index].id);
 	});
 
-	function deletes(id){
-	$.confirm({
-			confirmButton: 'Remove',
-			cancelButton: 'Cancel',
-			title: 'Confirmation',
-			content: 'Remove this Data ?',
-			icon: 'ti-info',
-			buttons: {
-					confirm: function () {
-							location.href="{{url('product/variant/delete')}}" + "/" + id;
-					},
-					cancel: function () {
-					}
-			}
-	});
-}
+	function deletes(id) {
+            $.confirm({
+                confirmButton: 'Remove',
+                cancelButton: 'Cancel',
+                title: 'Confirmation',
+                content: 'Remove this Data ?',
+                icon: 'ti-info',
+                buttons: {
+                    confirm: function() {
+
+
+
+                        $.ajax({
+                            url: "{!! url('product/variant/checkProductImage') !!}/" + id,
+                            data: {},
+                            dataType: "json",
+                            type: "get",
+                            success: function(imageData) {
+                                if (imageData > 1) {
+                                    $.alert({
+                                        title: 'Information',
+                                        content: 'variant cant delete, image used by this variant product: ' +
+                                            imageData,
+                                    });
+                                } else {
+                                    location.href = "{{ url('product/variant/delete') }}" + "/" +
+                                    id;
+                                }
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                var errorMsg = 'Ajax request failed table with = ' + errorThrown;
+                                console.log(errorMsg);
+                            }
+                        });
+
+                    },
+                    cancel: function() {}
+                }
+            });
+        }
 
    function loadData(){
 

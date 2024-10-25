@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Variant;
+namespace App\Http\Controllers\Product\Variant;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Library\CurlGen;
+use Carbon\Carbon;
 use Yajra\DataTables\DataTables;
 
 class VariantControllers extends Controller
@@ -21,8 +22,22 @@ class VariantControllers extends Controller
       $urlData = "/api/product-variants?size=99999&sort=id%2Cdesc";
       $resultData = $curlGen->getIndex($urlData);
 
+      //  dd($resultData);
+
       return DataTables::of($resultData)->escapeColumns([])->make(true);
   }
+
+  public function checkProductImage(CurlGen $curlGen, $id)
+    {
+        $imageData = "/api/product-images/countByProductId/" . $id;
+        $images = $curlGen->getIndex($imageData);
+
+        return $images;
+    }
+
+
+   
+
   public function create(CurlGen $curlGen)
   {
       $urlData = "/api/products?size=99999&sort=id%2Cdesc";
@@ -41,19 +56,23 @@ class VariantControllers extends Controller
   }
   public function delete(CurlGen $curlGen, $id)
   {
-      $variant = "/api/product-variants/" . $id;
-      $result = $curlGen->delete($variant);
-      return redirect(url('product/variant'));
+    $variant = "/api/product-variants/" . $id;
+    $result = $curlGen->delete($variant);
+    
+    // dd($result);
+    return redirect(url('product/variant'));
+
   }
 
   public function store(CurlGen $curlGen, Request $request)
   {
-      dd($request->all());
+    //   dd($request->all());
       $url = "/api/product-variants";
       $data = array(
           "productId" => $request->productId,
           "variantName" => $request->variantName,
           "stock" => $request->stock,
+          
       );
 
       $resultData = $curlGen->store($url, $data);
@@ -80,8 +99,8 @@ class VariantControllers extends Controller
 
   public function update(CurlGen $curlGen, Request $request, $id)
   {
-     dd($request->all());
-    
+    // dd($request->all());
+
 
       $url = "/api/product-variants";
       $data = array(
@@ -89,6 +108,7 @@ class VariantControllers extends Controller
         "productId" => $request->productId,
         "variantName" => $request->variantName,
         "stock" => $request->stock,
+       
       );
     //    dd($data);
 
@@ -113,4 +133,5 @@ class VariantControllers extends Controller
 
       return redirect(url('product/variant'));
   }
+  
 }
