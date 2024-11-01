@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Product\VariantController;
+use Illuminate\Routing\RouteGroup;
 
 Route::get('/', function () {
     return redirect(url('login'));
@@ -86,6 +87,25 @@ Route::group(['middleware' => ['web']], function () {
 
         });
 
+
+        Route::group(['prefix' => 'order'], function () {
+                
+            Route::group(['prefix' => 'pendingOrder'], function () {
+                Route::get('', 'Order\PendingOrder\PendingControllers@index')->name('indexPendingOrder');
+                Route::get('getIndex', 'Order\PendingOrder\PendingControllers@getIndex')->name('getIndexPendingOrder');
+                Route::get('create', 'Order\PendingOrder\PendingControllers@create')->name('createPendingOrder');
+                });
+
+            Route::group(['prefix' => 'detailOrder'], function() {
+                Route::get('', 'Order\DetailOrder\DetailControllers@index')->name('indexDetailOrder');
+                Route::get('getIndex', 'Order\DetailOrder\DetailControllers@getIndex')->name('getIndexDetailOrder');
+                Route::get('create', 'Order\DetailOrder\DetailControllers@create')->name('createDetailOrder');
+                Route::post('store', 'Order\DetailOrder\DetailControllers@store')->name('storeDetailOrder');
+                Route::get('edit/{id}', 'Order\DetailOrder\DetailControllers@edit')->name('editDetailOrder');
+                Route::post('update/{id}', 'Order\DetailOrder\DetailControllers@update')->name('updateDetailOrder');
+                Route::get('delete/{id}', 'Order\DetailOrder\DetailControllers@delete')->name('deleteDetailOrder');
+            });
+        });         
 
         // === NOT USE ===
         // Route::group(['prefix' => 'product'], function () {
