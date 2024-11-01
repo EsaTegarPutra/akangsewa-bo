@@ -33,7 +33,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Category Name</th>
-                                        <th>Create At</th>
+                                        <th>Created At</th>
                                         <th>Updated At</th>
                                         <th class="text-center">Action</th>
                                     </tr>

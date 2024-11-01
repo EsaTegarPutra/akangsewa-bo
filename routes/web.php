@@ -89,6 +89,14 @@ Route::group(['middleware' => ['web']], function () {
 
         });
 
+        Route::group(['prefix' => 'order'], function() {
+            Route::get('/tracking-delivery', 'Order\OrderControllers@trackingDelivery')->name('trackingDelivery');
+            Route::get('/detail-order', 'Order\OrderControllers@detailOrder')->name('detailOrder');
+            Route::group(['prefix' => 'ongoingRentals'], function () {
+                Route::get('', 'Order\Progress\ProgressControllers@index')->name('indexOrderProgress');
+            });
+        });
+
 
         // === NOT USE ===
         // Route::group(['prefix' => 'product'], function () {
