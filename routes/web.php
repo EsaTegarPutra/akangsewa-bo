@@ -52,5 +52,12 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('delete/{id}', 'Product\AttributeValuesControllers@delete')->name('deleteAttributeValues');
             });
         });
+
+        Route::group(['prefix' => 'order'], function () {
+            Route::group(['prefix' => 'historyOrder'],  function () {
+                Route::get('', 'Order\HistoryOrderControllers@index')->name('indexHistoryOrder');
+                Route::get('detail', 'Order\HistoryOrderControllers@show')->name('showHistoryOrder');
+            });
+        });
     });
 });
