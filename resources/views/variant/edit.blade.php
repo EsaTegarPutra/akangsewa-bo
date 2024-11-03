@@ -14,7 +14,7 @@
 								<div class="row">
 								  <div class="col-md-12">
 									<div class="form-group">
-										<label class="form-label">Product Name</label>
+										<label class="form-label">ProductId</label>
 										<select name="productId" id="productId" class="form-select">
 										  <option value="" selected disabled>...</option>
 										  @foreach ($products as $product)
@@ -25,12 +25,13 @@
 										</select>
 									  </div>
 								  </div>
-								  <div class="col-md-12">
-									<div class="form-group">
-									  <label class="form-label">variant name</label>
-									  <input class="form-control" value="{{ $variant['variantName'] }}" name="variantName" id="variantName">
+								  
+									<div class="col-md-12">
+									  <div class="form-group">
+										<label class="form-label">variant name</label>
+										<input class="form-control" value="{{ $variant['variantName'] }}" name="variantName" id="variantName">
+									  </div>
 									</div>
-								  </div>
 								  <div class="col-md-12">
 									<div class="form-group">
 									  <label class="form-label">stock</label>
