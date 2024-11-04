@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Library\CurlGen;
 use yajra\Datatables\Datatables;
 use Session;
-use File;
 
 class CategoryControllers extends Controller
 {
@@ -21,21 +20,24 @@ class CategoryControllers extends Controller
     $urlData = "/api/categories?size=99999&sort=id%2Cdesc";
     $resultData = $curlGen->getIndex($urlData);
 
-      return Datatables::of($resultData)->escapeColumns([])->make(true);
-    }
+    return Datatables::of($resultData)->escapeColumns([])->make(true);
+  }
 
-    public function checkProduct(CurlGen $curlGen, $id){
+  public function checkProduct(CurlGen $curlGen, $id)
+  {
 
-      $urlData = "/api/countByCategoryId/".$id;
-      $resultData = $curlGen->getIndex($urlData);
+    $urlData = "/api/countByCategoryId/" . $id;
+    $resultData = $curlGen->getIndex($urlData);
 
-      return $resultData;
-    }
+    return $resultData;
+  }
 
-    public function create(){
-      return view('category.create');
-    }
-    public function edit(CurlGen $curlGen, $id){
+  public function create()
+  {
+    return view('category.create');
+  }
+  public function edit(CurlGen $curlGen, $id)
+  {
 
     $category = "/api/categories/" . $id;
     $result = $curlGen->getIndex($category);
@@ -47,7 +49,7 @@ class CategoryControllers extends Controller
 
   public function delete(CurlGen $curlGen, $id)
   {
-    $category = "/api/categories/".$id;
+    $category = "/api/categories/" . $id;
     $result = $curlGen->delete($category);
 
     return redirect(url('masterData/category'));
@@ -115,7 +117,6 @@ class CategoryControllers extends Controller
       $icons = "fas fa-check-circle";
       $alert = 'Saved';
     }
-
     return redirect(url('masterData/category'));
   }
 }

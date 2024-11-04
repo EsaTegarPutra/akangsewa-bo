@@ -1,46 +1,34 @@
 <?php
 
-namespace App\Http\Controllers\Product\Variant;
+namespace App\Http\Controllers\Product;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Library\CurlGen;
-use Carbon\Carbon;
-use Yajra\DataTables\DataTables;
+use Yajra\DataTables\Facades\DataTables;
+use Session;
 
 class VariantControllers extends Controller
 {
-    public function index(CurlGen $curlGen)
+    public function index()
     {
-        $urlData = "/api/products";
-        $resultData = $curlGen->getIndex($urlData);
-        return view('variant.index', compact('resultData'));
+        return view('variant.index');
     }
     public function getIndex(CurlGen $curlGen)
     {
+
         $urlData = "/api/product-variants?size=99999&sort=id%2Cdesc";
         $resultData = $curlGen->getIndex($urlData);
 
-        //  dd($resultData);
-
         return DataTables::of($resultData)->escapeColumns([])->make(true);
     }
-
-    public function checkProductImage(CurlGen $curlGen, $id)
-    {
-        $imageData = "/api/product-images/countByProductId/" . $id;
-        $images = $curlGen->getIndex($imageData);
-
-        return $images;
-    }
-
+    
     public function create(CurlGen $curlGen)
     {
         $urlData = "/api/products?size=99999&sort=id%2Cdesc";
         $products = $curlGen->getIndex($urlData);
         return view('variant.create', compact('products'));
     }
-
     public function edit(CurlGen $curlGen, $id)
     {
 
@@ -48,14 +36,14 @@ class VariantControllers extends Controller
         $products = $curlGen->getIndex($urlData);
         $variant = "/api/product-variants/" . $id;
         $result = $curlGen->getIndex($variant);
-        return view('variant.edit', compact('products'))->with('variant', $result);
+
+        return view('variant.edit', compact('products'))
+            ->with('variant', $result);
     }
     public function delete(CurlGen $curlGen, $id)
     {
         $variant = "/api/product-variants/" . $id;
         $result = $curlGen->delete($variant);
-
-        // dd($result);
         return redirect(url('product/variant'));
     }
 
@@ -86,23 +74,24 @@ class VariantControllers extends Controller
             $icons = "fas fa-check-circle";
             $alert = 'Saved';
         }
+
+        // Session::flash('info', $info);
+        // Session::flash('colors', $colors);
+        // Session::flash('icons', $icons);
+        // Session::flash('alert', $alert);
+
         return redirect(url('product/variant'));
     }
 
     public function update(CurlGen $curlGen, Request $request, $id)
     {
-        // dd($request->all());
 
         $url = "/api/product-variants";
         $data = array(
             "id" => $id,
-            "productId" => $request->productId,
             "variantName" => $request->variantName,
             "stock" => $request->stock,
-
         );
-        //    dd($data);
-
 
         $resultData = $curlGen->update($url, $data);
 
@@ -123,6 +112,11 @@ class VariantControllers extends Controller
             $alert = 'Saved';
         }
 
+        // Session::flash('info', $info);
+        // Session::flash('colors', $colors);
+        // Session::flash('icons', $icons);
+        // Session::flash('alert', $alert);
+        
         return redirect(url('product/variant'));
     }
 }

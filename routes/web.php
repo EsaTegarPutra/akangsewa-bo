@@ -42,6 +42,8 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('edit/{id}', 'Product\ProductControllers@edit')->name('editProduct');
                 Route::post('update/{id}', 'Product\ProductControllers@update')->name('updateProduct');
                 Route::get('delete/{id}', 'Product\ProductControllers@delete')->name('deleteProduct');
+                Route::get('checkProductDescription/{id}', 'Product\ProductControllers@checkProductDescription')->name('checkProductDescription');
+                Route::get('checkProductVariant/{id}', 'Product\ProductControllers@checkProductVariant')->name('checkProductVariant');
             });
 
             Route::group(['prefix' => 'description'], function () {
@@ -85,6 +87,14 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('delete/{id}', 'Product\Image\ImageProductControllers@delete')->name('deleteProductImage');
             });
 
+        });
+
+        Route::group(['prefix' => 'order'], function() {
+            Route::get('/tracking-delivery', 'Order\OrderControllers@trackingDelivery')->name('trackingDelivery');
+            Route::get('/detail-order', 'Order\OrderControllers@detailOrder')->name('detailOrder');
+            Route::group(['prefix' => 'ongoingRentals'], function () {
+                Route::get('', 'Order\Progress\ProgressControllers@index')->name('indexOrderProgress');
+            });
         });
 
 
