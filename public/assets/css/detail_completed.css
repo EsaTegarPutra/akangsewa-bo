@@ -1,0 +1,156 @@
+.steps .step {
+    display: block;
+    width: 100%;
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.steps .step .step-icon-wrap {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 70px;
+    text-align: center;
+}
+
+.steps .step .step-icon-wrap::before,
+.steps .step .step-icon-wrap::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 50%;
+    height: 7px;
+    margin-top: -1px;
+    content: "";
+    z-index: 1;
+}
+
+.steps .step .step-icon-wrap::before {
+    left: 0;
+}
+
+.steps .step .step-icon-wrap::after {
+    right: 0;
+}
+
+.steps .step .step-icon {
+    display: inline-block;
+    position: relative;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    font-size: 34px;
+    line-height: 71px;
+    z-index: 5;
+}
+
+.steps .step .step-title {
+    margin-top: 16px;
+    margin-bottom: 0;
+    font-size: 1.5rem;
+}
+
+.steps .step:first-child .step-icon-wrap::before {
+    display: none;
+}
+
+.steps .step:last-child .step-icon-wrap::after {
+    display: none;
+}
+
+.steps .step.completed .step-icon-wrap::before,
+.steps .step.completed .step-icon-wrap::after {
+    background-color: #42b53f;
+}
+
+.steps .step.completed .step-icon {
+    border-color: #42b53f;
+    background-color: #42b53f;
+    color: #fff;
+}
+
+@media (max-width: 991px) {
+    .header-main-detail-order .gap-3 {
+        gap: 0.7rem !important;
+    }
+    .header-main-detail-order .title-order-id {
+        font-size: 1.3rem;
+    }
+    .header-main-detail-order .mt-8 {
+        font-size: 0.85rem !important;
+    }
+    .header-main-detail-order .fs-6 {
+        font-size: 0.85rem !important;
+    }
+    .steps .step .step-icon-wrap {
+        height: 60px;
+    }
+    .steps .step .step-title {
+        margin-top: 8px;
+        margin-bottom: 0;
+        font-size: 1.2rem;
+    }
+    .steps .step .step-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+        line-height: 61px;
+    }
+
+    .steps .step .step-time {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .history-status {
+        justify-content: start !important;
+    }
+    .steps-container {
+        padding: 0 !important;
+    }
+    .steps .step .step-icon-wrap {
+        height: 50px;
+    }
+    .steps .step .step-icon-wrap::before,
+    .steps .step .step-icon-wrap::after {
+        height: 5px;
+    }
+    .steps .step .step-title {
+        margin-top: 8px;
+        font-size: 1rem;
+    }
+    .steps .step .step-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 26px;
+        line-height: 51px;
+    }
+
+    .steps .step .step-time {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 468px) {
+    .steps-container {
+        padding: 0 !important;
+    }
+    .steps .step .step-icon-wrap {
+        height: 40px;
+    }
+    .steps .step .step-title {
+        margin-top: 8px;
+        font-size: 0.9rem;
+    }
+    .steps .step .step-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        line-height: 41px;
+    }
+
+    .steps .step .step-time {
+        font-size: 0.7rem;
+    }
+}

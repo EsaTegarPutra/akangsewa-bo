@@ -3,6 +3,16 @@
     <section class="content">
         <div class="row">
             <div class="col-12">
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @elseif(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
                 <div class="box">
                     <div class="box-header with-border d-flex justify-content-between align-items-center">
                         <h3 class="box-title">Image Repository</h3>
@@ -17,7 +27,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Product Name</th>
-                                        <th>Attribute Values Name</th>
+                                        <th>Variant Name</th>
                                         <th>Product Image</th>
                                         <th>Create At</th>
                                         <th>Updated At</th>
@@ -30,6 +40,23 @@
                         </div>
                     </div>
                     <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Image Modal -->
+        <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-labelledby="imagePreviewLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="imagePreviewLabel">Image Preview</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img id="modalImage" src="" alt="Product Image" class="img-fluid"
+                            style="max-width: 100%; max-height: 100%;">
+                    </div>
                 </div>
             </div>
         </div>
@@ -49,16 +76,20 @@
                     }
                 },
                 {
-                    data: 'valuesAttribute'
+                    data: 'productVariantName'
                 },
                 {
-                    data: 'imagesProduct',
+                    data: 'id',
                     render: function(data, type, row) {
-                        if (data) {
-                            return '<img src="data:' + row.imagesProductContentType + ';base64,' + data +
-                                '" alt="Image" style="width: 10rem; height: auto;" />';
-                        }
-                        return 'No Image';
+                        const imageUrl = `http://103.127.136.166:8991/api/product-images-path/${data}`;
+                        return `
+    <div style="text-align: center;">
+        <button class="btn btn-info btn-sm" onclick="openImageModal('${imageUrl}')">
+            Preview Image
+        </button>
+        <img src="${imageUrl}" style="display: none; max-width: 100px; max-height: 100px; object-fit: contain;" alt="Product Image">
+    </div>
+`;
                     }
                 },
                 {
@@ -77,6 +108,11 @@
             loadData();
         });
 
+        function openImageModal(imageUrl) {
+            document.getElementById('modalImage').src = imageUrl;
+            var imageModal = new bootstrap.Modal(document.getElementById('imagePreviewModal'));
+            imageModal.show();
+        }
 
         $('.table').on('click', '.btn-edit', function() {
             var tr = $(this).closest('tr');
@@ -147,18 +183,20 @@
                         }
                     },
                     {
-                        data: 'valuesAttribute'
+                        data: 'productVariantName'
                     },
                     {
-                        data: 'imagesProduct',
+                        data: 'id',
                         render: function(data, type, row) {
-                            if (data) {
-                                return '<div style="display: grid; place-items: center;"><img src="data:' +
-                                    row.imagesProductContentType + ';base64,' +
-                                    data +
-                                    '" alt="Image" style="width: 4rem; object-fit: cover; aspect-ratio: 1 / 1; background-position: center;"/></div>';
-                            }
-                            return '<span style="display: grid; place-items: center;">No Image</span>';
+                            const imageUrl = `http://103.127.136.166:8991/api/product-images-path/${data}`;
+                            return `
+    <div style="text-align: center;">
+        <button class="btn btn-info btn-sm" onclick="openImageModal('${imageUrl}')">
+            Preview Image
+        </button>
+        <img src="${imageUrl}" style="display: none; max-width: 100px; max-height: 100px; object-fit: contain;" alt="Product Image">
+    </div>
+`;
                         }
                     },
                     {

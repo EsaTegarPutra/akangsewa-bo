@@ -17,6 +17,7 @@
     <!-- Style-->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/skin_color.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/detail_completed.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/assets/vendor_components/datatable/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-confirm.css') }}">
 
@@ -266,7 +267,6 @@
                 </div>
             </section>
         </aside>
-
         <div class="content-wrapper">
             <div class="container-full">
                 <!-- Main content -->

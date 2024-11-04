@@ -1,0 +1,1 @@
+<a href="javascript:void(0)" class="waves-effect waves-light btn btn-sm btn-info mb-5 btn-detail-order-completed">Detail</a>
