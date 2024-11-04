@@ -30,22 +30,22 @@
                                 </div>
                             </div>
 
-							</div>
-							<!-- /.box-body -->
-							<div class="box-footer d-flex justify-content-end">
-								<a href="{{url('masterData/category')}}" type="button" class="btn btn-danger btn-sm me-1">
-								  <i class="ti-close"></i> Cancel
-								</a>
-								<a href="{{ route('storeVariant') }}" id="btnSave" class="btn btn-info btn-sm">
-								  <i class="ti-save-alt"></i> Save
-								</a>
-							</div>
-						</form>
-					  </div>
-					  <!-- /.box -->
-				</div>
-  </div>
-</section>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer d-flex justify-content-end">
+                            <a href="{{ url('masterData/category') }}" type="button" class="btn btn-danger btn-sm me-1">
+                                <i class="ti-close"></i> Cancel
+                            </a>
+                            <a href="javascript:void(0)" id="btnSave" class="btn btn-info btn-sm">
+                                <i class="ti-save-alt"></i> Save
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+    </section>
 @endsection
 @section('script')
     <script>

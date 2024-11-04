@@ -6,7 +6,8 @@
                 <div class="box">
                     <div class="box-header with-border d-flex justify-content-between align-items-center">
                         <h3 class="box-title">Product Description</h3>
-                        <a href="{{ url('product/description/create') }}" class="btn btn-info btn-sm btn-add">Add Description</a>
+                        <a href="{{ url('product/description/create') }}" class="btn btn-info btn-sm btn-add">Add
+                            Description</a>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -15,10 +16,9 @@
                                 <thead class="bg-info">
                                     <tr>
                                         <th>No</th>
+                                        <th>Product Id</th>
                                         <th>Product Name</th>
                                         <th>Product Description</th>
-                                        <th>Create At</th>
-                                        <th>Updated At</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -43,13 +43,10 @@
                     data: 'productId'
                 },
                 {
+                    data: 'productName'
+                },
+                {
                     data: 'descriptionValue'
-                },
-                {
-                    data: 'createdAt'
-                },
-                {
-                    data: 'updatedAt'
                 },
                 {
                     data: 'id'
@@ -114,7 +111,7 @@
                     error: function() { // error handling
                         $(".lookup-error").html("");
                         $("#lookup").append(
-                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="6">No data found in the server</th></tr></tbody>'
+                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="5">No data found in the server</th></tr></tbody>'
                         );
                         $("#lookup_processing").css("display", "none");
 
@@ -127,13 +124,10 @@
                         data: 'productId'
                     },
                     {
+                        data: 'productName'
+                    },
+                    {
                         data: 'descriptionValue'
-                    },
-                    {
-                        data: 'createdAt'
-                    },
-                    {
-                        data: 'updatedAt'
                     },
                     {
                         data: 'id'
@@ -150,7 +144,7 @@
                         orderable: true
                     },
                     {
-                        "targets": [5],
+                        "targets": [4],
                         "createdCell": function(td, cellData, rowData, row, col) {
                             $(td).empty();
                             $(td).addClass("text-center");

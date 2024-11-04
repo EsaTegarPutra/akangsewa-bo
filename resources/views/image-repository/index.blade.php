@@ -182,6 +182,50 @@
                         orderable: true
                     },
                     {
+                        "targets": [4], // Target kolom 'createAt'
+                        "createdCell": function(td, cellData, rowData, row, col) {
+                            if (cellData) {
+                                var date = new Date(cellData);
+                                var options = {
+                                    day: '2-digit',
+                                    month: 'short',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    second: '2-digit',
+                                    hour12: false
+                                };
+                                var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
+                                    '');
+                                $(td).text(formattedDate);
+                            } else {
+                                $(td).text('Not Available');
+                            }
+                        }
+                    },
+                    {
+                        "targets": [5], // Target kolom 'updatedAt'
+                        "createdCell": function(td, cellData, rowData, row, col) {
+                            if (cellData) {
+                                var date = new Date(cellData);
+                                var options = {
+                                    day: '2-digit',
+                                    month: 'short',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    second: '2-digit',
+                                    hour12: false
+                                };
+                                var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
+                                    '');
+                                $(td).text(formattedDate);
+                            } else {
+                                $(td).text('');
+                            }
+                        }
+                    },
+                    {
                         "targets": [6],
                         "createdCell": function(td, cellData, rowData, row, col) {
                             $(td).empty();

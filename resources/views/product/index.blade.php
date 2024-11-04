@@ -1,38 +1,48 @@
 @extends('layouts.app')
 @section('content')
-        <section class="content">
-            <div class="row">
-                <div class="col-12">
-                    <div class="box">
-                        <div class="box-header with-border d-flex justify-content-between align-items-center">
-                            <h3 class="box-title">Product</h3>
-                            <a href="{{ url('product/master/create') }}" class="btn btn-info btn-sm btn-add">Add Product</a>
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body">
-                            <div class="table-responsive">
-                                <table id="lookup" class="table">
-                                    <thead class="bg-info">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Product Name</th>
-                                            <th>Price</th>
-                                            <th>Category</th>
-                                            <th>Create At</th>
-                                            <th>Updated At</th>
-                                            <th class="text-center">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!-- /.box-body -->
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
                     </div>
+                @elseif(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                <div class="box">
+                    <div class="box-header with-border d-flex justify-content-between align-items-center">
+                        <h3 class="box-title">Product</h3>
+                        <a href="{{ url('product/master/create') }}" class="btn btn-info btn-sm btn-add">Add Product</a>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table id="lookup" class="table">
+                                <thead class="bg-info">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Product Name</th>
+                                        <th>Price</th>
+                                        <th>Category</th>
+                                        <th>Avability Status</th>
+                                        <th>Create At</th>
+                                        <th>Updated At</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 @endsection
 @section('script')
     <script>
@@ -48,7 +58,13 @@
                     render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
                 },
                 {
-                    data: 'categoryId'
+                    data: 'categoryName'
+                },
+                {
+                    data: 'avabilityStatus',
+                    render: function(data, type, row) {
+                        return data === true ? 'Enabled' : 'Disabled';
+                    }
                 },
                 {
                     data: 'createAt'
@@ -79,9 +95,9 @@
             var tr = $(this).closest('tr');
             var id = tr.attr('id').split('_');
             var index = id[1];
-            var data = table.fnGetData()
+            var data = table.fnGetData(); // Mendapatkan data dari baris
 
-            deletes(data[index].id);
+            deletes(data[index].id); // Panggil fungsi deletes dengan ID produk
         });
 
         function deletes(id) {
@@ -89,16 +105,61 @@
                 confirmButton: 'Remove',
                 cancelButton: 'Cancel',
                 title: 'Confirmation',
-                content: 'Remove this Data ?',
+                content: 'Remove this Data?',
                 icon: 'ti-info',
                 buttons: {
                     confirm: function() {
-                        location.href = "{{ url('product/master/delete') }}" + "/" + id;
+                        $.ajax({
+                            url: "{{ url('product/master/checkProductDescription') }}/" +
+                                id, // Cek Product Description
+                            data: {},
+                            dataType: "json",
+                            type: "get",
+                            success: function(descriptionData) {
+                                $.ajax({
+                                    url: "{{ url('product/master/checkProductVariant') }}/" +
+                                        id, // Cek Product Variant
+                                    data: {},
+                                    dataType: "json",
+                                    type: "get",
+                                    success: function(variantData) {
+                                        if (descriptionData < 1 && variantData < 1) {
+                                            // Jika tidak ada description & variant, lanjutkan hapus produk
+                                            location.href =
+                                                "{{ url('product/master/delete') }}/" +
+                                                id;
+                                        } else {
+                                            // Jika ada, tampilkan pesan error
+                                            $.alert({
+                                                title: 'Information',
+                                                content: 'Product cannot be deleted. It has ' +
+                                                    descriptionData +
+                                                    ' descriptions and ' +
+                                                    variantData + ' variants.',
+                                            });
+                                        }
+                                    },
+                                    error: function(jqXHR, textStatus, errorThrown) {
+                                        var errorMsg =
+                                            'Ajax request failed for Product Variant with = ' +
+                                            errorThrown;
+                                        console.log(errorMsg);
+                                    }
+                                });
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                var errorMsg =
+                                    'Ajax request failed for Product Description with = ' +
+                                    errorThrown;
+                                console.log(errorMsg);
+                            }
+                        });
                     },
                     cancel: function() {}
                 }
             });
         }
+
 
         function loadData() {
 
@@ -119,7 +180,7 @@
                     error: function() { // error handling
                         $(".lookup-error").html("");
                         $("#lookup").append(
-                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="7">No data found in the server</th></tr></tbody>'
+                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="8">No data found in the server</th></tr></tbody>'
                         );
                         $("#lookup_processing").css("display", "none");
 
@@ -136,7 +197,13 @@
                         render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
                     },
                     {
-                        data: 'categoryId'
+                        data: 'categoryName'
+                    },
+                    {
+                        data: 'avabilityStatus',
+                        render: function(data, type, row) {
+                            return data === "true" ? 'Enabled' : 'Disabled';
+                        }
                     },
                     {
                         data: 'createAt'
@@ -159,7 +226,51 @@
                         orderable: true
                     },
                     {
-                        "targets": [6],
+                        "targets": [5], // Target kolom 'createAt'
+                        "createdCell": function(td, cellData, rowData, row, col) {
+                            if (cellData) {
+                                var date = new Date(cellData);
+                                var options = {
+                                    day: '2-digit',
+                                    month: 'short',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    second: '2-digit',
+                                    hour12: false
+                                };
+                                var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
+                                    '');
+                                $(td).text(formattedDate);
+                            } else {
+                                $(td).text('Not Available');
+                            }
+                        }
+                    },
+                    {
+                        "targets": [6], // Target kolom 'updatedAt'
+                        "createdCell": function(td, cellData, rowData, row, col) {
+                            if (cellData) {
+                                var date = new Date(cellData);
+                                var options = {
+                                    day: '2-digit',
+                                    month: 'short',
+                                    year: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit',
+                                    second: '2-digit',
+                                    hour12: false
+                                };
+                                var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
+                                    '');
+                                $(td).text(formattedDate);
+                            } else {
+                                $(td).text('');
+                            }
+                        }
+                    },
+                    {
+                        "targets": [7],
                         "createdCell": function(td, cellData, rowData, row, col) {
                             $(td).empty();
                             $(td).addClass("text-center");

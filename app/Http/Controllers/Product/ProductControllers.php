@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Library\CurlGen;
 use Yajra\DataTables\Facades\DataTables;
+use Session;
 
 class ProductControllers extends Controller
 {
@@ -21,6 +22,19 @@ class ProductControllers extends Controller
         $resultData = $curlGen->getIndex($urlData);
 
         return DataTables::of($resultData)->escapeColumns([])->make(true);
+    }
+
+    public function checkProductDescription(CurlGen $curlGen, $id){
+        $descriptionData = "/api/product-descriptions/countByProductId/" . $id;
+        $descriptions = $curlGen->getIndex($descriptionData);
+
+        return $descriptions;
+    }
+    public function checkProductVariant(CurlGen $curlGen, $id){
+        $variantData = "/api/product-variants/countByProductId/" . $id;
+        $variants = $curlGen->getIndex($variantData);
+
+        return $variants;
     }
 
     public function create(CurlGen $curlGen)
@@ -44,11 +58,15 @@ class ProductControllers extends Controller
         return view('product.edit', compact('categories'))
             ->with('product', $result);
     }
+
+
     public function delete(CurlGen $curlGen, $id)
     {
+
         $product = "/api/products/" . $id;
         $result = $curlGen->delete($product);
-        return redirect(url('product/master'));
+
+        return redirect(url('product/master'))->with('success', 'berhasil');
     }
     public function store(CurlGen $curlGen, Request $request)
     {
@@ -62,6 +80,8 @@ class ProductControllers extends Controller
         );
 
         $resultData = $curlGen->store($url, $data);
+        // dd($resultData);
+
         if ($resultData[0] != 201) {
             $info = "Error";
             $colors = "red";
@@ -95,6 +115,7 @@ class ProductControllers extends Controller
         );
 
         $resultData = $curlGen->update($url, $data);
+        // dd($resultData);
 
         if ($resultData[0] != 200) {
             $info = "Error";

@@ -39,10 +39,9 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="form-label">Availability Status</label>
-                                                <select id="availabilityStatus" name="availabilityStatus" class="form-select">
-                                                    <option value="" selected disabled></option>
-                                                    <option value="true" {{ $product['avabilityStatus'] == true ? 'selected' : '' }}>Enable</option>
-                                                    <option value="false" {{ $product['avabilityStatus'] == true ? 'selected' : '' }}>Disable</option>
+                                                <select id="avabilityStatus" name="avabilityStatus" class="form-select">
+                                                    <option value="true" {{ $product['avabilityStatus'] === "true" ? 'selected' : 'Eanble' }}>Enable</option>
+                                                    <option value="false" {{ $product['avabilityStatus'] === "false" ? 'selected' : 'Disable' }}>Disable</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -72,7 +71,7 @@
             var productName = $('#productName').val();
             var price = $('#price').val();
             var categoryId = $('#categoryId').val();
-            var availabilityStatus = $('#availabilityStatus').val();
+            var avabilityStatus = $('#avabilityStatus').val();
 
             if (!productName) {
                 $.alert({
@@ -89,10 +88,10 @@
                     title: 'Information',
                     content: 'Category cant empty',
                 });
-            } else if (!availabilityStatus) {
+            } else if (!avabilityStatus) {
                 $.alert({
                     title: 'Information',
-                    content: 'availabilityStatus cant empty',
+                    content: 'avabilityStatus cant empty',
                 });
             } else {
                 $('#fSubmit').submit();
