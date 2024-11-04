@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Product;
+namespace App\Http\Controllers\Product\Image;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,7 +12,7 @@ class ImageProductControllers extends Controller
 {
     public function index()
     {
-        return view('product.image-repository.index');
+        return view('image-repository.index');
     }
 
     public function getIndex(CurlGen $curlGen)

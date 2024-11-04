@@ -105,6 +105,11 @@ Route::group(['middleware' => ['web']], function () {
                 Route::post('update/{id}', 'Order\DetailOrder\DetailControllers@update')->name('updateDetailOrder');
                 Route::get('delete/{id}', 'Order\DetailOrder\DetailControllers@delete')->name('deleteDetailOrder');
             });
+
+            Route::group(['prefix' => 'historyOrder'],  function () {
+                Route::get('', 'Order\HistoryOrderControllers@index')->name('indexHistoryOrder');
+                Route::get('detail', 'Order\HistoryOrderControllers@show')->name('showHistoryOrder');
+            });
         });         
 
         // === NOT USE ===
