@@ -14,7 +14,7 @@
 								<div class="row">
 								  <div class="col-md-12">
 									<div class="form-group">
-									  <label class="form-label">Produk Name</label>
+									  <label class="form-label">ProductId</label>
 									  <select name="productId" id="productId" class="form-select">
 										<option value="" selected disable>...</option>
 										@foreach ($products as $product)
@@ -25,6 +25,7 @@
 									  </select>
 									</div>
 								  </div>
+								  
 								  <div class="col-md-12">
 									<div class="form-group">
 									  <label class="form-label">variant name</label>

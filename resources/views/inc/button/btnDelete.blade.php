@@ -1,1 +1,1 @@
-<a href="javascript:void(0)" class="waves-effect waves-light btn btn-sm btn-danger mb-5 btn-delete">Delete</a>
+<a href="javascript:void(0)" class="waves-effect waves-light btn btn-md btn-danger mb-5 btn-delete"><i class="ti-trash"></i></a>
