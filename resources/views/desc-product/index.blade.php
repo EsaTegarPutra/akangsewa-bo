@@ -6,7 +6,8 @@
                 <div class="box">
                     <div class="box-header with-border d-flex justify-content-between align-items-center">
                         <h3 class="box-title">Product Description</h3>
-                        <a href="{{ url('product/description/create') }}" class="btn btn-info btn-sm btn-add">Add Description</a>
+                        <a href="{{ url('product/description/create') }}" class="btn btn-info btn-sm btn-add">Add
+                            Description</a>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -42,8 +43,8 @@
                     data: 'productId'
                 },
                 {
-                        data: 'productName'
-                    },
+                    data: 'productName'
+                },
                 {
                     data: 'descriptionValue'
                 },
@@ -141,50 +142,6 @@
                             $(td).text(row + 1);
                         },
                         orderable: true
-                    },
-                    {
-                        "targets": [2], // Target kolom 'createAt'
-                        "createdCell": function(td, cellData, rowData, row, col) {
-                            if (cellData) {
-                                var date = new Date(cellData);
-                                var options = {
-                                    day: '2-digit',
-                                    month: 'short',
-                                    year: 'numeric',
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                    second: '2-digit',
-                                    hour12: false
-                                };
-                                var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
-                                    '');
-                                $(td).text(formattedDate);
-                            } else {
-                                $(td).text('Not Available');
-                            }
-                        }
-                    },
-                    {
-                        "targets": [3], // Target kolom 'updatedAt'
-                        "createdCell": function(td, cellData, rowData, row, col) {
-                            if (cellData) {
-                                var date = new Date(cellData);
-                                var options = {
-                                    day: '2-digit',
-                                    month: 'short',
-                                    year: 'numeric',
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                    second: '2-digit',
-                                    hour12: false
-                                };
-                                var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
-                                    '');
-                                $(td).text(formattedDate);
-                            } else {
-                                $(td).text('');
-                            }
-                        }
                     },
                     {
                         "targets": [4],
