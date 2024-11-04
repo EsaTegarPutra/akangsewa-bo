@@ -87,9 +87,14 @@ class CategoryControllers extends Controller
   public function update(CurlGen $curlGen, Request $request, $id)
   {
 
+    //getCreatedAt
+    $urls = "/api/categories/".$id;
+    $results = $curlGen->getIndex($urls);
+    //End
     $url = "/api/categories";
     $data = array(
       "id" => $id,
+      "createdAt" => $results['createdAt'],
       "categoryName" => $request->categoryName,
       "status" => $request->status
     );

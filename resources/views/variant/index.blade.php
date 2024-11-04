@@ -15,7 +15,8 @@
                                 <thead class="bg-info">
                                     <tr>
                                         <th>No</th>
-                                        <th>Product name</th>
+                                        <th>ProductId</th>
+                                        <th>Product Name</th>
                                         <th>Variant Name</th>
                                         <th>Stock</th>
                                         <th>Created At</th>
@@ -106,7 +107,7 @@
                                     });
                                 } else {
                                     location.href = "{{ url('product/variant/delete') }}" + "/" +
-                                    id;
+                                        id;
                                 }
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
@@ -114,11 +115,10 @@
                                 console.log(errorMsg);
                             }
                         });
-
                     },
                     cancel: function() {}
                 }
-         });
+            });
         }
 
         function loadData() {
@@ -141,99 +141,97 @@
                         $(".lookup-error").html("");
                         $("#lookup").append(
                             '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="7">No data found in the server</th></tr></tbody>'
-                            );
+                        );
                         $("#lookup_processing").css("display", "none");
-
                     }
                 },
-                columns: [{
-                        data: 'id'
-                    },
-                    {
-                        data: 'productName'
-                    },
-                    {
-                        data: 'variantName'
-                    },
-                    {
-                        data: 'stock'
-                    },
-                    {
-                        data: 'createdAt'
-                    },
-                    {
-                        data: 'updatedAt'
-                    },
-                    {
-                        data: 'id'
-                    }
-                ],
-                createdRow: function(row, data, index) {
-                    $(row).attr('id', 'table_' + index);
+            columns: [{
+                    data: 'id'
                 },
-                columnDefs: [{
-                        "targets": [0],
-                        "createdCell": function(td, cellData, rowData, row, col) {
-                            $(td).text(row + 1);
-                        },
-                        orderable: true
+                {
+                    data: 'productName'
+                },
+                {
+                    data: 'variantName'
+                },
+                {
+                    data: 'stock'
+                },
+                {
+                    data: 'createdAt'
+                },
+                {
+                    data: 'updatedAt'
+                },
+                {
+                    data: 'id'
+                }
+            ],
+            createdRow: function(row, data, index) {
+                $(row).attr('id', 'table_' + index);
+            },
+            columnDefs: [{
+                    "targets": [0],
+                    "createdCell": function(td, cellData, rowData, row, col) {
+                        $(td).text(row + 1);
                     },
-                    {
-                        "targets": [4], // Target kolom 'createAt'
-                        "createdCell": function(td, cellData, rowData, row, col) {
-                            if (cellData) {
-                                var date = new Date(cellData);
-                                var options = {
-                                    day: '2-digit',
-                                    month: 'short',
-                                    year: 'numeric',
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                    second: '2-digit',
-                                    hour12: false
-                                };
-                                var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
-                                    '');
-                                $(td).text(formattedDate);
-                            } else {
-                                $(td).text('Not Available');
-                            }
+                    orderable: true
+                },
+                {
+                    "targets": [4], // Target kolom 'createAt'
+                    "createdCell": function(td, cellData, rowData, row, col) {
+                        if (cellData) {
+                            var date = new Date(cellData);
+                            var options = {
+                                day: '2-digit',
+                                month: 'short',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                second: '2-digit',
+                                hour12: false
+                            };
+                            var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
+                                '');
+                            $(td).text(formattedDate);
+                        } else {
+                            $(td).text('Not Available');
                         }
-                    },
-                    {
-                        "targets": [5], // Target kolom 'updatedAt'
-                        "createdCell": function(td, cellData, rowData, row, col) {
-                            if (cellData) {
-                                var date = new Date(cellData);
-                                var options = {
-                                    day: '2-digit',
-                                    month: 'short',
-                                    year: 'numeric',
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                    second: '2-digit',
-                                    hour12: false
-                                };
-                                var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
-                                    '');
-                                $(td).text(formattedDate);
-                            } else {
-                                $(td).text('');
-                            }
-                        }
-                    },
-                    {
-                        "targets": [6],
-                        "createdCell": function(td, cellData, rowData, row, col) {
-                            $(td).empty();
-                            $(td).addClass("text-center");
-                            $(td).append($('@include('inc.button.btnGroupED')'));
-                        },
-                        orderable: false
                     }
-                ]
+                },
+                {
+                    "targets": [5], // Target kolom 'updatedAt'
+                    "createdCell": function(td, cellData, rowData, row, col) {
+                        if (cellData) {
+                            var date = new Date(cellData);
+                            var options = {
+                                day: '2-digit',
+                                month: 'short',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                second: '2-digit',
+                                hour12: false
+                            };
+                            var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
+                                '');
+                            $(td).text(formattedDate);
+                        } else {
+                            $(td).text('');
+                        }
+                    }
+                },
+                {
+                    "targets": [6],
+                    "createdCell": function(td, cellData, rowData, row, col) {
+                        $(td).empty();
+                        $(td).addClass("text-center");
+                        $(td).append($('@include('inc.button.btnGroupED')'));
+                    },
+                    orderable: false
+                }
+            ]
             });
-
         }
     </script>
 @endsection

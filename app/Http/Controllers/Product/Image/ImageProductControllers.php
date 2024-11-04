@@ -21,35 +21,6 @@ class ImageProductControllers extends Controller
         $urlData = "/api/product-images?size=99999&sort=id%2Cdesc";
         $resultData = $curlGen->getIndex($urlData);
 
-        // Fetch attribute values data
-        $urlDataAttributeValues = "/api/attribute-values?size=99999&sort=id%2Cdesc";
-        $attributeValues = $curlGen->getIndex($urlDataAttributeValues);
-
-        // Fetch product data including product name
-        $urlDataProducts = "/api/products?size=99999&sort=id%2Cdesc";
-        $products = $curlGen->getIndex($urlDataProducts);
-
-        // Map attribute values to their IDs
-        $attributeValueMap = [];
-        foreach ($attributeValues as $attributeValue) {
-            $attributeValueMap[$attributeValue['id']] = $attributeValue['valuesAttribute'];
-        }
-
-        // Map product names to their IDs
-        $productMap = [];
-        foreach ($products as $product) {
-            $productMap[$product['id']] = $product['productName'];
-        }
-
-        // Combine product and attribute data into the result
-        foreach ($resultData as &$value) {
-            // Attach attribute value
-            $value['valuesAttribute'] = $attributeValueMap[$value['attributeValuesId']] ?? null;
-
-            // Attach product name
-            $value['productName'] = $productMap[$value['productId']] ?? null;
-        }
-
         return Datatables::of($resultData)->escapeColumns([])->make(true);
     }
 
