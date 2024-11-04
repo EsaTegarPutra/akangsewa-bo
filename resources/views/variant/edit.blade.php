@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<<<<<<< HEAD
     <section class="content">
         <div class="row">
             <div class="col-lg-4">
@@ -19,8 +18,9 @@
                                         <label class="form-label">Product Name</label>
                                         <select name="productId" id="productId" class="form-select">
                                             @foreach ($products as $product)
-                                                <option value="{{ $product['id'] }}" {{ $product['id'] == $variant['productId'] ? 'selected' : '' }}>
-													{{ $product['productName']}}
+                                                <option value="{{ $product['id'] }}"
+                                                    {{ $product['id'] == $variant['productId'] ? 'selected' : '' }}>
+                                                    {{ $product['productName'] }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -41,48 +41,6 @@
                                     </div>
                                 </div>
                             </div>
-=======
-<section class="content">
-	<div class="row">
-    <div class="col-lg-4">
-					  <div class="box">
-						<div class="box-header with-border">
-						  <h4 class="box-title">Edit Variant</h4>
-						</div>
-						<!-- /.box-header -->
-						<form id="fSubmit" class="form" action="{{url('product/variant/update/'.$variant['id'])}}" method="post">
-              {{csrf_field()}}
-							<div class="box-body">
-								<div class="row">
-								  <div class="col-md-12">
-									<div class="form-group">
-										<label class="form-label">ProductId</label>
-										<select name="productId" id="productId" class="form-select">
-										  <option value="" selected disabled>...</option>
-										  @foreach ($products as $product)
-											  <option value="{{ $product['id'] }}">
-												  {{ $product['productName'] }}
-											  </option>
-										  @endforeach
-										</select>
-									  </div>
-								  </div>
-								  
-									<div class="col-md-12">
-									  <div class="form-group">
-										<label class="form-label">variant name</label>
-										<input class="form-control" value="{{ $variant['variantName'] }}" name="variantName" id="variantName">
-									  </div>
-									</div>
-								  <div class="col-md-12">
-									<div class="form-group">
-									  <label class="form-label">stock</label>
-									  <input class="form-control" value="{{ $variant['stock'] }}" name="stock" id="stock">
-									</div>
-								  </div>
-								</div>
->>>>>>> 7bed28b639efeec2784f719fda4978972a8d6d28
-
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer d-flex justify-content-end">

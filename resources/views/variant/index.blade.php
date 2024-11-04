@@ -15,7 +15,6 @@
                                 <thead class="bg-info">
                                     <tr>
                                         <th>No</th>
-                                        <th>ProductId</th>
                                         <th>Product Name</th>
                                         <th>Variant Name</th>
                                         <th>Stock</th>
