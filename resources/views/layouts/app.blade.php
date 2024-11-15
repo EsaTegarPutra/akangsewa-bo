@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/detail_completed.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/assets/vendor_components/datatable/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-confirm.css') }}">
-
 </head>
 
 <body class="hold-transition light-skin sidebar-mini theme-primary fixed">
@@ -260,6 +259,8 @@
                                     <li><a href="{{ url('order/historyOrder') }}"><i class="icon-Commit"><span
                                                     class="path1"></span><span class="path2"></span></i>History
                                             Order</a></li>
+                                    <li><a href="{{ url('order/tracking-delivery') }}"><i class="icon-Commit"><span
+                                                    class="path1"></span><span class="path2"></span></i>Tracking Delivery</a></li>
                                 </ul>
                             </li>
                         </ul>
