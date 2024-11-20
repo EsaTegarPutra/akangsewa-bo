@@ -16,4 +16,7 @@ class OrderControllers extends Controller
     public function trackingDelivery(){
         return view('tracking-delivery.index');
     }
+    public function trackingDeliveryDetail(){
+        return view('tracking-delivery.detail-tracking');
+    }
 }

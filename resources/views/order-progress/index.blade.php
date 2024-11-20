@@ -43,7 +43,7 @@
                                         <td>24 Oct 2024 10:52:16</td>
                                         <td class="d-flex justify-content-center gap-1">
                                             <a href="{{ url('order/detail-order')}}" class="btn btn-md btn-primary">Detail</a>
-                                            <a href="{{ url('order/tracking-delivery')}}" class="btn btn-md btn-success">Tracking</a>
+                                            <a href="{{ url('order/tracking-delivery/detail')}}" class="btn btn-md btn-success">Tracking</a>
                                         </td>
                                     </tr>
                                     <tr>

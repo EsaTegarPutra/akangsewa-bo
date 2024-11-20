@@ -86,27 +86,25 @@ Route::group(['middleware' => ['web']], function () {
                 Route::put('update/{id}', 'Product\Image\ImageProductControllers@update')->name('updateProductImage');
                 Route::get('delete/{id}', 'Product\Image\ImageProductControllers@delete')->name('deleteProductImage');
             });
-
-        });
-
-        Route::group(['prefix' => 'order'], function() {
-            Route::get('/tracking-delivery', 'Order\OrderControllers@trackingDelivery')->name('trackingDelivery');
-            Route::get('/detail-order', 'Order\OrderControllers@detailOrder')->name('detailOrder');
-            Route::group(['prefix' => 'ongoingRentals'], function () {
-                Route::get('', 'Order\Progress\ProgressControllers@index')->name('indexOrderProgress');
-            });
         });
 
 
         Route::group(['prefix' => 'order'], function () {
-                
+            Route::get('/tracking-delivery', 'Order\OrderControllers@trackingDelivery')->name('trackingDelivery');
+            Route::get('/tracking-delivery/detail', 'Order\OrderControllers@trackingDeliveryDetail')->name('trackingDeliveryDetail');
+            Route::get('/detail-order', 'Order\OrderControllers@detailOrder')->name('detailOrder');
+
             Route::group(['prefix' => 'pendingOrder'], function () {
                 Route::get('', 'Order\PendingOrder\PendingControllers@index')->name('indexPendingOrder');
                 Route::get('getIndex', 'Order\PendingOrder\PendingControllers@getIndex')->name('getIndexPendingOrder');
                 Route::get('create', 'Order\PendingOrder\PendingControllers@create')->name('createPendingOrder');
-                });
+            });
 
-            Route::group(['prefix' => 'detailOrder'], function() {
+            Route::group(['prefix' => 'ongoingRentals'], function () {
+                Route::get('', 'Order\Progress\ProgressControllers@index')->name('indexOrderProgress');
+            });
+
+            Route::group(['prefix' => 'detailOrder'], function () {
                 Route::get('', 'Order\DetailOrder\DetailControllers@index')->name('indexDetailOrder');
                 Route::get('getIndex', 'Order\DetailOrder\DetailControllers@getIndex')->name('getIndexDetailOrder');
                 Route::get('create', 'Order\DetailOrder\DetailControllers@create')->name('createDetailOrder');
@@ -120,32 +118,6 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('', 'Order\HistoryOrderControllers@index')->name('indexHistoryOrder');
                 Route::get('detail', 'Order\HistoryOrderControllers@show')->name('showHistoryOrder');
             });
-        });         
-
-        // === NOT USE ===
-        // Route::group(['prefix' => 'product'], function () {
-        //     Route::group(['prefix' => 'attribute'], function () {
-        //         Route::get('', 'Attribute\AttributeControllers@index')->name('indexAttribute');
-        //         Route::get('getIndex', 'Attribute\AttributeControllers@getIndex')->name('getIndexAttribute');
-        //         Route::get('create', 'Attribute\AttributeControllers@create')->name('createAttribute');
-        //         Route::post('store', 'Attribute\AttributeControllers@store')->name('storeAttribute');
-        //         Route::get('edit/{id}', 'Attribute\AttributeControllers@edit')->name('editAttribute');
-        //         Route::post('update/{id}', 'Attribute\AttributeControllers@update')->name('updateAttribute');
-        //         Route::get('delete/{id}', 'Attribute\AttributeControllers@delete')->name('deleteAttribute');
-        //     });
-        // });
-
-        // Route::group(['prefix' => 'product'], function () {
-        //     Route::group(['prefix' => 'value'], function () {
-        //         Route::get('', 'Value\ValueControllers@index')->name('indexValue');
-        //         Route::get('getIndex', 'Value\ValueControllers@getIndex')->name('getIndexValue');
-        //         Route::get('create', 'Value\ValueControllers@create')->name('createValue');
-        //         Route::post('store', 'Value\ValueControllers@store')->name('storeValue');
-        //         Route::get('edit/{id}', 'Value\ValueController@edit')->name('editValue');
-        //         Route::post('update/{id}', 'Value\ValueController@update')->name('updateValue');
-        //         Route::get('delete/{id}', 'Value\ValueController@delete')->name('deleteValue');
-        //     });
-        // });
-        //=== NOT USE ==
+        });
     });
 });

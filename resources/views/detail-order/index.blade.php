@@ -5,9 +5,8 @@
             <div class="row my-4">
                 <div class="col-md-12">
                     <div class="d-flex gap-2 mb-3">
-                        <a href="" class="btn btn-outline-secondary btn-sm rounded shadow-sm  "><i
-                                class="ti-arrow-left"></i></a>
-                        <h5 class="m-1">Order ID : 00001</h5>
+                        <a href="" class="btn btn-primary btn-sm rounded shadow-sm  "><i class="ti-arrow-left"></i></a>
+                        <h4 class="m-1">Detail Progress</h4>
                     </div>
                     <div class="card shadow-sm rounded-lg">
                         <div class="card-body">
@@ -23,7 +22,10 @@
                                 <div class="d-flex gap-2">
                                     <button class="btn btn-outline-secondary btn-sm px-3 shadow-sm">More</button>
                                     <button class="btn btn-primary btn-sm px-3 shadow-sm">
-                                        <i class="ti-save"></i> Export
+                                        <i class="ti-export"></i> Invoice
+                                    </button>
+                                    <button class="btn btn-success btn-sm px-3 shadow-sm" disabled>
+                                        <i class="ti-check-box"></i> Completed
                                     </button>
                                 </div>
                             </div>
@@ -31,15 +33,11 @@
                             <!-- Order Details -->
                             <div class="row text-center text-md-start">
                                 <div class="col-6 col-md-3 mb-3">
-                                    <p class="m-0 fw-bold">Paid on :</p>
+                                    <p class="m-0 fw-bold">Requets on :</p>
                                     <p class="m-0 text-muted">17 Aug 1945, 12:59</p>
                                 </div>
                                 <div class="col-6 col-md-3 mb-3">
                                     <p class="m-0 fw-bold">Placed on :</p>
-                                    <p class="m-0 text-muted">17 Aug 1945, 12:59</p>
-                                </div>
-                                <div class="col-6 col-md-3 mb-3">
-                                    <p class="m-0 fw-bold">Created at :</p>
                                     <p class="m-0 text-muted">17 Aug 1945, 12:59</p>
                                 </div>
                                 <div class="col-6 col-md-3 mb-3">
@@ -124,12 +122,13 @@
                         </div>
                         <div class="col-md-8">
                             <div class="box">
-                                <div class="box-header with-border d-flex justify-content-between align-items-center">
-                                    <h3 class="box-title">Items Ordered</h3>
+                                <div class="box-header with-border d-flex justify-content-start align-items-center p-3">
+                                    <i class="ti-shopping-cart-full fs-3"></i>
+                                    <h3 class="box-title">Products Ordered</h3>
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
-                                    <div class="table-responsive">
+                                    <div class="table-responsive mb-2">
                                         <table id="lookup" class="table">
                                             <thead class="bg-info">
                                                 <tr>
@@ -137,7 +136,6 @@
                                                     <th>Item Name</th>
                                                     <th>Quatity</th>
                                                     <th>Price</th>
-                                                    <th>Created At</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -146,21 +144,48 @@
                                                     <td>Sony Sound System</td>
                                                     <td>2</td>
                                                     <td>2.000.000,00</td>
-                                                    <td>24 Oct 2024 10:52:16</td>
                                                 </tr>
                                                 <tr>
                                                     <td>2</td>
                                                     <td>Canon Camera Profesional</td>
-                                                    <td>2</td>
+                                                    <td>1</td>
                                                     <td>2.500.000,00</td>
-                                                    <td>24 Oct 2024 10:52:16</td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
+                                    <hr>
+                                    <div class="mb-2">
+                                        <h5 class="fw-bold mb-3">Payment Details</h5>
+
+                                        <!-- Subtotal Harga Produk -->
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Product Subtotal</span>
+                                            <span>Rp 1.000.000</span>
+                                        </div>
+
+                                        <!-- Biaya Layanan -->
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Service Fee</span>
+                                            <span>Rp 50.000</span>
+                                        </div>
+
+                                        <!-- Biaya Penanganan -->
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Handling Fee</span>
+                                            <span>Rp 20.000</span>
+                                        </div>
+
+                                        <hr class="my-3">
+
+                                        <!-- Total Pembayaran -->
+                                        <div class="d-flex justify-content-between">
+                                            <h5 class="fw-bold">Total Payment </h5>
+                                            <h5 class="fw-bold">Rp 1.070.000</h5>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- /.box-body -->
-
                             </div>
                         </div>
                     </div>
