@@ -24,6 +24,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>001</td>
+                                        <td>Black</td>
+                                        <td>Rp.1.000.000</td>
+                                        <td>2 Days</td>
+                                        <td>Completed</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -75,7 +85,7 @@
             var index = id[1];
             var data = table.fnGetData()
 
-            location.href = "{{ url('product/attributeValues/edit') }}/" + data[index].id;
+            location.href = "{{ url('product/variant/edit') }}/" + data[index].id;
         });
         $('.table').on('click', '.btn-delete', function() {
             var tr = $(this).closest('tr');
@@ -95,7 +105,7 @@
                 icon: 'ti-info',
                 buttons: {
                     confirm: function() {
-                        location.href = "{{ url('product/attributeValues/delete') }}" + "/" + id;
+                        location.href = "{{ url('product/variant/delete') }}" + "/" + id;
                     },
                     cancel: function() {}
                 }
@@ -115,7 +125,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ url('product/attributeValues/getIndex') }}/",
+                    url: "{{ url('product/variant/getIndex') }}/",
                     dataType: "json",
                     type: "GET",
                     error: function() { // error handling
