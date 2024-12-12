@@ -211,6 +211,9 @@
                                     <li><a href="{{ url('masterData/category') }}"><i class="icon-Commit"><span
                                                     class="path1"></span><span class="path2"></span></i>Category</a>
                                     </li>
+                                    <li><a href="{{ url('masterData/tenantShipping') }}"><i class="icon-Commit"><span
+                                                    class="path1"></span><span class="path2"></span></i>Tenant Shipping</a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="treeview">

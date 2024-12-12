@@ -3,10 +3,20 @@
     <section class="content">
         <div class="row">
             <div class="col-12">
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @elseif(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div class="box">
                     <div class="box-header with-border d-flex justify-content-between align-items-center">
-                        <h3 class="box-title">Product Attribute</h3>
-                        <a href="{{ url('product/attribute/create') }}" class="btn btn-info btn-sm btn-add">Add Attribute</a>
+                        <h3 class="box-title">Tenant Shipping</h3>
+                        <a href="{{ url('masterData/tenantShipping/create') }}" class="btn btn-info btn-sm btn-add">Add
+                            Shipping</a>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -15,9 +25,10 @@
                                 <thead class="bg-info">
                                     <tr>
                                         <th>No</th>
-                                        <th>Name</th>
-                                        <th>Created At</th>
-                                        <th>Updated At</th>
+                                        <th>Shipping Name</th>
+                                        <th>Shipping Price</th>
+                                        <th>Shipping Type</th>
+                                        <th>Status</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -39,13 +50,22 @@
                     data: 'id'
                 },
                 {
-                    data: 'name'
+                    data: 'shippingName'
                 },
                 {
-                    data: 'createdAt'
+                    data: 'shippingPrice',
+                    render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
                 },
                 {
-                    data: 'updatedAt'
+                    data: 'shippingType'
+                },
+                {
+                    data: 'status',
+                    render: function(data, type, row) {
+                        return data === "true" ?
+                            '<span class="badge bg-success">Enable</span>' :
+                            '<span class="badge bg-danger">Disable</span>';
+                    }
                 },
                 {
                     data: 'id'
@@ -64,7 +84,7 @@
             var index = id[1];
             var data = table.fnGetData()
 
-            location.href = "{{ url('product/attribute/edit') }}/" + data[index].id;
+            location.href = "{{ url('masterData/tenantShipping/edit') }}/" + data[index].id;
         });
         $('.table').on('click', '.btn-delete', function() {
             var tr = $(this).closest('tr');
@@ -84,7 +104,7 @@
                 icon: 'ti-info',
                 buttons: {
                     confirm: function() {
-                        location.href = "{{ url('product/attribute/delete') }}" + "/" + id;
+                        location.href = "{{ url('masterData/tenantShipping/delete') }}" + "/" + id;
                     },
                     cancel: function() {}
                 }
@@ -92,10 +112,9 @@
         }
 
         function loadData() {
+            $('#lookup').dataTable().fnDestroy(); // menghancurkan tabel sebelumnya
 
-            $('#lookup').dataTable().fnDestroy();
-
-            var table = $("#lookup").dataTable({
+            var table = $("#lookup").DataTable({
                 "scrollCollapse": true,
                 'autoWidth': true,
                 'bSort': true,
@@ -104,29 +123,37 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ url('product/attribute/getIndex') }}/",
+                    url: "{{ url('masterData/tenantShipping/getIndex') }}/",
                     dataType: "json",
                     type: "GET",
-                    error: function() { // error handling
+                    error: function() {
                         $(".lookup-error").html("");
                         $("#lookup").append(
-                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="5">No data found in the server</th></tr></tbody>'
-                            );
+                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="6">No data found in the server</th></tr></tbody>'
+                        );
                         $("#lookup_processing").css("display", "none");
-
                     }
                 },
                 columns: [{
                         data: 'id'
                     },
                     {
-                        data: 'name'
+                        data: 'shippingName'
                     },
                     {
-                        data: 'createdAt'
+                        data: 'shippingPrice',
+                        render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
                     },
                     {
-                        data: 'updatedAt'
+                        data: 'shippingType'
+                    },
+                    {
+                        data: 'status',
+                        render: function(data, type, row) {
+                            return data === "true" ?
+                                '<span class="badge bg-success">Enable</span>' :
+                                '<span class="badge bg-danger">Disable</span>';
+                        }
                     },
                     {
                         data: 'id'
@@ -143,7 +170,7 @@
                         orderable: true
                     },
                     {
-                        "targets": [4],
+                        "targets": [5],
                         "createdCell": function(td, cellData, rowData, row, col) {
                             $(td).empty();
                             $(td).addClass("text-center");
@@ -153,7 +180,6 @@
                     }
                 ]
             });
-
         }
     </script>
 @endsection
