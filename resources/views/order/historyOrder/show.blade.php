@@ -5,7 +5,8 @@
             <div class="col-12">
                 {{-- Header Info --}}
                 <div class="box">
-                    <div class="box-header with-border d-flex flex-column flex-sm-row align-items-start justify-content-between">
+                    <div
+                        class="box-header with-border d-flex flex-column flex-sm-row align-items-start justify-content-between">
                         <div class="d-flex align-items-center gap-3">
                             <button class="btn btn-sm btn-primary"><i class="ti-arrow-left"></i></button>
                             <div class="header-main-detail-order">
@@ -17,7 +18,8 @@
                             </div>
                         </div>
                         <div class="d-flex align-items-center gap-2 mt-3 mt-sm-0">
-                            <button class="btn btn-sm btn-primary"><i class="ti-download"></i> Export</button>
+                            <button class="btn btn-sm btn-primary" onclick="exportInv()"><i class="ti-download"></i>
+                                Export</button>
                             <h4 class="mb-0 mx-1 pe-none">|</h4>
                             <button class="btn btn-sm btn-primary">View Tracking</button>
                         </div>
@@ -33,35 +35,43 @@
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-5 text-secondary fw-bold">Name</div>
-                                    <div class="col-7 text-secondary fw-bold">: <span class="fw-normal text-dark">your name</span></div>
+                                    <div class="col-7 text-secondary fw-bold">: <span class="fw-normal text-dark">your
+                                            name</span></div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-5 text-secondary fw-bold">Email</div>
-                                    <div class="col-7 text-secondary fw-bold">: <span class="fw-normal text-dark">name123@gmail.com</span></div>
+                                    <div class="col-7 text-secondary fw-bold">: <span
+                                            class="fw-normal text-dark">name123@gmail.com</span></div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-5 text-secondary fw-bold">Phone</div>
-                                    <div class="col-7 text-secondary fw-bold">: <span class="fw-normal text-dark">(+62) 8123456789</span></div>
+                                    <div class="col-7 text-secondary fw-bold">: <span class="fw-normal text-dark">(+62)
+                                            8123456789</span></div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-5 text-secondary fw-bold">Request date</div>
-                                    <div class="col-7 text-secondary fw-bold">: <span class="fw-normal text-dark">20 Oct 2024</span></div>
+                                    <div class="col-7 text-secondary fw-bold">: <span class="fw-normal text-dark">20 Oct
+                                            2024</span></div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-5 text-secondary fw-bold">Completed date</div>
-                                    <div class="col-7 text-secondary fw-bold">: <span class="fw-normal text-dark">24 Oct 2024</span></div>
+                                    <div class="col-7 text-secondary fw-bold">: <span class="fw-normal text-dark">24 Oct
+                                            2024</span></div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-5 text-secondary fw-bold">Rental Period</div>
-                                    <div class="col-7 text-secondary fw-bold">: <span class="fw-normal text-dark">2 days</span></div>
+                                    <div class="col-7 text-secondary fw-bold">: <span class="fw-normal text-dark">2
+                                            days</span></div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-5 text-secondary fw-bold">Shipping</div>
-                                    <div class="col-7 text-secondary fw-bold">: <span class="fw-normal text-dark">J&T Exprezz</span></div>
+                                    <div class="col-7 text-secondary fw-bold">: <span class="fw-normal text-dark">J&T
+                                            Exprezz</span></div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-5 text-secondary fw-bold">Payment method</div>
-                                    <div class="col-7 text-secondary fw-bold">: <span class="fw-normal text-dark">E-Wallet</span></div>
+                                    <div class="col-7 text-secondary fw-bold">: <span
+                                            class="fw-normal text-dark">E-Wallet</span></div>
                                 </div>
 
                                 <hr>
@@ -84,7 +94,7 @@
                                     Expedita
                                     repellat fugiat reiciendis magnam animi delectus.
                                 </p>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -129,7 +139,8 @@
                                             <h4 class="mt-1 mb-0"><i class="ti-pencil-alt"></i></h4>
                                             <h5 class="my-0 fw-bold">CUSTOMER NOTES</h5>
                                         </div>
-                                        <p class="mb-0 border border-info py-1 px-2 rounded-3" style="border-width: 1.5px !important">Lorem ipsum dolor sit amet
+                                        <p class="mb-0 border border-info py-1 px-2 rounded-3"
+                                            style="border-width: 1.5px !important">Lorem ipsum dolor sit amet
                                             consectetur, adipisicing elit. Dicta,
                                             adipisci.</p>
                                     </div>
@@ -155,15 +166,18 @@
 
                                         <div class="row mb-2">
                                             <div class="col-5 col-lg-4 text-secondary fw-bold">Paid on</div>
-                                            <div class="col-7 col-lg-8 text-secondary fw-bold">: <span class="fw-normal text-dark">20 Oct 2024 10:01:11</span></div>
+                                            <div class="col-7 col-lg-8 text-secondary fw-bold">: <span
+                                                    class="fw-normal text-dark">20 Oct 2024 10:01:11</span></div>
                                         </div>
                                         <div class="row mb-2">
                                             <div class="col-5 col-lg-4 text-secondary fw-bold">E-Wallet name</div>
-                                            <div class="col-7 col-lg-8 text-secondary fw-bold">: <span class="fw-normal text-dark">Gopay</span></div>
+                                            <div class="col-7 col-lg-8 text-secondary fw-bold">: <span
+                                                    class="fw-normal text-dark">Gopay</span></div>
                                         </div>
                                         <div class="row mb-2">
                                             <div class="col-5 col-lg-4 text-secondary fw-bold">No. E-Wallet</div>
-                                            <div class="col-7 col-lg-8 text-secondary fw-bold">: <span class="fw-normal text-dark">08123456789</span></div>
+                                            <div class="col-7 col-lg-8 text-secondary fw-bold">: <span
+                                                    class="fw-normal text-dark">08123456789</span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -177,4 +191,10 @@
     </section>
 @endsection
 @section('script')
+    <script>
+        function exportInv() {
+            document.title = 'INV' + new Date().toISOString().split('T')[0];
+            window.print();
+        }
+    </script>
 @endsection
