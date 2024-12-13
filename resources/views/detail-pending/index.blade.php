@@ -6,7 +6,7 @@
                 <h5 class="card-header fw-bold">Status: <br><button class="btn btn-danger btn-rounded btn-sm">Pending</button>
                 </h5>
                 <h5 class="card-header fw-bold"><br>
-                    <button class="btn btn-dark">
+                    <button class="btn btn-dark" onclick="window.print()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                             class="bi bi-printer" viewBox="0 0 16 16">
                             <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1" />

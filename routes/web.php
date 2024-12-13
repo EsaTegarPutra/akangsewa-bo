@@ -29,6 +29,16 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('delete/{id}', 'Category\CategoryControllers@delete')->name('deleteCategory');
                 Route::get('checkProduct/{id}', 'Category\CategoryControllers@checkProduct')->name('checkProductCategory');
             });
+
+            Route::group(['prefix' => 'banner'],  function () {
+                Route::get('', 'Banner\BannerControllers@index')->name('indexBanner');
+                Route::get('getIndex', 'Banner\BannerControllers@getIndex')->name('getIndex');
+                Route::get('create', 'Banner\BannerControllers@create')->name('createBanner');
+                Route::post('store', 'Banner\BannerControllers@store')->name('storeBanner');
+                Route::get('edit/{id}', 'Banner\BannerControllers@edit')->name('editBanner');
+                Route::put('update/{id}', 'Banner\BannerControllers@update')->name('updateBanner');
+                Route::get('delete/{id}', 'Banner\BannerControllers@delete')->name('deleteBanner');
+            });
         });
 
 
@@ -120,6 +130,8 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('', 'Order\HistoryOrderControllers@index')->name('indexHistoryOrder');
                 Route::get('detail', 'Order\HistoryOrderControllers@show')->name('showHistoryOrder');
             });
+
+            
         });         
 
         // === NOT USE ===
