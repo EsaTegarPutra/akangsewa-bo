@@ -30,6 +30,15 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('checkProduct/{id}', 'Category\CategoryControllers@checkProduct')->name('checkProductCategory');
             });
 
+            Route::group(['prefix' => 'tenantShipping'], function() {
+                Route::get('', 'TenantShipping\TenantShippingControllers@index')->name('indexTenantShipping');
+                Route::get('getIndex', 'TenantShipping\TenantShippingControllers@getIndex')->name('getIndexTenantShipping');
+                Route::get('create', 'TenantShipping\TenantShippingControllers@create')->name('createTenantShipping');
+                Route::post('store', 'TenantShipping\TenantShippingControllers@store')->name('storeTenantShipping');
+                Route::get('edit/{id}', 'TenantShipping\TenantShippingControllers@edit')->name('editTenantShipping');
+                Route::post('update/{id}', 'TenantShipping\TenantShippingControllers@update')->name('updateTenantShipping');
+                Route::get('delete/{id}', 'TenantShipping\TenantShippingControllers@delete')->name('deleteTenantShipping');
+
             Route::group(['prefix' => 'kurir'], function () {
                 Route::get('', 'Kurir\KurirControllers@index')->name('indexKurir');
                 Route::get('getIndex', 'Kurir\KurirControllers@getIndex')->name('getIndexKurir');
@@ -38,6 +47,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('edit/{id}', 'Kurir\KurirControllers@edit')->name('editKurir');
                 Route::put('update/{id}', 'Kurir\KurirControllers@update')->name('updateKurir');
                 Route::get('delete/{id}', 'Kurir\KurirControllers@delete')->name('deleteKurir');
+
             });
         });
 
@@ -103,6 +113,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('/tracking-delivery', 'Order\OrderControllers@trackingDelivery')->name('trackingDelivery');
             Route::get('/tracking-delivery/detail', 'Order\OrderControllers@trackingDeliveryDetail')->name('trackingDeliveryDetail');
             Route::get('/detail-order', 'Order\OrderControllers@detailOrder')->name('detailOrder');
+            Route::get('getIndex', 'Order\OrderControllers@getIndex')->name('getIndexOrder');
 
             Route::group(['prefix' => 'pendingOrder'], function () {
                 Route::get('', 'Order\PendingOrder\PendingControllers@index')->name('indexPendingOrder');
@@ -112,6 +123,7 @@ Route::group(['middleware' => ['web']], function () {
 
             Route::group(['prefix' => 'ongoingRentals'], function () {
                 Route::get('', 'Order\Progress\ProgressControllers@index')->name('indexOrderProgress');
+                Route::get('getIndex', 'Order\Progress\ProgressControllers@getIndex')->name('getIndexProgressOrder'); 
             });
 
             Route::group(['prefix' => 'detailOrder'], function () {

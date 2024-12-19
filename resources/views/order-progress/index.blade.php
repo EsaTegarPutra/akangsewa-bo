@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <section class="content">
+    {{-- <section class="content">
         <div class="row">
             <div class="col-12">
                 @if (session('error'))
@@ -67,136 +67,164 @@
                 </div>
             </div>
         </div>
+    </section> --}}
+    <section class="content">
+        <div class="row">
+            <div class="col-12">
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @elseif(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                <div class="box">
+                    <div class="box-header with-border d-flex justify-content-between align-items-center">
+                        <h3 class="box-title">Order Progress</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table id="ordersTable" class="table">
+                                <thead class="bg-info">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Order Code</th>
+                                        <th>Total Amount</th>
+                                        <th>Total Discount</th>
+                                        <th>Total Price</th>
+                                        <th>Transaction Date</th>
+                                        <th>Status</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 @endsection
 @section('script')
-    {{-- <script>
+    <script>
         var table = $("#lookup").dataTable({
             columns: [{
-                    data: 'id'
+                    data: 'id',
+                    render: function(data, type, row, meta) {
+                        return meta.row + 1;
+                    }
                 },
                 {
-                    data: 'orderId'
+                    data: 'orderCode'
                 },
                 {
-                    data: 'customerName'
-                },
-                {
-                    data: 'product'
-                },
-                {
-                    data: 'price',
+                    data: 'totalAmount',
                     render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
                 },
                 {
-                    data: 'days'
+                    data: 'totalDiscount',
+                    render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
                 },
                 {
-                    data: 'createdAt'
+                    data: 'totalPrice',
+                    render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
                 },
                 {
-                    data: 'id'
+                    data: 'transactionDate',
+                    render: function(data) {
+                        const date = new Date(data);
+                        return date.toISOString().split('T')[0]; // Mengubah ke format YYYY-mm-dd
+                    }
+                },
+                {
+                    data: 'status'
+                },
+                {
+                    data: 'id',
+                    render: function(data) {
+                        return `
+                                <div class="text-center">
+                                    <a href="/order/detail-order/${data}" class="btn btn-primary btn-sm">Detail</a>
+                                    <a href="/order/tracking-delivery/detail/${data}" class="btn btn-success btn-sm">Tracking</a>
+                                </div>
+                            `;
+                    }
                 }
-            ],
+            ]
         });
 
         $(document).ready(function() {
             loadData();
         });
 
-
-        $('.table').on('click', '.btn-edit', function() {
-            var tr = $(this).closest('tr');
-            var id = tr.attr('id').split('_');
-            var index = id[1];
-            var data = table.fnGetData()
-
-            location.href = "{{ url('#') }}/" + data[index].id;
-        });
-        $('.table').on('click', '.btn-delete', function() {
-            var tr = $(this).closest('tr');
-            var id = tr.attr('id').split('_');
-            var index = id[1];
-            var data = table.fnGetData(); // Mendapatkan data dari baris
-
-            deletes(data[index].id); // Panggil fungsi deletes dengan ID produk
-        });
-
-
-
-
         function loadData() {
+            // Reset DataTables jika sudah diinisialisasi sebelumnya
+            if ($.fn.DataTable.isDataTable('#ordersTable')) {
+                $('#ordersTable').DataTable().destroy();
+            }
 
-            $('#lookup').dataTable().fnDestroy();
-
-            var table = $("#lookup").dataTable({
-                "scrollCollapse": true,
-                'autoWidth': true,
-                'bSort': true,
-                'bPaginate': true,
-                'searching': true,
+            // Inisialisasi DataTables
+            $('#ordersTable').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ url('#') }}/",
-                    dataType: "json",
+                    url: "{{ route('getIndexProgressOrder') }}",
                     type: "GET",
-                    error: function() { // error handling
-                        $(".lookup-error").html("");
-                        $("#lookup").append(
-                            '<tbody class="employee-grid-error"><tr><th style="background: #F0F0F0;color:#000000" class="text-center" colspan="8">No data found in the server</th></tr></tbody>'
+                    error: function() {
+                        $(".ordersTable-error").html("");
+                        $("#ordersTable").append(
+                            '<tbody class="ordersTable-error"><tr><th colspan="8" class="text-center">No data found in the server</th></tr></tbody>'
                         );
-                        $("#lookup_processing").css("display", "none");
-
+                        $("#ordersTable_processing").css("display", "none");
                     }
                 },
                 columns: [{
-                        data: 'id'
+                        data: 'id',
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1;
+                        }
                     },
                     {
-                        data: 'orderId'
+                        data: 'orderCode'
                     },
                     {
-                        data: 'customerName'
-                    },
-                    {
-                        data: 'product'
-                    },
-                    {
-                        data: 'price',
+                        data: 'totalAmount',
                         render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
                     },
                     {
-                        data: 'days'
+                        data: 'totalDiscount',
+                        render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
                     },
                     {
-                        data: 'createdAt'
+                        data: 'totalPrice',
+                        render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
                     },
                     {
-                        data: 'id'
-                    }
-                ],
-                createdRow: function(row, data, index) {
-                    $(row).attr('id', 'table_' + index);
-                },
-                columnDefs: [{
-                        "targets": [0],
-                        "createdCell": function(td, cellData, rowData, row, col) {
-                            $(td).text(row + 1);
-                        },
-                        orderable: true
+                        data: 'transactionDate',
+                        render: function(data) {
+                            const date = new Date(data);
+                            return date.toISOString().split('T')[0]; // Mengubah ke format YYYY-mm-dd
+                        }
                     },
                     {
-                        "targets": [7],
-                        "createdCell": function(td, cellData, rowData, row, col) {
-                            $(td).empty();
-                            $(td).addClass("text-center");
-                            $(td).append($('@include('inc.button.btnGroupED')'));
-                        },
-                        orderable: false
+                        data: 'status'
+                    },
+                    {
+                        data: 'id',
+                        render: function(data) {
+                            return `
+                                <div class="text-center">
+                                    <a href="/order/detail-order/${data}" class="btn btn-primary btn-sm">Detail</a>
+                                    <a href="/order/tracking-delivery/detail/${data}" class="btn btn-success btn-sm">Tracking</a>
+                                </div>
+                            `;
+                        }
                     }
                 ]
             });
         }
-    </script> --}}
+    </script>
 @endsection
