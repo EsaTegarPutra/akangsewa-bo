@@ -30,6 +30,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('checkProduct/{id}', 'Category\CategoryControllers@checkProduct')->name('checkProductCategory');
             });
 
+
             Route::group(['prefix' => 'banner'],  function () {
                 Route::get('', 'Banner\BannerControllers@index')->name('indexBanner');
                 Route::get('getIndex', 'Banner\BannerControllers@getIndex')->name('getIndex');
@@ -38,6 +39,24 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('edit/{id}', 'Banner\BannerControllers@edit')->name('editBanner');
                 Route::put('update/{id}', 'Banner\BannerControllers@update')->name('updateBanner');
                 Route::get('delete/{id}', 'Banner\BannerControllers@delete')->name('deleteBanner');
+            });
+            Route::group(['prefix' => 'tenantShipping'], function() {
+                Route::get('', 'TenantShipping\TenantShippingControllers@index')->name('indexTenantShipping');
+                Route::get('getIndex', 'TenantShipping\TenantShippingControllers@getIndex')->name('getIndexTenantShipping');
+                Route::get('create', 'TenantShipping\TenantShippingControllers@create')->name('createTenantShipping');
+                Route::post('store', 'TenantShipping\TenantShippingControllers@store')->name('storeTenantShipping');
+                Route::get('edit/{id}', 'TenantShipping\TenantShippingControllers@edit')->name('editTenantShipping');
+                Route::post('update/{id}', 'TenantShipping\TenantShippingControllers@update')->name('updateTenantShipping');
+                Route::get('delete/{id}', 'TenantShipping\TenantShippingControllers@delete')->name('deleteTenantShipping');
+            });
+            Route::group(['prefix' => 'kurir'], function () {
+                Route::get('', 'Kurir\KurirControllers@index')->name('indexKurir');
+                Route::get('getIndex', 'Kurir\KurirControllers@getIndex')->name('getIndexKurir');
+                Route::get('create', 'Kurir\KurirControllers@create')->name('createKurir');
+                Route::post('store', 'Kurir\KurirControllers@store')->name('storeKurir');
+                Route::get('edit/{id}', 'Kurir\KurirControllers@edit')->name('editKurir');
+                Route::put('update/{id}', 'Kurir\KurirControllers@update')->name('updateKurir');
+                Route::get('delete/{id}', 'Kurir\KurirControllers@delete')->name('deleteKurir');
             });
         });
 
@@ -96,27 +115,22 @@ Route::group(['middleware' => ['web']], function () {
                 Route::put('update/{id}', 'Product\Image\ImageProductControllers@update')->name('updateProductImage');
                 Route::get('delete/{id}', 'Product\Image\ImageProductControllers@delete')->name('deleteProductImage');
             });
-
-        });
-
-        Route::group(['prefix' => 'order'], function() {
-            Route::get('/tracking-delivery', 'Order\OrderControllers@trackingDelivery')->name('trackingDelivery');
-            Route::get('/detail-order', 'Order\OrderControllers@detailOrder')->name('detailOrder');
-            Route::group(['prefix' => 'ongoingRentals'], function () {
-                Route::get('', 'Order\Progress\ProgressControllers@index')->name('indexOrderProgress');
-            });
         });
 
 
         Route::group(['prefix' => 'order'], function () {
-                
+            Route::get('/tracking-delivery', 'Order\OrderControllers@trackingDelivery')->name('trackingDelivery');
+            Route::get('/tracking-delivery/detail', 'Order\OrderControllers@trackingDeliveryDetail')->name('trackingDeliveryDetail');
+            Route::get('/detail-order', 'Order\OrderControllers@detailOrder')->name('detailOrder');
+            Route::get('getIndex', 'Order\OrderControllers@getIndex')->name('getIndexOrder');
+
             Route::group(['prefix' => 'pendingOrder'], function () {
                 Route::get('', 'Order\PendingOrder\PendingControllers@index')->name('indexPendingOrder');
                 Route::get('getIndex', 'Order\PendingOrder\PendingControllers@getIndex')->name('getIndexPendingOrder');
                 Route::get('create', 'Order\PendingOrder\PendingControllers@create')->name('createPendingOrder');
-                });
+            });
 
-            Route::group(['prefix' => 'detailOrder'], function() {
+            Route::group(['prefix' => 'detailOrder'], function () {
                 Route::get('', 'Order\DetailPending\DetailControllers@index')->name('indexDetailPending');
                 Route::get('getIndex', 'Order\DetailPending\DetailControllers@getIndex')->name('getIndexDetailPending');
                 Route::get('create', 'Order\DetailPending\DetailControllers@create')->name('createDetailPending');
@@ -125,39 +139,26 @@ Route::group(['middleware' => ['web']], function () {
                 Route::post('update/{id}', 'Order\DetailPending\DetailControllers@update')->name('updateDetailPending');
                 Route::get('delete/{id}', 'Order\DetailPending\DetailControllers@delete')->name('deleteDetailPending');
             });
-
-            Route::group(['prefix' => 'historyOrder'],  function () {
-                Route::get('', 'Order\HistoryOrderControllers@index')->name('indexHistoryOrder');
-                Route::get('detail', 'Order\HistoryOrderControllers@show')->name('showHistoryOrder');
+            Route::group(['prefix' => 'ongoingRentals'], function () {
+                Route::get('', 'Order\Progress\ProgressControllers@index')->name('indexOrderProgress');
+                Route::get('getIndex', 'Order\Progress\ProgressControllers@getIndex')->name('getIndexProgressOrder'); 
             });
 
-            
-        });         
+            Route::group(['prefix' => 'detailOrder'], function () {
+                Route::get('', 'Order\DetailOrder\DetailControllers@index')->name('indexDetailOrder');
+                Route::get('getIndex', 'Order\DetailOrder\DetailControllers@getIndex')->name('getIndexDetailOrder');
+                Route::get('create', 'Order\DetailOrder\DetailControllers@create')->name('createDetailOrder');
+                Route::post('store', 'Order\DetailOrder\DetailControllers@store')->name('storeDetailOrder');
+                Route::get('edit/{id}', 'Order\DetailOrder\DetailControllers@edit')->name('editDetailOrder');
+                Route::post('update/{id}', 'Order\DetailOrder\DetailControllers@update')->name('updateDetailOrder');
+                Route::get('delete/{id}', 'Order\DetailOrder\DetailControllers@delete')->name('deleteDetailOrder');
+            });
 
-        // === NOT USE ===
-        // Route::group(['prefix' => 'product'], function () {
-        //     Route::group(['prefix' => 'attribute'], function () {
-        //         Route::get('', 'Attribute\AttributeControllers@index')->name('indexAttribute');
-        //         Route::get('getIndex', 'Attribute\AttributeControllers@getIndex')->name('getIndexAttribute');
-        //         Route::get('create', 'Attribute\AttributeControllers@create')->name('createAttribute');
-        //         Route::post('store', 'Attribute\AttributeControllers@store')->name('storeAttribute');
-        //         Route::get('edit/{id}', 'Attribute\AttributeControllers@edit')->name('editAttribute');
-        //         Route::post('update/{id}', 'Attribute\AttributeControllers@update')->name('updateAttribute');
-        //         Route::get('delete/{id}', 'Attribute\AttributeControllers@delete')->name('deleteAttribute');
-        //     });
-        // });
-
-        // Route::group(['prefix' => 'product'], function () {
-        //     Route::group(['prefix' => 'value'], function () {
-        //         Route::get('', 'Value\ValueControllers@index')->name('indexValue');
-        //         Route::get('getIndex', 'Value\ValueControllers@getIndex')->name('getIndexValue');
-        //         Route::get('create', 'Value\ValueControllers@create')->name('createValue');
-        //         Route::post('store', 'Value\ValueControllers@store')->name('storeValue');
-        //         Route::get('edit/{id}', 'Value\ValueController@edit')->name('editValue');
-        //         Route::post('update/{id}', 'Value\ValueController@update')->name('updateValue');
-        //         Route::get('delete/{id}', 'Value\ValueController@delete')->name('deleteValue');
-        //     });
-        // });
-        //=== NOT USE ==
+            Route::group(['prefix' => 'historyOrder'],  function () {
+                Route::get('', 'Order\CompletedOrder\CompletedOrderControllers@index')->name('indexCompletedOrder');
+                Route::get('getIndex', 'Order\CompletedOrder\CompletedOrderControllers@getIndex')->name('getIndexCompletedOrder');
+                Route::get('detail', 'Order\CompletedOrder\CompletedOrderControllers@show')->name('showCompletedOrder');
+            });
+        });
     });
 });

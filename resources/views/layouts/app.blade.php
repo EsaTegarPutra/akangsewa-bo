@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/detail_completed.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/assets/vendor_components/datatable/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-confirm.css') }}">
-
 </head>
 
 <body class="hold-transition light-skin sidebar-mini theme-primary fixed">
@@ -214,6 +213,10 @@
                                     </li>
                                     <li><a href="{{ url('masterData/banner') }}"><i class="icon-Commit"><span
                                         class="path1"></span><span class="path2"></span></i>Banner</a>
+                                    <li><a href="{{ url('masterData/tenantShipping') }}"><i class="icon-Commit"><span
+                                                    class="path1"></span><span class="path2"></span></i>Tenant Shipping</a>
+                                    <li><a href="{{ url('masterData/kurir') }}"><i class="icon-Commit"><span
+                                                    class="path1"></span><span class="path2"></span></i>Kurir</a>
                                     </li>
                                 </ul>
                             </li>
@@ -263,7 +266,8 @@
                                     <li><a href="{{ url('order/historyOrder') }}"><i class="icon-Commit"><span
                                                     class="path1"></span><span class="path2"></span></i>History
                                             Order</a></li>
-                                   
+                                    <li><a href="{{ url('order/tracking-delivery') }}"><i class="icon-Commit"><span
+                                                    class="path1"></span><span class="path2"></span></i>Tracking Delivery</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -272,6 +276,7 @@
             </section>
         </aside>
         <div class="content-wrapper">
+            @yield('nav-order')
             <div class="container-full">
                 <!-- Main content -->
 
