@@ -30,6 +30,16 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('checkProduct/{id}', 'Category\CategoryControllers@checkProduct')->name('checkProductCategory');
             });
 
+
+            Route::group(['prefix' => 'banner'],  function () {
+                Route::get('', 'Banner\BannerControllers@index')->name('indexBanner');
+                Route::get('getIndex', 'Banner\BannerControllers@getIndex')->name('getIndex');
+                Route::get('create', 'Banner\BannerControllers@create')->name('createBanner');
+                Route::post('store', 'Banner\BannerControllers@store')->name('storeBanner');
+                Route::get('edit/{id}', 'Banner\BannerControllers@edit')->name('editBanner');
+                Route::put('update/{id}', 'Banner\BannerControllers@update')->name('updateBanner');
+                Route::get('delete/{id}', 'Banner\BannerControllers@delete')->name('deleteBanner');
+            });
             Route::group(['prefix' => 'tenantShipping'], function() {
                 Route::get('', 'TenantShipping\TenantShippingControllers@index')->name('indexTenantShipping');
                 Route::get('getIndex', 'TenantShipping\TenantShippingControllers@getIndex')->name('getIndexTenantShipping');
@@ -38,7 +48,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('edit/{id}', 'TenantShipping\TenantShippingControllers@edit')->name('editTenantShipping');
                 Route::post('update/{id}', 'TenantShipping\TenantShippingControllers@update')->name('updateTenantShipping');
                 Route::get('delete/{id}', 'TenantShipping\TenantShippingControllers@delete')->name('deleteTenantShipping');
-
+            });
             Route::group(['prefix' => 'kurir'], function () {
                 Route::get('', 'Kurir\KurirControllers@index')->name('indexKurir');
                 Route::get('getIndex', 'Kurir\KurirControllers@getIndex')->name('getIndexKurir');
@@ -47,7 +57,6 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('edit/{id}', 'Kurir\KurirControllers@edit')->name('editKurir');
                 Route::put('update/{id}', 'Kurir\KurirControllers@update')->name('updateKurir');
                 Route::get('delete/{id}', 'Kurir\KurirControllers@delete')->name('deleteKurir');
-
             });
         });
 
@@ -121,6 +130,15 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('create', 'Order\PendingOrder\PendingControllers@create')->name('createPendingOrder');
             });
 
+            Route::group(['prefix' => 'detailOrder'], function () {
+                Route::get('', 'Order\DetailPending\DetailControllers@index')->name('indexDetailPending');
+                Route::get('getIndex', 'Order\DetailPending\DetailControllers@getIndex')->name('getIndexDetailPending');
+                Route::get('create', 'Order\DetailPending\DetailControllers@create')->name('createDetailPending');
+                Route::post('store', 'Order\DetailPending\DetailControllers@store')->name('storeDetailPending');
+                Route::get('edit/{id}', 'Order\DetailPending\DetailControllers@edit')->name('editDetailPending');
+                Route::post('update/{id}', 'Order\DetailPending\DetailControllers@update')->name('updateDetailPending');
+                Route::get('delete/{id}', 'Order\DetailPending\DetailControllers@delete')->name('deleteDetailPending');
+            });
             Route::group(['prefix' => 'ongoingRentals'], function () {
                 Route::get('', 'Order\Progress\ProgressControllers@index')->name('indexOrderProgress');
                 Route::get('getIndex', 'Order\Progress\ProgressControllers@getIndex')->name('getIndexProgressOrder'); 
