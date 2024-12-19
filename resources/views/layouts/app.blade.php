@@ -213,6 +213,8 @@
                                     </li>
                                     <li><a href="{{ url('masterData/tenantShipping') }}"><i class="icon-Commit"><span
                                                     class="path1"></span><span class="path2"></span></i>Tenant Shipping</a>
+                                    <li><a href="{{ url('masterData/kurir') }}"><i class="icon-Commit"><span
+                                                    class="path1"></span><span class="path2"></span></i>Kurir</a>
                                     </li>
                                 </ul>
                             </li>
@@ -272,6 +274,7 @@
             </section>
         </aside>
         <div class="content-wrapper">
+            @yield('nav-order')
             <div class="container-full">
                 <!-- Main content -->
 

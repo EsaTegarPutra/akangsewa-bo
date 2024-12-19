@@ -29,6 +29,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('delete/{id}', 'Category\CategoryControllers@delete')->name('deleteCategory');
                 Route::get('checkProduct/{id}', 'Category\CategoryControllers@checkProduct')->name('checkProductCategory');
             });
+
             Route::group(['prefix' => 'tenantShipping'], function() {
                 Route::get('', 'TenantShipping\TenantShippingControllers@index')->name('indexTenantShipping');
                 Route::get('getIndex', 'TenantShipping\TenantShippingControllers@getIndex')->name('getIndexTenantShipping');
@@ -37,6 +38,16 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('edit/{id}', 'TenantShipping\TenantShippingControllers@edit')->name('editTenantShipping');
                 Route::post('update/{id}', 'TenantShipping\TenantShippingControllers@update')->name('updateTenantShipping');
                 Route::get('delete/{id}', 'TenantShipping\TenantShippingControllers@delete')->name('deleteTenantShipping');
+
+            Route::group(['prefix' => 'kurir'], function () {
+                Route::get('', 'Kurir\KurirControllers@index')->name('indexKurir');
+                Route::get('getIndex', 'Kurir\KurirControllers@getIndex')->name('getIndexKurir');
+                Route::get('create', 'Kurir\KurirControllers@create')->name('createKurir');
+                Route::post('store', 'Kurir\KurirControllers@store')->name('storeKurir');
+                Route::get('edit/{id}', 'Kurir\KurirControllers@edit')->name('editKurir');
+                Route::put('update/{id}', 'Kurir\KurirControllers@update')->name('updateKurir');
+                Route::get('delete/{id}', 'Kurir\KurirControllers@delete')->name('deleteKurir');
+
             });
         });
 
@@ -126,8 +137,9 @@ Route::group(['middleware' => ['web']], function () {
             });
 
             Route::group(['prefix' => 'historyOrder'],  function () {
-                Route::get('', 'Order\HistoryOrderControllers@index')->name('indexHistoryOrder');
-                Route::get('detail', 'Order\HistoryOrderControllers@show')->name('showHistoryOrder');
+                Route::get('', 'Order\CompletedOrder\CompletedOrderControllers@index')->name('indexCompletedOrder');
+                Route::get('getIndex', 'Order\CompletedOrder\CompletedOrderControllers@getIndex')->name('getIndexCompletedOrder');
+                Route::get('detail', 'Order\CompletedOrder\CompletedOrderControllers@show')->name('showCompletedOrder');
             });
         });
     });

@@ -88,7 +88,7 @@ class CategoryControllers extends Controller
   {
 
     //getCreatedAt
-    $urls = "/api/categories/".$id;
+    $urls = "/api/categories/" . $id;
     $results = $curlGen->getIndex($urls);
     //End
     $url = "/api/categories";

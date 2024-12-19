@@ -24,13 +24,15 @@ class ProductControllers extends Controller
         return DataTables::of($resultData)->escapeColumns([])->make(true);
     }
 
-    public function checkProductDescription(CurlGen $curlGen, $id){
+    public function checkProductDescription(CurlGen $curlGen, $id)
+    {
         $descriptionData = "/api/product-descriptions/countByProductId/" . $id;
         $descriptions = $curlGen->getIndex($descriptionData);
 
         return $descriptions;
     }
-    public function checkProductVariant(CurlGen $curlGen, $id){
+    public function checkProductVariant(CurlGen $curlGen, $id)
+    {
         $variantData = "/api/product-variants/countByProductId/" . $id;
         $variants = $curlGen->getIndex($variantData);
 
