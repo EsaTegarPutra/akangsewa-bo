@@ -15,9 +15,8 @@
 
                 <div class="box">
                     <div class="box-header with-border d-flex justify-content-between align-items-center">
-                        <h3 class="box-title">Image Repository</h3>
-                        <a href="{{ url('product/imageRepository/create') }}" class="btn btn-info btn-sm btn-add">Add Image
-                            Product</a>
+                        <h3 class="box-title">Data Kurir</h3>
+                        <a href="{{ url('masterData/kurir/create') }}" class="btn btn-info btn-sm btn-add">Add Kurir</a>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -26,11 +25,11 @@
                                 <thead class="bg-info">
                                     <tr>
                                         <th>No</th>
-                                        <th>Product Name</th>
-                                        <th>Variant Name</th>
-                                        <th>Product Image</th>
-                                        <th>Create At</th>
-                                        <th>Updated At</th>
+                                        <th>Kurir Name</th>
+                                        <th>Identity Photo</th>
+                                        <th>Self Photo</th>
+                                        <th>No.Telp</th>
+                                        <th>Status</th>
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
@@ -69,23 +68,19 @@
                     data: 'id'
                 },
                 {
-                    data: 'productName',
-                    render: function(data, type, row) {
-                        return '<div style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; white-space: normal;">' +
-                            data + '</div>';
-                    }
+                    data: 'fullName',
                 },
                 {
-                    data: 'productVariantName'
+                    data: 'identityPhoto'
                 },
                 {
-                    data: 'id' // pathImageProduct
+                    data: 'selfPhoto'
                 },
                 {
-                    data: 'createdAt'
+                    data: 'noTelp'
                 },
                 {
-                    data: 'updatedAt'
+                    data: 'active'
                 },
                 {
                     data: 'id'
@@ -109,7 +104,7 @@
             var index = id[1];
             var data = table.fnGetData()
 
-            location.href = "{{ url('product/imageRepository/edit') }}/" + data[index].id;
+            location.href = "{{ url('masterData/kurir/edit') }}/" + data[index].id;
         });
         $('.table').on('click', '.btn-delete', function() {
             var tr = $(this).closest('tr');
@@ -129,7 +124,7 @@
                 icon: 'ti-info',
                 buttons: {
                     confirm: function() {
-                        location.href = "{{ url('product/imageRepository/delete') }}" + "/" + id;
+                        location.href = "{{ url('masterData/kurir/delete') }}" + "/" + id;
                     },
                     cancel: function() {}
                 }
@@ -149,7 +144,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ url('product/imageRepository/getIndex') }}/",
+                    url: "{{ url('masterData/kurir/getIndex') }}/",
                     dataType: "json",
                     type: "GET",
                     error: function() { // error handling
@@ -165,23 +160,19 @@
                         data: 'id'
                     },
                     {
-                        data: 'productName',
-                        render: function(data, type, row) {
-                            return '<div style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; white-space: normal;">' +
-                                data + '</div>';
-                        }
+                        data: 'fullName'
                     },
                     {
-                        data: 'productVariantName'
+                        data: 'identityPhoto'
                     },
                     {
-                        data: 'id', // pathImageProduct
+                        data: 'selfPhoto'
                     },
                     {
-                        data: 'createdAt'
+                        data: 'noTelp'
                     },
                     {
-                        data: 'updatedAt'
+                        data: 'active'
                     },
                     {
                         data: 'id'
@@ -198,62 +189,55 @@
                         orderable: true
                     },
                     {
-                        targets: [3], // Target kolom untuk 'Images'
-                        createdCell: function(td, cellData, rowData, row, col) {
-                            const imageUrl =
-                                `http://103.127.136.166:8991/api/product-images-path/${cellData}`;
-                            $(td).html(`<div style="text-align: center;">
-                                            <button class="btn btn-info btn-sm" onclick="openImageModal('${imageUrl}')">
-                                                Preview Image
-                                            </button>
-                                            <img src="${imageUrl}" style="display: none; max-width: 100px; max-height: 100px; object-fit: contain;" alt="Product Image">
-                                        </div>`);
+                        "targets": [2], // Target kolom 'identity photo'
+                        "createdCell": function(td, cellData, rowData, row, col) {
+                            $(td).empty();
+                            $(td).addClass("text-center");
+                            if (rowData.identityPhoto) {
+                                const imageUrl =
+                                    `data:${rowData.identityPhotoContentType};base64,${rowData.identityPhoto}`;
+                                $(td).append(`
+                            <button class="btn btn-info btn-sm" onclick="openImageModal('${imageUrl}')">
+                                Preview Image
+                            </button>
+                            <img src="${imageUrl}" style="display: none; max-width: 100px; max-height: 100px; object-fit: contain;" alt="Identity Photo">
+                        `);
+                            } else {
+                                $(td).append(`<p style="text-align: center;">No Image</p>`);
+                            }
                         },
                         orderable: false
                     },
                     {
-                        "targets": [4], // Target kolom 'createAt'
+                        "targets": [3], // Target kolom 'seft photo'
                         "createdCell": function(td, cellData, rowData, row, col) {
-                            if (cellData) {
-                                var date = new Date(cellData);
-                                var options = {
-                                    day: '2-digit',
-                                    month: 'short',
-                                    year: 'numeric',
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                    second: '2-digit',
-                                    hour12: false
-                                };
-                                var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
-                                    '');
-                                $(td).text(formattedDate);
+                            $(td).empty();
+                            $(td).addClass("text-center");
+                            if (rowData.selfPhoto) {
+                                const imageUrl =
+                                    `data:${rowData.selfPhotoContentType};base64,${rowData.selfPhoto}`;
+                                $(td).append(`
+                            <button class="btn btn-info btn-sm" onclick="openImageModal('${imageUrl}')">
+                                Preview Image
+                            </button>
+                            <img src="${imageUrl}" style="display: none; max-width: 100px; max-height: 100px; object-fit: contain;" alt="Self Photo">
+                        `);
                             } else {
-                                $(td).text('Not Available');
+                                $(td).append(`<p style="text-align: center;">No Image</p>`);
                             }
-                        }
+                        },
+                        orderable: false
                     },
                     {
-                        "targets": [5], // Target kolom 'updatedAt'
+                        "targets": [5], // Target kolom 'active'
                         "createdCell": function(td, cellData, rowData, row, col) {
-                            if (cellData) {
-                                var date = new Date(cellData);
-                                var options = {
-                                    day: '2-digit',
-                                    month: 'short',
-                                    year: 'numeric',
-                                    hour: '2-digit',
-                                    minute: '2-digit',
-                                    second: '2-digit',
-                                    hour12: false
-                                };
-                                var formattedDate = date.toLocaleDateString('en-GB', options).replace(',',
-                                    '');
-                                $(td).text(formattedDate);
-                            } else {
-                                $(td).text('');
-                            }
-                        }
+                            $(td).empty();
+                            const statusActive = cellData ?
+                                `<span class="badge bg-success">Enable</span>` :
+                                `<span class="badge bg-danger">Disable</span>`;
+                            $(td).html(statusActive);
+                        },
+                        orderable: true
                     },
                     {
                         "targets": [6],

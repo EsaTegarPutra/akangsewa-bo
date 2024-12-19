@@ -24,6 +24,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{-- <tr>
+                                        <td>1</td>
+                                        <td>001</td>
+                                        <td>Black</td>
+                                        <td>Rp.1.000.000</td>
+                                        <td>2 Days</td>
+                                        <td class="text-center"><span class="bg-success py-1 px-2 rounded-pill">Completed</span></td>
+                                        <td>20 Oct 2024</td>
+                                        <td class="text-center"><a href="{{route('showCompletedOrder')}}" class="btn btn-sm btn-info">Detail</a></td>
+                                    </tr> --}}
                                 </tbody>
                             </table>
                         </div>
@@ -41,21 +51,24 @@
                     data: 'id'
                 },
                 {
-                    data: 'customer'
+                    data: 'orderCode'
                 },
                 {
-                    data: 'attribute_name'
+                    data: 'totalAmount'
                 },
                 {
-                    data: 'createdAt'
+                    data: 'totalDiscount'
                 },
                 {
-                    data: 'updatedAt'
+                    data: 'totalPrice'
+                },
+                {
+                    data: 'transactionDate'
                 },
                 {
                     data: 'status',
                     render: function(data, type, row) {
-                        return '<div class="bg-success py-1 px-2 rounded-pill">' + 'completed' + '</div>';
+                        return '<div class="bg-success py-1 px-2 rounded-pill d-flex justify-content-center">' + 'completed' + '</div>';
                     }
                 },
                 // {
@@ -69,38 +82,14 @@
         });
 
 
-        $('.table').on('click', '.btn-edit', function() {
+        $('.table').on('click', '.btn-detail-order-completed', function() {
             var tr = $(this).closest('tr');
             var id = tr.attr('id').split('_');
             var index = id[1];
             var data = table.fnGetData()
 
-            location.href = "{{ url('product/attributeValues/edit') }}/" + data[index].id;
+            location.href = "{{ url('orders/getAllOrdersByStatus/d/show') }}/" + data[index].id;
         });
-        $('.table').on('click', '.btn-delete', function() {
-            var tr = $(this).closest('tr');
-            var id = tr.attr('id').split('_');
-            var index = id[1];
-            var data = table.fnGetData()
-
-            deletes(data[index].id);
-        });
-
-        function deletes(id) {
-            $.confirm({
-                confirmButton: 'Remove',
-                cancelButton: 'Cancel',
-                title: 'Confirmation',
-                content: 'Remove this Data ?',
-                icon: 'ti-info',
-                buttons: {
-                    confirm: function() {
-                        location.href = "{{ url('product/attributeValues/delete') }}" + "/" + id;
-                    },
-                    cancel: function() {}
-                }
-            });
-        }
 
         function loadData() {
 
@@ -115,7 +104,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ url('product/attributeValues/getIndex') }}/",
+                    url: "{{ url('order/historyOrder/getIndex') }}/",
                     dataType: "json",
                     type: "GET",
                     error: function() { // error handling
@@ -131,21 +120,24 @@
                         data: 'id'
                     },
                     {
-                        data: 'customer'
+                        data: 'orderCode'
                     },
                     {
-                        data: 'attribute_name'
+                        data: 'totalAmount'
                     },
                     {
-                        data: 'createdAt'
+                        data: 'totalDiscount'
                     },
                     {
-                        data: 'updatedAt'
+                        data: 'totalPrice'
+                    },
+                    {
+                        data: 'transactionDate'
                     },
                     {
                         data: 'status',
                         render: function(data, type, row) {
-                            return '<div class="bg-success py-1 px-2 rounded-pill">' + 'completed' +
+                            return '<div class="bg-success py-1 px-2 rounded-pill d-flex justify-content-center">' + 'completed' +
                                 '</div>';
                         }
                     },
