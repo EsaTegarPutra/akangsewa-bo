@@ -9,10 +9,10 @@ class PendingControllers extends Controller
 {
     public function index()
     {
-        return view('pending-order.index');
+        return view('order.pending-order.index');
     }
     public function create()
     {
-        return view('pending-order.create');
+        return view('order.pending-order.create');
     }
 }
