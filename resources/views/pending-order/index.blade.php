@@ -20,20 +20,17 @@
 
                      <div class="box-body">
                          <div class="table-responsive ">
-                             <table class="table" id="lookup">
+                             <table class="table" id="ordersTable">
                                  <thead class="bg-info">
                                      <tr>
                                          <th>No</th>
-                                         <th>customer</th>
-                                         <th>address</th>
-                                         <th>kurir</th>
                                          <th>order code</th>
+                                         <th>customer name</th>
                                          <th>total amount</th>
-                                         <th>total discount</th>
-                                         <th>total price</th>
                                          <th>transaction date</th>
-                                         <th>payment trade</th>
+                                         <th>payment type</th>
                                          <th>status</th>
+                                         <th>Action</th>
                                      </tr>
                                  </thead>
                                  {{-- <tbody>
@@ -61,144 +58,118 @@
      </section>
  @endsection
  @section('script')
-     <script>
-         var table = $("#lookup").dataTable({
-             columns: [{
-                     data: 'id',
-                     render: function(data, type, row, meta) {
-                         return meta.row + 1;
-                     }
-                 },
-                 {
-                     data: 'customerId'
-                 },
-                 {
-                     data: 'addressId'
-                 },
-                 {
-                     data: 'kurirId'
-                 },
-                 {
-                     data: 'orderCode'
-                 },
-                 {
-                     data: 'totalAmount',
-                     render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
-                 },
-                 {
-                     data: 'totalDiscount',
-                     render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
-                 },
-                 {
-                     data: 'totalPrice',
-                     render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
-                 },
-                 {
-                     data: 'transactionDate',
-                     render: function(data) {
-                         const date = new Date(data);
-                         return date.toISOString().split('T')[0]; // Mengubah ke format YYYY-mm-dd
-                     }
-                 },
-                 {
-                     data: 'paymentTradeId'
-                 },
-                 {
-                     data: 'status'
-                 },
-                 {
-                     data: 'id',
-                     render: function(data) {
-                         return `
-                            <div class="text-center">
-                                <a href="/order/detailOrder/${data}" class="btn btn-primary btn-sm">Detail</a>
-                            </div>
-                        `;
-                     }
-                 }
-             ]
-         });
+ <script>
+    var table = $("#lookup").dataTable({
+        columns: [{
+                data: 'id',
+                render: function(data, type, row, meta) {
+                    return meta.row + 1;
+                }
+            },
+            {
+                data: 'orderCode'
+            },
+            {
+                data: 'customerName'
+            },
+            {
+                data: 'totalAmount',
+                render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
+            },
+            {
+                data: 'transactionDate',
+                render: function(data) {
+                    const date = new Date(data);
+                    return date.toISOString().split('T')[0];
+                }
+            },
+            {
+                data: 'paymentBankName'
+            },
+            {
+                data: 'status'
+            },
+            {
+                data: 'id',
+                render: function(data) {
+                    return `
+                        <div class="text-center">
+                            <a href="/order/detailPending/${data}" class="btn btn-primary btn-sm">Detail</a>
+                        </div>
+                    `;
+                }
 
-         $(document).ready(function() {
-             loadData();
-         });
+            }
+        ]
+    });
 
-         function loadData() {
-             // Reset DataTables jika sudah diinisialisasi sebelumnya
-             if ($.fn.DataTable.isDataTable('#ordersTable')) {
-                 $('#ordersTable').DataTable().destroy();
-             }
+    $(document).ready(function() {
+        loadData();
+    });
 
-             // Inisialisasi DataTables
-             $('#ordersTable').DataTable({
-                 processing: true,
-                 serverSide: true,
-                 ajax: {
-                     url: "{{ route('getIndexPendingOrder') }}",
-                     type: "GET",
-                     error: function() {
-                         $(".ordersTable-error").html("");
-                         $("#ordersTable").append(
-                             '<tbody class="ordersTable-error"><tr><th colspan="8" class="text-center">No data found in the server</th></tr></tbody>'
-                         );
-                         $("#ordersTable_processing").css("display", "none");
-                     }
-                 },
-                 columns: [{
-                         data: 'id',
-                         render: function(data, type, row, meta) {
-                             return meta.row + 1;
-                         }
-                     },
-                     {
-                         data: 'customerId'
-                     },
-                     {
-                         data: 'addressId'
-                     },
-                     {
-                         data: 'kurirId'
-                     },
-                     {
-                         data: 'orderCode'
-                     },
-                     {
-                         data: 'totalAmount',
-                         render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
-                     },
-                     {
-                         data: 'totalDiscount',
-                         render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
-                     },
-                     {
-                         data: 'totalPrice',
-                         render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
-                     },
-                     {
-                         data: 'transactionDate',
-                         render: function(data) {
-                             const date = new Date(data);
-                             return date.toISOString().split('T')[0]; // Mengubah ke format YYYY-mm-dd
-                         }
-                     },
-                     {
-                         data: 'paymentTradeId'
-                     },
-                     {
-                         data: 'status'
-                     },
-                     {
-                         data: 'id',
-                         render: function(data) {
-                             return `
-                            <div class="text-center">
-                                <a href="/order/detailOrder/${data}" class="btn btn-primary btn-sm">Detail</a>
-                            </div>
-                        `;
-                         }
-                     }
-                 ]
-             });
-         }
-     </script>
+    function loadData() {
+        // Reset DataTables jika sudah diinisialisasi sebelumnya
+        if ($.fn.DataTable.isDataTable('#ordersTable')) {
+            $('#ordersTable').DataTable().destroy();
+        }
+
+        // Inisialisasi DataTables
+        $('#ordersTable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('getIndexPendingOrder') }}",
+                type: "GET",
+                error: function() {
+                    $(".ordersTable-error").html("");
+                    $("#ordersTable").append(
+                        '<tbody class="ordersTable-error"><tr><th colspan="8" class="text-center">No data found in the server</th></tr></tbody>'
+                    );
+                    $("#ordersTable_processing").css("display", "none");
+                }
+            },
+            columns: [{
+                data: 'id',
+                render: function(data, type, row, meta) {
+                    return meta.row + 1;
+                }
+            },
+            {
+                data: 'orderCode'
+            },
+            {
+                data: 'customerName'
+            },
+            {
+                data: 'totalAmount',
+                render: $.fn.dataTable.render.number(',', '.', 2, 'Rp ')
+            },
+            {
+                data: 'transactionDate',
+                render: function(data) {
+                    const date = new Date(data);
+                    return date.toISOString().split('T')[0];
+                }
+            },
+            {
+                data: 'paymentBankName'
+            },
+            {
+                data: 'status'
+            },
+            {
+                data: 'id',
+                render: function(data) {
+                    return `
+                        <div class="text-center">
+                            <a href="/order/detailPending/${data}" class="btn btn-primary btn-sm">Detail</a>
+                        </div>
+                    `;
+                }
+
+            }
+        ]
+        });
+    }
+</script>
  @endsection
