@@ -77,7 +77,7 @@
                     render: function(data) {
                         return `
                             <div class="text-center">
-                                <a href="/order/detailPending/${data}" class="btn btn-primary btn-sm">Detail</a>
+                               <a href="/order/detail-order/${data}" class="btn btn-primary btn-sm">Detail</a>
                                 <a href="/order/tracking-delivery/detail/${data}" class="btn btn-success btn-sm">Tracking</a>
                             </div>
                         `;
@@ -146,7 +146,7 @@
                     render: function(data) {
                         return `
                             <div class="text-center">
-                                <a href="/order/detailPending/${data}" class="btn btn-primary btn-sm">Detail</a>
+                                <a href="/order/detail-order/${data}" class="btn btn-primary btn-sm">Detail</a>
                             </div>
                         `;
                     }

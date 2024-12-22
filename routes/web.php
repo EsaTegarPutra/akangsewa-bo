@@ -122,6 +122,7 @@ Route::group(['middleware' => ['web']], function () {
             Route::get('/tracking-delivery', 'Order\OrderControllers@trackingDelivery')->name('trackingDelivery');
             Route::get('/tracking-delivery/detail/{id}', 'Order\OrderControllers@trackingDeliveryDetail')->name('trackingDeliveryDetail');
             Route::get('/detail-order/{id}', 'Order\OrderControllers@detailOrder')->name('detailOrder');
+            Route::get('/getIndexOrderDetail', 'Order\OrderControllers@getIndexOrderDetail')->name('getIndexOrderDetail');
             Route::get('getIndex', 'Order\OrderControllers@getIndex')->name('getIndexOrder');
 
             Route::group(['prefix' => 'pendingOrder'], function () {

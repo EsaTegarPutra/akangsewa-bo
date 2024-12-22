@@ -6,7 +6,7 @@
                 <div class="col-md-12">
                     <div class="d-flex gap-2 mb-3">
                         <a href="" class="btn btn-primary btn-sm rounded shadow-sm  "><i class="ti-arrow-left"></i></a>
-                        <h4 class="m-1">Detail Progress</h4>
+                        <h4 class="m-1">Detail Order</h4>
                     </div>
                     <div class="card shadow-sm rounded-lg">
                         <div class="card-body">
@@ -15,8 +15,8 @@
                                 class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
                                 <!-- Order Title and Status -->
                                 <div class="d-flex align-items-center gap-2 mb-2 mb-md-0">
-                                    <h4 class="m-0">Order ID : 00001 <span>|</span></h4>
-                                    <span class="badge bg-secondary text-light px-3 py-2">On Going</span>
+                                    <h4 class="m-0">Order ID : {{ $order['orderCode'] }} <span>|</span></h4>
+                                    <span class="badge bg-secondary text-light px-3 py-2">{{ $order['status'] }}</span>
                                 </div>
                                 <!-- Action Buttons -->
                                 <div class="d-flex gap-2">
@@ -78,27 +78,33 @@
                                 <h6 class="text-uppercase fw-bold">Customer & Order</h6>
                                 <div class="row mb-2">
                                     <div class="col-5 fw-bold">Name</div>
-                                    <div class="col-7">: Mamat Racing</div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-6">{{ $customer['fullName'] }}</div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-5 fw-bold">Email</div>
-                                    <div class="col-7">: ananancy@mail.com</div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-6">{{ $customer['email'] }}</div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-5 fw-bold">Phone</div>
-                                    <div class="col-7">: +79703000</div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-6">{{ $customer['mobilePhone'] }}</div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-5 fw-bold">PO</div>
-                                    <div class="col-7">: 77399999</div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-6"></div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-5 fw-bold">Payment Terms</div>
-                                    <div class="col-7">: Net 30</div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-6"></div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-5 fw-bold">Delivery Method</div>
-                                    <div class="col-7">: Embarcadero North</div>
+                                    <div class="col-1">:</div>
+                                    <div class="col-6"></div>
                                 </div>
                                 <hr>
                                 <div class="mb-3">
@@ -133,25 +139,14 @@
                                             <thead class="bg-info">
                                                 <tr>
                                                     <th>No</th>
-                                                    <th>Item Name</th>
-                                                    <th>Quatity</th>
-                                                    <th>Price</th>
+                                                    <th>Product Name</th>
+                                                    <th>Start Date</th>
+                                                    <th>End Date</th>
+                                                    <th>Status Rentals</th>
+                                                    <th>Status Delivery</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Sony Sound System</td>
-                                                    <td>2</td>
-                                                    <td>2.000.000,00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Canon Camera Profesional</td>
-                                                    <td>1</td>
-                                                    <td>2.500.000,00</td>
-                                                </tr>
-                                            </tbody>
+                                            <tbody></tbody>
                                         </table>
                                     </div>
                                     <hr>
@@ -185,7 +180,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /.box-body -->
                             </div>
                         </div>
                     </div>
@@ -236,5 +230,64 @@
         }
 
         document.addEventListener('DOMContentLoaded', updateProgress);
+
+        (document).ready(function() {
+            // Inisialisasi DataTables
+            var table = $("#lookup").DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('getIndexOrderDetail') }}", // Ganti dengan route Anda
+                    type: "GET",
+                    error: function() {
+                        $(".lookup-error").html("");
+                        $("#lookup").append(
+                            '<tbody class="lookup-error"><tr><th colspan="6" class="text-center">No data found in the server</th></tr></tbody>'
+                        );
+                        $("#lookup_processing").css("display", "none");
+                    },
+                },
+                columns: [{
+                        data: "id",
+                        render: function(data, type, row, meta) {
+                            return meta.row + 1; // Nomor urut
+                        },
+                    },
+                    {
+                        data: "productName", // Nama Produk
+                    },
+                    {
+                        data: "startDate",
+                        render: function(data) {
+                            const date = new Date(data);
+                            return date.toISOString().split("T")[0]; // Format tanggal yyyy-mm-dd
+                        },
+                    },
+                    {
+                        data: "endDate",
+                        render: function(data) {
+                            const date = new Date(data);
+                            return date.toISOString().split("T")[0]; // Format tanggal yyyy-mm-dd
+                        },
+                    },
+                    {
+                        data: "statusDelivery",
+                        render: function(data) {
+                            return `<span class="badge bg-${
+                            data === "Delivered" ? "success" : "warning"
+                        }">${data}</span>`;
+                        },
+                    },
+                    {
+                        data: "statusRentals",
+                        render: function(data) {
+                            return `<span class="badge bg-${
+                            data === "Completed" ? "success" : "info"
+                        }">${data}</span>`;
+                        },
+                    },
+                ],
+            });
+        });
     </script>
 @endsection
