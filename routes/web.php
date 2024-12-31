@@ -130,29 +130,29 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('create', 'Order\PendingOrder\PendingControllers@create')->name('createPendingOrder');
             });
 
-            Route::group(['prefix' => 'detailOrder'], function () {
+            Route::group(['prefix' => 'detailPending'], function () {
                 Route::get('', 'Order\DetailPending\DetailControllers@index')->name('indexDetailPending');
                 Route::get('getIndex', 'Order\DetailPending\DetailControllers@getIndex')->name('getIndexDetailPending');
-                Route::get('create', 'Order\DetailPending\DetailControllers@create')->name('createDetailPending');
-                Route::post('store', 'Order\DetailPending\DetailControllers@store')->name('storeDetailPending');
-                Route::get('edit/{id}', 'Order\DetailPending\DetailControllers@edit')->name('editDetailPending');
-                Route::post('update/{id}', 'Order\DetailPending\DetailControllers@update')->name('updateDetailPending');
-                Route::get('delete/{id}', 'Order\DetailPending\DetailControllers@delete')->name('deleteDetailPending');
+                // Route::get('create', 'Order\DetailPending\DetailControllers@create')->name('createDetailPending');
+                // Route::post('store', 'Order\DetailPending\DetailControllers@store')->name('storeDetailPending');
+                // Route::get('edit/{id}', 'Order\DetailPending\DetailControllers@edit')->name('editDetailPending');
+                // Route::post('update/{id}', 'Order\DetailPending\DetailControllers@update')->name('updateDetailPending');
+                // Route::get('delete/{id}', 'Order\DetailPending\DetailControllers@delete')->name('deleteDetailPending');
             });
             Route::group(['prefix' => 'ongoingRentals'], function () {
                 Route::get('', 'Order\Progress\ProgressControllers@index')->name('indexOrderProgress');
                 Route::get('getIndex', 'Order\Progress\ProgressControllers@getIndex')->name('getIndexProgressOrder'); 
             });
 
-            Route::group(['prefix' => 'detailOrder'], function () {
-                Route::get('', 'Order\DetailOrder\DetailControllers@index')->name('indexDetailOrder');
-                Route::get('getIndex', 'Order\DetailOrder\DetailControllers@getIndex')->name('getIndexDetailOrder');
-                Route::get('create', 'Order\DetailOrder\DetailControllers@create')->name('createDetailOrder');
-                Route::post('store', 'Order\DetailOrder\DetailControllers@store')->name('storeDetailOrder');
-                Route::get('edit/{id}', 'Order\DetailOrder\DetailControllers@edit')->name('editDetailOrder');
-                Route::post('update/{id}', 'Order\DetailOrder\DetailControllers@update')->name('updateDetailOrder');
-                Route::get('delete/{id}', 'Order\DetailOrder\DetailControllers@delete')->name('deleteDetailOrder');
-            });
+            // Route::group(['prefix' => 'detailOrder'], function () {
+            //     Route::get('', 'Order\DetailOrder\DetailControllers@index')->name('indexDetailOrder');
+            //     Route::get('getIndex', 'Order\DetailOrder\DetailControllers@getIndex')->name('getIndexDetailOrder');
+            //     Route::get('create', 'Order\DetailOrder\DetailControllers@create')->name('createDetailOrder');
+            //     Route::post('store', 'Order\DetailOrder\DetailControllers@store')->name('storeDetailOrder');
+            //     Route::get('edit/{id}', 'Order\DetailOrder\DetailControllers@edit')->name('editDetailOrder');
+            //     Route::post('update/{id}', 'Order\DetailOrder\DetailControllers@update')->name('updateDetailOrder');
+            //     Route::get('delete/{id}', 'Order\DetailOrder\DetailControllers@delete')->name('deleteDetailOrder');
+            // });
 
             Route::group(['prefix' => 'historyOrder'],  function () {
                 Route::get('', 'Order\CompletedOrder\CompletedOrderControllers@index')->name('indexCompletedOrder');
