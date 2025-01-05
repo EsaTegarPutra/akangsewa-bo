@@ -40,17 +40,17 @@
             </div>
         </div>
 
-        <!-- Modal untuk menampilkan gambar -->
+        <!-- Image Modal -->
         <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-labelledby="imagePreviewLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="imagePreviewLabel">view image</h4>
+                        <h4 class="modal-title" id="imagePreviewLabel">Image Preview</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-center">
-                        <img id="modalImage" src="" alt="Image" class="img-fluid"
+                        <img id="modalImage" src="" alt="Product Image" class="img-fluid"
                             style="max-width: 100%; max-height: 100%;">
                     </div>
                 </div>
@@ -62,39 +62,24 @@
     <script>
         var table = $("#lookup").dataTable({
             columns: [{
-                    data: 'Id'
+                    data: 'id'
                 },
                 {
                     data: 'bannerName'
                 },
                 {
-                    data: 'images',
+                    data: 'id' // pathImageBanner
+                },
+                {
+                    data: 'status',
                     render: function(data, type, row) {
-                        if (row.images && row.imagesContentType) {
-                            const imageUrl = `data:${row.imagesContentType};base64,${row.images}`;
-                            return `
-             <div style="text-align: center;">
-                <button class="btn btn-info btn-sm" onclick="openImageModal('${imageUrl}')">
-                    view image
-                </button>
-                <img src="${imageUrl}" style="display: none; max-width: 100px; max-height: 100px; object-fit: contain;" alt="Self Photo">
-            </div>
-            `;
-                        } else {
-                            return '<p style="text-align: center;">No Image</p>';
+                        if (data === 'enable') {
+                            return `<div style="text-align: center;"><span class="badge badge-success">${data}</span></div>`;
+                        } else if (data === 'disable') {
+                            return `<div style="text-align: center;"><span class="badge badge-danger">${data}</span></div>`;
                         }
                     }
                 },
-                {
-                        data: 'status',
-                        render: function(data, type, row) {
-                            if (data === 'enable') {
-                                return `<div style="text-align: center;"><span class="badge badge-success">${data}</span></div>`;
-                            } else if (data === 'disable') {
-                                return `<div style="text-align: center;"><span class="badge badge-danger">${data}</span></div>`;
-                            }
-                        }
-                    },
 
                 {
                     data: 'links',
@@ -186,24 +171,8 @@
                         data: 'bannerName'
                     },
                     {
-                        data: 'images',
-                        render: function(data, type, row) {
-                            if (row.images && row.imagesContentType) {
-                                const imageUrl = `data:${row.imagesContentType};base64,${row.images}`;
-                                return `
-            <div style="text-align: center;">
-                <button class="btn btn-info btn-sm" onclick="openImageModal('${imageUrl}')">
-                    view image
-                </button>
-                <img src="${imageUrl}" style="display: none; max-width: 100px; max-height: 100px; object-fit: contain;" alt="Self Photo">
-            </div>
-            `;
-                            } else {
-                                return '<p style="text-align: center;">No Image</p>';
-                            }
-                        }
+                        data: 'id', // pathImageBanner
                     },
-
                     {
                         data: 'status',
                         render: function(data, type, row) {
@@ -237,6 +206,20 @@
                             $(td).text(row + 1);
                         },
                         orderable: true
+                    },
+                    {
+                        targets: [2], // Target kolom untuk 'Images'
+                        createdCell: function(td, cellData, rowData, row, col) {
+                            const imageUrl =
+                                `http://103.127.136.166:8991/api/banners-path-images/${cellData}`;
+                            $(td).html(`<div style="text-align: center;">
+                                            <button class="btn btn-info btn-sm" onclick="openImageModal('${imageUrl}')">
+                                                Preview Image
+                                            </button>
+                                            <img src="${imageUrl}" style="display: none; max-width: 100px; max-height: 100px; object-fit: contain;" alt="Product Image">
+                                        </div>`);
+                        },
+                        orderable: false
                     },
                     {
                         "targets": [5],
