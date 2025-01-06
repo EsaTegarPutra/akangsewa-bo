@@ -58,6 +58,12 @@ Route::group(['middleware' => ['web']], function () {
                 Route::put('update/{id}', 'Kurir\KurirControllers@update')->name('updateKurir');
                 Route::get('delete/{id}', 'Kurir\KurirControllers@delete')->name('deleteKurir');
             });
+
+            Route::group(['prefix' => 'scrapData'], function () {
+                Route::get('', 'Kurir\KurirControllers@index')->name('indexKurir');
+                Route::get('getIndex', 'Kurir\KurirControllers@getIndex')->name('getIndexKurir');
+                Route::get('details/{uuid}', 'Kurir\KurirControllers@details')->name('getIndexKurir');
+            });
         });
 
 
@@ -141,7 +147,7 @@ Route::group(['middleware' => ['web']], function () {
             });
             Route::group(['prefix' => 'ongoingRentals'], function () {
                 Route::get('', 'Order\Progress\ProgressControllers@index')->name('indexOrderProgress');
-                Route::get('getIndex', 'Order\Progress\ProgressControllers@getIndex')->name('getIndexProgressOrder'); 
+                Route::get('getIndex', 'Order\Progress\ProgressControllers@getIndex')->name('getIndexProgressOrder');
             });
 
             // Route::group(['prefix' => 'detailOrder'], function () {
