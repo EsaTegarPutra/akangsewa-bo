@@ -119,11 +119,14 @@ Route::group(['middleware' => ['web']], function () {
 
 
         Route::group(['prefix' => 'order'], function () {
-            Route::get('/tracking-delivery', 'Order\OrderControllers@trackingDelivery')->name('trackingDelivery');
-            Route::get('/tracking-delivery/detail/{id}', 'Order\OrderControllers@trackingDeliveryDetail')->name('trackingDeliveryDetail');
             Route::get('/detail-order/{id}', 'Order\OrderControllers@detailOrder')->name('detailOrder');
             Route::get('/getIndexOrderDetail', 'Order\OrderControllers@getIndexOrderDetail')->name('getIndexOrderDetail');
             Route::get('getIndex', 'Order\OrderControllers@getIndex')->name('getIndexOrder');
+            
+            Route::group(['prefix' => 'trackingDelivery'], function () {
+                Route::get('/', 'Order\OrderControllers@trackingDelivery')->name('trackingDelivery');
+                Route::get('/detail/{id}', 'Order\OrderControllers@trackingDeliveryDetail')->name('trackingDeliveryDetail');
+            });
 
             Route::group(['prefix' => 'pendingOrder'], function () {
                 Route::get('', 'Order\PendingOrder\PendingControllers@index')->name('indexPendingOrder');
@@ -143,16 +146,6 @@ Route::group(['middleware' => ['web']], function () {
             Route::group(['prefix' => 'ongoingRentals'], function () {
                 Route::get('', 'Order\Progress\ProgressControllers@index')->name('indexOrderProgress');
                 Route::get('getIndex', 'Order\Progress\ProgressControllers@getIndex')->name('getIndexProgressOrder'); 
-            });
-
-            Route::group(['prefix' => 'detailOrder'], function () {
-                Route::get('', 'Order\DetailOrder\DetailControllers@index')->name('indexDetailOrder');
-                Route::get('getIndex', 'Order\DetailOrder\DetailControllers@getIndex')->name('getIndexDetailOrder');
-                Route::get('create', 'Order\DetailOrder\DetailControllers@create')->name('createDetailOrder');
-                Route::post('store', 'Order\DetailOrder\DetailControllers@store')->name('storeDetailOrder');
-                Route::get('edit/{id}', 'Order\DetailOrder\DetailControllers@edit')->name('editDetailOrder');
-                Route::post('update/{id}', 'Order\DetailOrder\DetailControllers@update')->name('updateDetailOrder');
-                Route::get('delete/{id}', 'Order\DetailOrder\DetailControllers@delete')->name('deleteDetailOrder');
             });
 
             Route::group(['prefix' => 'historyOrder'],  function () {

@@ -15,7 +15,7 @@ class ProgressControllers extends Controller
     }
     public function getIndex(CurlGen $curlGen)
     {
-        $urlData = "/api/orders/getAllOrdersByStatus/O";
+        $urlData = "/api/orders/getAllOrdersByStatus/P";
         $resultData = $curlGen->getIndex($urlData);
         return DataTables::of($resultData)->escapeColumns([])->make(true);
     }

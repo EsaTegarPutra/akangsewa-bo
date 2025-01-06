@@ -266,7 +266,7 @@
                                     <li><a href="{{ url('order/historyOrder') }}"><i class="icon-Commit"><span
                                                     class="path1"></span><span class="path2"></span></i>History
                                             Order</a></li>
-                                    <li><a href="{{ url('order/tracking-delivery') }}"><i class="icon-Commit"><span
+                                    <li><a href="{{ url('order/trackingDelivery') }}"><i class="icon-Commit"><span
                                                     class="path1"></span><span class="path2"></span></i>Tracking Delivery</a></li>
                                 </ul>
                             </li>

@@ -11,20 +11,27 @@ class OrderControllers extends Controller
 {
     public function index() {}
     public function detailOrder(CurlGen $curlGen, $id) {
-        $urlOrder = "/api/orders/" . $id;
-        $order = $curlGen->getIndex($urlOrder);
+        $order = $curlGen->getIndex("/api/orders/" . $id);
     
-        $urlCustomer = "/api/customers/" . $order['customerId'];
-        $customer = $curlGen->getIndex($urlCustomer);
+        if (!$order) {
+            abort(404, "Order not found");
+        }
     
-        $urlAddress = "/api/customer-addresses?customerId=" . $order['customerId'];
-        $addresses = $curlGen->getIndex($urlAddress);
+        $customer = $curlGen->getIndex("/api/customers/" . $order['customerId']);
     
-        $urlOrderDetails = "/api/order-details?orderId=" . $id;
-        $orderDetails = $curlGen->getIndex($urlOrderDetails);
+        $customerAddresses = $curlGen->getIndex("/api/customer-addresses");
+        $filteredAddresses = collect($customerAddresses)
+            ->where('customerId', $order['customerId'])
+            ->values();
     
-        return view('detail-order.index', compact('order', 'customer', 'addresses', 'orderDetails'));
+        $orderDetails = $curlGen->getIndex("/api/order-details?orderId=" . $id);
+    
+        return view('detail-order.index', compact('order', 'customer', 'filteredAddresses', 'orderDetails'));
     }
+    
+    
+    
+    
     public function trackingDelivery()
     {
         return view('tracking-delivery.index');

@@ -34,15 +34,15 @@
                             <div class="row text-center text-md-start">
                                 <div class="col-6 col-md-3 mb-3">
                                     <p class="m-0 fw-bold">Requets on :</p>
-                                    <p class="m-0 text-muted">17 Aug 1945, 12:59</p>
+                                    <p class="m-0 text-muted">-</p>
                                 </div>
                                 <div class="col-6 col-md-3 mb-3">
                                     <p class="m-0 fw-bold">Placed on :</p>
-                                    <p class="m-0 text-muted">17 Aug 1945, 12:59</p>
+                                    <p class="m-0 text-muted">-</p>
                                 </div>
                                 <div class="col-6 col-md-3 mb-3">
                                     <p class="m-0 fw-bold">Rental Date :</p>
-                                    <p class="m-0 text-muted">4 days</p>
+                                    <p class="m-0 text-muted">-</p>
                                 </div>
                             </div>
                         </div>
@@ -77,53 +77,54 @@
                             <div class="card p-3 shadow-sm" style="max-width: 400px; border-radius: 10px;">
                                 <h6 class="text-uppercase fw-bold">Customer & Order</h6>
                                 <div class="row mb-2">
-                                    <div class="col-5 fw-bold">Name</div>
+                                    <div class="col-4 fw-bold">Name</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-6">{{ $customer['fullName'] }}</div>
+                                    <div class="col-7">{{ $customer['fullName'] }}</div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-5 fw-bold">Email</div>
+                                    <div class="col-4 fw-bold">Email</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-6">{{ $customer['email'] }}</div>
+                                    <div class="col-7">{{ $customer['email'] }}</div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-5 fw-bold">Phone</div>
+                                    <div class="col-4 fw-bold">Phone</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-6">{{ $customer['mobilePhone'] }}</div>
+                                    <div class="col-7">{{ $customer['mobilePhone'] }}</div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-5 fw-bold">PO</div>
+                                    <div class="col-4 fw-bold">PO</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-6"></div>
+                                    <div class="col-7"></div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-5 fw-bold">Payment Terms</div>
+                                    <div class="col-4 fw-bold">Payment</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-6"></div>
+                                    <div class="col-7"></div>
                                 </div>
                                 <div class="row mb-2">
-                                    <div class="col-5 fw-bold">Delivery Method</div>
+                                    <div class="col-4 fw-bold">Delivery</div>
                                     <div class="col-1">:</div>
-                                    <div class="col-6"></div>
+                                    <div class="col-7"></div>
                                 </div>
                                 <hr>
                                 <div class="mb-3">
                                     <h6 class="text-uppercase fw-bold">RETURN ADDRESS</h6>
                                     <div>
-                                        <p>Kilimanjaro Ave. No. 13 Block M Grand Laguna Residential Jombang, East Java
-                                            61125,
-                                            Indonesia</p>
+                                        <p>-</p>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <h6 class="text-uppercase fw-bold">SHIPPING ADDRESS</h6>
                                     <div>
-                                        <p>Soekarno-Hatta Street No. 89 Block B Jati Kasih Residential Bogor, West Java
-                                            66857,
-                                            Indonesia
-                                        </p>
+                                        @if($filteredAddresses->isNotEmpty())
+                                            @foreach($filteredAddresses as $address)
+                                                <p>{{ $address['fullAddress'] }} | {{ $address['name']}}</p>
+                                            @endforeach
+                                        @else
+                                            <p>-</p>
+                                        @endif
                                     </div>
-                                </div>
+                                </div>                                                 
                             </div>
                         </div>
                         <div class="col-md-8">
@@ -142,8 +143,6 @@
                                                     <th>Product Name</th>
                                                     <th>Start Date</th>
                                                     <th>End Date</th>
-                                                    <th>Status Rentals</th>
-                                                    <th>Status Delivery</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
@@ -156,19 +155,25 @@
                                         <!-- Subtotal Harga Produk -->
                                         <div class="d-flex justify-content-between mb-2">
                                             <span>Product Subtotal</span>
-                                            <span>Rp 1.000.000</span>
+                                            <span>Rp {{$order['totalAmount']}}</span>
                                         </div>
 
                                         <!-- Biaya Layanan -->
                                         <div class="d-flex justify-content-between mb-2">
                                             <span>Service Fee</span>
-                                            <span>Rp 50.000</span>
+                                            <span>-</span>
                                         </div>
 
                                         <!-- Biaya Penanganan -->
                                         <div class="d-flex justify-content-between mb-2">
                                             <span>Handling Fee</span>
-                                            <span>Rp 20.000</span>
+                                            <span>-</span>
+                                        </div>
+
+                                        <!-- Discount -->
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Discount | {{$order['discountType']}}</span>
+                                            <span>Rp {{$order['totalDiscount']}}</span>
                                         </div>
 
                                         <hr class="my-3">
@@ -176,7 +181,7 @@
                                         <!-- Total Pembayaran -->
                                         <div class="d-flex justify-content-between">
                                             <h5 class="fw-bold">Total Payment </h5>
-                                            <h5 class="fw-bold">Rp 1.070.000</h5>
+                                            <h5 class="fw-bold">Rp {{$order['totalPrice']}}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -191,6 +196,69 @@
 @section('script')
     <!-- JavaScript to Simulate Progress -->
     <script>
+        var table = $("#lookup").dataTable({
+            columns: [{
+                    data: 'id',
+                    render: function(data, type, row, meta) {
+                        return meta.row + 1;
+                    }
+                },
+                {
+                    data: 'productName'
+                },
+                {
+                    data: 'startDate'
+                },
+                {
+                    data: 'endDate',
+                },
+            ]
+        });
+
+        $(document).ready(function() {
+            loadData();
+        });
+
+        function loadData() {
+            // Reset DataTables jika sudah diinisialisasi sebelumnya
+            if ($.fn.DataTable.isDataTable('#lookup')) {
+                $('#lookup').DataTable().destroy();
+            }
+
+            // Inisialisasi DataTables
+            $('#lookup').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('getIndexOrderDetail') }}",
+                    type: "GET",
+                    error: function() {
+                        $(".lookup-error").html("");
+                        $("#lookup").append(
+                            '<tbody class="lookup-error"><tr><th colspan="4" class="text-center">No data found in the server</th></tr></tbody>'
+                        );
+                        $("#lookup_processing").css("display", "none");
+                    }
+                },
+                columns: [{
+                    data: 'id',
+                    render: function(data, type, row, meta) {
+                        return meta.row + 1;
+                    }
+                },
+                {
+                    data: 'productName'
+                },
+                {
+                    data: 'startDate'
+                },
+                {
+                    data: 'endDate',
+                },
+            ]
+            });
+        }
+
         function updateProgress() {
             let pendingWidth = 33; // 33% for Pending
             let onProgressWidth = 33; // 33% for On Progress
@@ -230,64 +298,5 @@
         }
 
         document.addEventListener('DOMContentLoaded', updateProgress);
-
-        (document).ready(function() {
-            // Inisialisasi DataTables
-            var table = $("#lookup").DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('getIndexOrderDetail') }}", // Ganti dengan route Anda
-                    type: "GET",
-                    error: function() {
-                        $(".lookup-error").html("");
-                        $("#lookup").append(
-                            '<tbody class="lookup-error"><tr><th colspan="6" class="text-center">No data found in the server</th></tr></tbody>'
-                        );
-                        $("#lookup_processing").css("display", "none");
-                    },
-                },
-                columns: [{
-                        data: "id",
-                        render: function(data, type, row, meta) {
-                            return meta.row + 1; // Nomor urut
-                        },
-                    },
-                    {
-                        data: "productName", // Nama Produk
-                    },
-                    {
-                        data: "startDate",
-                        render: function(data) {
-                            const date = new Date(data);
-                            return date.toISOString().split("T")[0]; // Format tanggal yyyy-mm-dd
-                        },
-                    },
-                    {
-                        data: "endDate",
-                        render: function(data) {
-                            const date = new Date(data);
-                            return date.toISOString().split("T")[0]; // Format tanggal yyyy-mm-dd
-                        },
-                    },
-                    {
-                        data: "statusDelivery",
-                        render: function(data) {
-                            return `<span class="badge bg-${
-                            data === "Delivered" ? "success" : "warning"
-                        }">${data}</span>`;
-                        },
-                    },
-                    {
-                        data: "statusRentals",
-                        render: function(data) {
-                            return `<span class="badge bg-${
-                            data === "Completed" ? "success" : "info"
-                        }">${data}</span>`;
-                        },
-                    },
-                ],
-            });
-        });
     </script>
 @endsection
