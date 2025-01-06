@@ -20,9 +20,8 @@ class PendingControllers extends Controller
 
     public function getIndex(CurlGen $curlGen)
     {
-        $urlData = "/api/orders?size=99999&sort=id%2Cdesc";
+        $urlData = "/api/orders/getAllOrdersByStatus/p";
         $resultData = $curlGen->getIndex($urlData);
-
         return DataTables::of($resultData)->escapeColumns([])->make(true);
     }
 }

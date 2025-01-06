@@ -161,7 +161,7 @@
                                 </li>
                             </ul>
                         </li>
-                        
+
 
                     </ul>
                 </div>
@@ -192,7 +192,7 @@
                         <!-- sidebar menu-->
                         <ul class="sidebar-menu" data-widget="tree">
                             <li>
-                                <a href="index-2.html">
+                                <a href="{{url('dashboard')}}">
                                     <i class="icon-Layout-4-blocks"><span class="path1"></span><span
                                             class="path2"></span></i>
                                     <span>Dashboard</span>
@@ -217,6 +217,9 @@
                                                     class="path1"></span><span class="path2"></span></i>Tenant Shipping</a>
                                     <li><a href="{{ url('masterData/kurir') }}"><i class="icon-Commit"><span
                                                     class="path1"></span><span class="path2"></span></i>Kurir</a>
+                                    </li>
+                                    <li><a href="{{ url('masterData/scrapData') }}"><i class="icon-Commit"><span
+                                                    class="path1"></span><span class="path2"></span></i>Data Scrapping</a>
                                     </li>
                                 </ul>
                             </li>

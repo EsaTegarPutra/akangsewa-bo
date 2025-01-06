@@ -14,14 +14,6 @@ class BannerControllers extends Controller
         return view('banner.index');
     }
 
-    public function create(CurlGen $curlGen)
-    {
-        $urlData = "/api/banners?size=99999&sort=id%2Cdesc";
-        $banners = $curlGen->getIndex($urlData);
-        return view('banner.create', compact('banners'));
-    }
-
-
     public function getIndex(CurlGen $curlGen)
     {
         $urlData = "/api/banners?size=99999&sort=id%2Cdesc";
@@ -29,22 +21,28 @@ class BannerControllers extends Controller
 
         return DataTables::of($resultData)->escapeColumns([])->make(true);
     }
+    public function create(CurlGen $curlGen)
+    {
+        $urlData = "/api/banners?size=99999&sort=id%2Cdesc";
+        $banners = $curlGen->getIndex($urlData);
+        return view('banner.create', compact('banners'));
+    }
 
     public function edit(CurlGen $curlGen, $id)
     {
+        $bannerImage = "/api/banners/" . $id;
+        $result = $curlGen->getIndex($bannerImage);
 
-        $urlData = "/api/banners?size=99999&sort=id%2Cdesc";
-        $orders = $curlGen->getIndex($urlData);
-        $banner = "/api/banners/" . $id;
-        $result = $curlGen->getIndex($banner);
-        return view('banner.edit', compact('banners'))->with('banner', $result);
+        return view('banner.edit')
+            ->with('bannerImage', $result);
     }
+
     public function delete(CurlGen $curlGen, $id)
     {
-        $banner = "/api/banners/" . $id;
-        $result = $curlGen->delete($banner);
+        $images = "/api/banners/" . $id;
 
-        // dd($result);
+        $result = $curlGen->delete($images);
+
         return redirect(url('masterData/banner'));
     }
 
@@ -53,22 +51,18 @@ class BannerControllers extends Controller
         // dd($request->all());
         $url = "/api/banners";
 
-        $imageBase64 = null;
-        $imageMimeType = null;
-
         if ($request->hasFile('images')) {
             $imageFile = $request->file('images');
 
             $imageBase64 = base64_encode(file_get_contents($imageFile->getRealPath()));
-            $imageMimeType = $imageFile->getMimeType();
         }
 
         $data = array(
             "bannerName" => $request->bannerName,
-            "images" => $imageBase64,
-            "imagesContentType" => $imageMimeType,
             "links" => $request->links,
-            "status" => $request->status
+            "status" => $request->status,
+            "images" => $imageBase64,
+            "imagesContentType" => $imageFile->getMimeType(),
         );
 
         $resultData = $curlGen->store($url, $data);
@@ -94,29 +88,26 @@ class BannerControllers extends Controller
     {
         $url = "/api/banners";
 
-        
-        $imageBase64Images = null;
-        $imageImagesContentType = null;
+        $imageBase64 = null;
+        $imageContentType = null;
 
-       
-    
         if ($request->hasFile('images')) {
-            $imageFileImages = $request->file('images');
+            $imageFile = $request->file('images');
 
-            $imageBase64Images = base64_encode(file_get_contents($imageFileImages->getRealPath()));
-            $imageImagesContentType = $imageFileImages->getMimeType();
+            $imageBase64 = base64_encode(file_get_contents($imageFile->getRealPath()));
+            $imageContentType = $imageFile->getMimeType();
         } else {
-            $imageBase64Images = $request->input('existingImages');
-            $imageImagesContentType = $request->input('existingImagesContentType');
+            $imageBase64 = $request->input('existingImage');
+            $imageContentType = $request->input('existingImageContentType');
         }
 
         $data = array(
             "id" => $id,
             "bannerName" => $request->bannerName,
-            "images" => $imageBase64Images,
-            "imagesContentType" => $imageImagesContentType,
             "links" => $request->links,
-            "status" => $request->status
+            "status" => $request->status,
+            "images" => $imageBase64,
+            "imagesContentType" => $imageContentType,
         );
 
         $resultData = $curlGen->update($url, $data);

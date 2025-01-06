@@ -17,7 +17,15 @@
                     <div class="col-md-6">
                         <label for="images" class="form-label">Images</label>
                         <div class="col-6">
-                            <input type="file" class="form-control" id="images" name="images">
+                            <img id="image-result"
+                                style="border: 2px solid #1e42a0 !important; border-bottom: none !important; border-style: dashed !important; border-bottom-style: none !important; aspect-ratio: 1 / 1; background-position: center; object-fit: cover;" />
+
+                            <input type="file" name="images" id="images" style="display: none;"
+                                accept="image/*" required
+                                onchange="document.getElementById('image-result').src = window.URL.createObjectURL(this.files[0])" />
+
+                            <label for="images" class="btn btn-primary" style="border-radius: 0 !important;">Choose
+                                File</label>
                         </div>
                     </div>
                 </div>
