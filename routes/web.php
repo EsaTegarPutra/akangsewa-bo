@@ -60,9 +60,9 @@ Route::group(['middleware' => ['web']], function () {
             });
 
             Route::group(['prefix' => 'scrapData'], function () {
-                Route::get('', 'Kurir\KurirControllers@index')->name('indexKurir');
-                Route::get('getIndex', 'Kurir\KurirControllers@getIndex')->name('getIndexKurir');
-                Route::get('details/{uuid}', 'Kurir\KurirControllers@details')->name('getIndexKurir');
+                Route::get('', 'Scrap\ScrapController@index')->name('indexScrap');
+                Route::get('getIndex', 'Scrap\ScrapController@getIndex')->name('getIndexScrap');
+                Route::get('details/{id}', 'Scrap\ScrapController@details')->name('detailScrap');
             });
         });
 
