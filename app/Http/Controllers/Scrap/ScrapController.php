@@ -14,7 +14,7 @@ class ScrapController extends Controller
     }
 
     public function getIndex(CurlGen $curlGen){
-        $urlData = "/api/scraps";
+        $urlData = "/api/scraps?size=200";
         $resultData = $curlGen->getIndex($urlData);
         return DataTables::of($resultData)->escapeColumns([])->make(true);
     }
@@ -25,5 +25,10 @@ class ScrapController extends Controller
         return view('scrap.details', compact('scrap'));
     }
 
+    public function getByType(CurlGen $curlGen, $type){
+        $urlData = "/api/scraps/getByType/" . $type;
+        $resultData = $curlGen->getIndex($urlData);
+        return DataTables::of($resultData)->escapeColumns([])->make(true);
+    }
     
 }

@@ -28,7 +28,7 @@
         <div id="loader"></div>
 
         <header class="main-header">
-            <div class="d-flex align-items-center logo-box justify-content-start">
+            {{-- <div class="d-flex align-items-center logo-box justify-content-start">
                 <!-- Logo -->
                 <a href="index-2.html" class="logo">
                     <!-- logo-->
@@ -45,7 +45,7 @@
                                 alt="logo"></span>
                     </div>
                 </a>
-            </div>
+            </div> --}}
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top">
                 <!-- Sidebar toggle button-->
@@ -208,7 +208,7 @@
                                     </span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="{{ url('masterData/category') }}"><i class="icon-Commit"><span
+                                    {{-- <li><a href="{{ url('masterData/category') }}"><i class="icon-Commit"><span
                                                     class="path1"></span><span class="path2"></span></i>Category</a>
                                     </li>
                                     <li><a href="{{ url('masterData/banner') }}"><i class="icon-Commit"><span
@@ -217,13 +217,13 @@
                                                     class="path1"></span><span class="path2"></span></i>Tenant Shipping</a>
                                     <li><a href="{{ url('masterData/kurir') }}"><i class="icon-Commit"><span
                                                     class="path1"></span><span class="path2"></span></i>Kurir</a>
-                                    </li>
+                                    </li> --}}
                                     <li><a href="{{ url('masterData/scrapData') }}"><i class="icon-Commit"><span
-                                                    class="path1"></span><span class="path2"></span></i>Data Scrapping</a>
+                                                    class="path1"></span><span class="path2"></span></i>Identity Data</a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="treeview">
+                            {{-- <li class="treeview">
                                 <a href="#">
                                     <i class="glyphicon glyphicon-folder-close"><span class="path1"></span><span
                                             class="path2"></span></i>
@@ -233,11 +233,9 @@
                                     </span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    {{-- <li><a href=""><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Variant</a></li> --}}
                                     <li><a href="{{ url('product/master') }}"><i class="icon-Commit"><span
                                                     class="path1"></span><span class="path2"></span></i>Product
                                             Main</a></li>
-                                    <!-- <li><a href="{{ url('product/attributeValues') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Attribute Values</a></li> -->
                                     <li><a href="{{ url('product/imageRepository') }}"><i class="icon-Commit"><span
                                                     class="path1"></span><span class="path2"></span></i>Image
                                             Repository</a></li>
@@ -247,7 +245,6 @@
                                     <li><a href="{{ url('product/variant') }}"><i class="icon-Commit"><span
                                                     class="path1"></span><span class="path2"></span></i>Variant</a>
                                     </li>
-                                    <!-- <li><a href="{{ url('product/attribute') }}"><i class="icon-Commit"><span class="path1"></span><span class="path2"></span></i>Attribute</a></li> -->
                                 </ul>
                             </li>
                             <li class="treeview">
@@ -272,7 +269,7 @@
                                     <li><a href="{{ url('order/trackingDelivery') }}"><i class="icon-Commit"><span
                                                     class="path1"></span><span class="path2"></span></i>Tracking Delivery</a></li>
                                 </ul>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>

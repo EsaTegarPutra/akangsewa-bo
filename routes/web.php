@@ -63,6 +63,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('', 'Scrap\ScrapController@index')->name('indexScrap');
                 Route::get('getIndex', 'Scrap\ScrapController@getIndex')->name('getIndexScrap');
                 Route::get('details/{id}', 'Scrap\ScrapController@details')->name('detailScrap');
+                Route::get('getByType/{type}', 'Scrap\ScrapController@getByType')->name('getByTypeScrap');
             });
         });
 
